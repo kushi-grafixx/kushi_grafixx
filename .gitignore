@@ -1,0 +1,8 @@
+.DS_Store
+.venv/
+.agents/
+.gemini/
+node_modules/
+*.zip
+*.log
+/tmp/
