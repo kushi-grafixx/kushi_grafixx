@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumiera Noire Case Study | Kushi Grafixx</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .case-hero {
+            padding-top: 15vh;
+            padding-bottom: 5vh;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover {
+            color: #fff;
+        }
+
+        .case-title {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+
+        .case-tags {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            margin-bottom: 4rem;
+        }
+
+        .case-image {
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 4rem;
+        }
+
+        .case-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .case-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+        }
+
+        .case-meta h4 {
+            margin-top: 2rem;
+            color: var(--text-muted);
+        }
+
+        .case-meta p {
+            font-size: 1.1rem;
+        }
+
+        .case-description {
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: var(--text-muted);
+        }
+
+        .case-description p {
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .case-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .case-title {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark-theme">
+    <header class="top-nav">
+        <a href="index.html" class="logo" style="text-decoration: none;">
+            <img src="assets/kushi_logo_exact.png" alt="Kushi Grafixx Logo" style="height: 35px; width: auto;">
+        </a>
+        <div class="nav-links">
+            <a href="index.html#services">Services</a>
+            <a href="index.html#projects">Projects</a>
+            <a href="index.html#testimonials">Testimonials</a>
+        </div>
+        <a href="https://cal.com/kushi-grafixx-lfgzty/15min" target="_blank" class="cta-pill">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+            </svg>
+            Get Your Brand Fixed
+        </a>
+    </header>
+
+    <div class="container case-hero">
+        <a href="index.html#work" class="back-btn">← Back to Works</a>
+        <h1 class="case-title">Lumiera Noire</h1>
+        <p class="case-tags">Premium Packaging • Product Presentation</p>
+
+        <div class="case-image">
+            <img src="assets/portfolio_skincare.png" alt="Lumiera Noire Luxury Skincare Packaging">
+        </div>
+
+        <div class="case-content">
+            <div class="case-meta">
+                <h4>Client</h4>
+                <p>Lumiera Cosmetics</p>
+                <h4>Timeline</h4>
+                <p>6 Weeks</p>
+                <h4>Role</h4>
+                <p>Art Director</p>
+            </div>
+            <div class="case-description">
+                <p>Lumiera Noire entered the saturated skincare market requiring an identity that felt instantly
+                    timeless, expensive, and mysterious. We avoided the common 'clinical white' aesthetic in favor of
+                    deep shadowy tones and matte finishes.</p>
+                <p>The packaging design focused on tactile experience: soft-touch black bottles, brushed steel caps, and
+                    minimal, perfectly balanced silver typography. The 3D render campaign established the brand's
+                    sophisticated visual language before physical production even began.</p>
+            </div>
+        </div>
+
+        <div class="case-image" style="margin-top: 4rem;">
+            <img src="assets/portfolio_skincare.png" alt="Lumiera Detail 1"
+                style="filter: contrast(1.1) brightness(0.9);">
+        </div>
+        <div class="case-image">
+            <img src="assets/portfolio_skincare.png" alt="Lumiera Detail 2"
+                style="filter: sepia(0.2) brightness(0.85);">
+        </div>
+
+    </div>
+
+    <section class="cs-bottom-nav">
+        <div class="container">
+            <div class="cs-nav-actions">
+                <button id="backToTop" class="cs-nav-btn btn-top" data-label="Back to Top">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 19V5M5 12l7-7 7 7" />
+                    </svg>
+                </button>
+                <a href="index.html" class="cs-nav-btn btn-home" data-label="Back to Home">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- Minimalist Footer -->
+    <footer id="contact">
+        <div class="container footer-content text-center">
+            <h2 class="huge-cta">Ready to Fix Your Brand?</h2>
+
+            <a href="https://cal.com/kushi-grafixx-lfgzty/15min" target="_blank" class="giant-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path
+                        d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+                </svg>
+                Get Your Brand Fixed
+            </a>
+
+            <div class="footer-bottom">
+                <a href="mailto:contact@kushigrafixx.in" class="footer-email">contact@kushigrafixx.in</a>
+                <div class="footer-links">
+                    <a href="https://www.instagram.com/kushi.grafixx/" target="_blank">Instagram</a>
+                    <a href="https://x.com/kushi_grafixx" target="_blank">Twitter / X</a>
+                    <a href="https://www.linkedin.com/in/kushigrafixx/" target="_blank">LinkedIn</a>
+                </div>
+                <p class="copyright">© 2026 Kushi Grafixx.</p>
+            </div>
+            <div class="giant-footer-logo">
+                <img src="assets/footer_final_logo3.png" alt="Kushi Grafixx Giant Logo" class="footer-new-logo">
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.getElementById('backToTop').addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+
+</html>
