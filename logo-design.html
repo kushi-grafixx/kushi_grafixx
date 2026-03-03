@@ -101,6 +101,7 @@
             background: #111;
             border: 1px solid rgba(255, 255, 255, 0.07);
             cursor: pointer;
+            will-change: transform, opacity;
 
             opacity: 0;
             transform: translateY(24px);
@@ -116,7 +117,7 @@
             transform: translateY(0);
         }
 
-        .logo-card:hover {
+        .logo-card.visible:hover {
             box-shadow: 0 0 0 1px rgba(255, 42, 42, .4), 0 14px 40px rgba(255, 42, 42, .1);
             border-color: rgba(255, 42, 42, .28);
             transform: translateY(-3px);
@@ -272,19 +273,48 @@
             grid.appendChild(card);
         });
 
-        // ── Scroll entry animations ───────────────────────────────────────────
+        // ── Staggered page-load entry animation ─────────────────────────────
+        const cols = 4; // matches grid-template-columns: repeat(4, 1fr)
+        const allCards = document.querySelectorAll('.logo-card');
+
+        // Determine which cards are initially in the viewport
+        const viewportBottom = window.innerHeight;
+        const inViewCards = [];
+        const belowFoldCards = [];
+
+        allCards.forEach(card => {
+            const rect = card.getBoundingClientRect();
+            if (rect.top < viewportBottom + 100) {
+                inViewCards.push(card);
+            } else {
+                belowFoldCards.push(card);
+            }
+        });
+
+        // Animate in-viewport cards with stagger on page load
+        inViewCards.forEach((card, idx) => {
+            const col = idx % cols;
+            const row = Math.floor(idx / cols);
+            const delay = col * 60 + row * 40; // wave from top-left to bottom-right
+            setTimeout(() => {
+                card.classList.add('visible');
+            }, delay);
+        });
+
+        // Use IO only for below-fold cards
         const io = new IntersectionObserver((entries) => {
             entries.forEach(e => {
                 if (e.isIntersecting) {
-                    const delay = parseInt(e.target.dataset.col) * 55;
-                    e.target.style.transitionDelay = `${delay}ms`;
+                    const col = parseInt(e.target.dataset.col);
+                    e.target.style.transitionDelay = `${col * 55}ms`;
                     e.target.classList.add('visible');
                     io.unobserve(e.target);
                 }
             });
         }, { threshold: 0.06 });
 
-        document.querySelectorAll('.logo-card').forEach(c => io.observe(c));
+        belowFoldCards.forEach(c => io.observe(c));
+
 
         // ── Back to Top ───────────────────────────────────────────────────────
         document.getElementById('backToTop').addEventListener('click', () => {

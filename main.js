@@ -2,6 +2,50 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    /* --- FAQ Toggle Logic --- */
+    function measureHeight(el) {
+        // Temporarily make it auto to read the real content height
+        el.style.height = 'auto';
+        el.style.position = 'absolute';
+        el.style.visibility = 'hidden';
+        el.style.overflow = 'visible';
+        const h = el.getBoundingClientRect().height;
+        // Reset
+        el.style.height = '';
+        el.style.position = '';
+        el.style.visibility = '';
+        el.style.overflow = '';
+        return h;
+    }
+
+    function openFaqItem(item) {
+        item.classList.add('active');
+    }
+
+    function closeFaqItem(item) {
+        item.classList.remove('active');
+    }
+
+    document.querySelectorAll('.faq-item .chat-msg.client').forEach(question => {
+        question.addEventListener('click', () => {
+            const item = question.closest('.faq-item');
+            const isActive = item.classList.contains('active');
+
+            // Close all first (accordion)
+            document.querySelectorAll('.faq-item').forEach(other => {
+                if (other !== item) closeFaqItem(other);
+            });
+
+            // Toggle clicked item
+            if (isActive) {
+                closeFaqItem(item);
+            } else {
+                openFaqItem(item);
+            }
+        });
+    });
+
+
     /* --- 0. Preloader --- */
     const preloader = document.getElementById('kushi-preloader');
     if (preloader) {
@@ -64,9 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 cursorDot.style.opacity = '1';
                 cursorIsVisible = true;
             }
-
-            // Interpolate position for a slight smooth follow effect on the logomark itself
-            // or just bind directly for instant feel. Let's do instant feel but smoothly lerped.
         });
 
         let cursorX = mouseX;
@@ -92,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('mousedown', () => cursorDot.classList.add('clicking'));
         document.addEventListener('mouseup', () => cursorDot.classList.remove('clicking'));
 
-        // "Reload animation" micro interaction on double click or specific elements
+        // "Reload animation" micro interaction on double click
         document.addEventListener('dblclick', () => {
             cursorDot.classList.add('reload-anim');
             setTimeout(() => cursorDot.classList.remove('reload-anim'), 600);
@@ -116,9 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Default to home if at top
         if (window.scrollY < 100) currentSection = 'home';
-        // Force contact if near bottom
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) currentSection = 'contact';
 
         const dockIndicator = document.querySelector('.dock-indicator');
@@ -128,16 +167,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (link.getAttribute('href').includes(currentSection)) {
                 link.classList.add('active');
                 if (dockIndicator) {
-                    // 12px is padding-top of .side-dock, minus half padding for visual center. OffsetTop works nicely because parent is relative.
                     const yOffset = link.offsetTop;
-                    dockIndicator.style.transform = `translateY(${yOffset - 20}px)`; // -20 to counteract the default top: 20px
+                    dockIndicator.style.transform = `translateY(${yOffset - 20}px)`;
                 }
             }
         });
     };
 
     window.addEventListener('scroll', updateActiveLink);
-    updateActiveLink(); // Initial check
+    updateActiveLink();
 
 
     /* --- 3. Testimonial Drag to Scroll --- */
@@ -151,7 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
             isDown = true;
             startX = e.pageX - slider.offsetLeft;
             scrollLeft = slider.scrollLeft;
-            // Prevent text selection
             document.body.style.userSelect = 'none';
         });
 
@@ -169,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!isDown) return;
             e.preventDefault();
             const x = e.pageX - slider.offsetLeft;
-            const walk = (x - startX) * 2; // scroll-fast scale
+            const walk = (x - startX) * 2;
             slider.scrollLeft = scrollLeft - walk;
         });
     }
@@ -178,7 +215,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof gsap !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger);
 
-        // Fade up titles
         gsap.utils.toArray('.section-title').forEach(title => {
             gsap.fromTo(title,
                 { y: 50, opacity: 0 },
@@ -193,7 +229,6 @@ document.addEventListener('DOMContentLoaded', () => {
             );
         });
 
-        // Stagger Services bento cards
         if (document.querySelector('.umbrel-grid')) {
             gsap.fromTo('.umbrel-grid .umbrel-card',
                 { y: 60, opacity: 0 },
@@ -208,7 +243,6 @@ document.addEventListener('DOMContentLoaded', () => {
             );
         }
 
-        // Process Steps stagger
         if (document.querySelector('.process-grid-new')) {
             gsap.fromTo('.process-step',
                 { x: 50, opacity: 0 },
@@ -231,7 +265,6 @@ document.addEventListener('DOMContentLoaded', () => {
         galleryCards3D.forEach(card => {
             const imageWrapper = card.querySelector('.gallery-image');
 
-            // Inject glare element if missing
             if (imageWrapper && !imageWrapper.querySelector('.glare')) {
                 const glare = document.createElement('div');
                 glare.classList.add('glare');
@@ -242,27 +275,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!imageWrapper) return;
 
                 const rect = imageWrapper.getBoundingClientRect();
-                const x = e.clientX - rect.left; // x position within the element
-                const y = e.clientY - rect.top;  // y position within the element
-
-                // Calculate center coordinates
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-
-                // Max rotation degree
                 const maxRotate = 10;
 
-                // Calculate rotation ratio (-1 to 1) 
-                // Y-axis rotation depends on X cursor tracking (moving left/right tilts around Y)
                 const rotateY = ((x - centerX) / centerX) * maxRotate;
-                // X-axis rotation depends on Y cursor tracking, inverted (moving up tilts card up)
                 const rotateX = -((y - centerY) / centerY) * maxRotate;
 
-                // Calculate glare gradient percentages
                 const mousePercentX = (x / rect.width) * 100;
                 const mousePercentY = (y / rect.height) * 100;
 
-                // Apply mapped vars to root element
                 imageWrapper.style.setProperty('--rotate-y', `${rotateY}deg`);
                 imageWrapper.style.setProperty('--rotate-x', `${rotateX}deg`);
                 imageWrapper.style.setProperty('--mouse-x', `${mousePercentX}%`);
@@ -271,8 +295,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             card.addEventListener('mouseleave', () => {
                 if (!imageWrapper) return;
-
-                // Snap back linearly via CSS transition returning to defaults
                 imageWrapper.style.setProperty('--rotate-y', '0deg');
                 imageWrapper.style.setProperty('--rotate-x', '0deg');
             });
@@ -286,9 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (filterBtns.length > 0 && galleryCards.length > 0) {
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                // Remove active class from all
                 filterBtns.forEach(b => b.classList.remove('active'));
-                // Add active to current click
                 btn.classList.add('active');
 
                 const filterValue = btn.getAttribute('data-filter');
@@ -297,7 +317,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     const cardCategory = card.getAttribute('data-category');
                     if (filterValue === 'all' || cardCategory === filterValue) {
                         card.style.display = 'block';
-                        // Add fade-in animation
                         if (typeof gsap !== 'undefined') {
                             gsap.fromTo(card,
                                 { opacity: 0, y: 20 },
@@ -309,7 +328,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
 
-                // Refresh scroll triggers if layout height changed
                 if (typeof ScrollTrigger !== 'undefined') {
                     setTimeout(() => ScrollTrigger.refresh(), 300);
                 }
@@ -322,34 +340,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const processTl = gsap.timeline({
             scrollTrigger: {
                 trigger: '.process-section',
-                start: 'top 75%', // Start animation when section is 75% down the viewport
+                start: 'top 75%',
                 end: 'bottom 20%',
-                toggleActions: 'play none none reverse' // Play on scroll down, reverse on scroll back up
+                toggleActions: 'play none none reverse'
             }
         });
 
-        // Ensure elements exist before animating
         const line = document.querySelector('.timeline-line-new');
         const columns = document.querySelectorAll('.process-step');
 
         if (line && columns.length > 0) {
-            // Set initial states hidden/scaled down
             gsap.set(line, { scaleX: 0, transformOrigin: 'left center' });
 
-            // Animate the horizontal line sweeping across
             processTl.to(line, {
                 scaleX: 1,
                 duration: 1.2,
                 ease: 'power3.inOut'
             }, 0);
 
-            // Animate each column popping in as the line reaches them
             columns.forEach((col, index) => {
                 const badge = col.querySelector('.timeline-badge-new');
                 const media = col.querySelector('.step-icon-wrapper');
                 const content = col.querySelector('.process-content-new');
-
-                // Calculate staggered delay so it syncs with the line moving left to right
                 const delay = index * 0.3;
 
                 if (badge) {
@@ -393,7 +405,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let animFrameId = null;
         let mouse = { x: null, y: null, radius: 80 };
 
-        // Track mouse over page (not just canvas) for repulsion
         window.addEventListener('mousemove', (e) => {
             const rect = portraitCanvas.getBoundingClientRect();
             mouse.x = e.clientX - rect.left;
@@ -406,22 +417,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
         portraitImage.addEventListener('load', () => {
 
-            // ── Build particle array from image pixels ─────────────────────────
             function buildParticles() {
                 const parent = portraitCanvas.parentElement;
                 portraitCanvas.width = parent.clientWidth || 400;
                 portraitCanvas.height = parent.clientHeight || 500;
 
-                const scale = portraitCanvas.height / portraitImage.height;
+                const scaleX = portraitCanvas.width / portraitImage.width;
+                const scaleY = portraitCanvas.height / portraitImage.height;
+                const scale = Math.max(scaleX, scaleY) * 1.35; // Punch in to make portrait wider/larger
                 const drawW = portraitImage.width * scale;
                 const drawH = portraitImage.height * scale;
 
-                // Temp canvas to read pixels
                 const offscreen = document.createElement('canvas');
                 offscreen.width = portraitCanvas.width;
                 offscreen.height = portraitCanvas.height;
                 const offCtx = offscreen.getContext('2d');
-                offCtx.drawImage(portraitImage, 0, 0, drawW, drawH);
+
+                // Shift Image for perfect framing
+                const offsetX = (portraitCanvas.width - drawW) / 2 + (portraitCanvas.width * 0.05); // move slightly right
+                const offsetY = (portraitCanvas.height - drawH) / 2 + (portraitCanvas.height * 0.15); // shift down so head hits the top
+
+                offCtx.drawImage(portraitImage, offsetX, offsetY, drawW, drawH);
 
                 const { data, width, height } = offCtx.getImageData(0, 0, portraitCanvas.width, portraitCanvas.height);
 
@@ -434,23 +450,17 @@ document.addEventListener('DOMContentLoaded', () => {
                         const alpha = data[idx + 3];
                         const brightness = (data[idx] + data[idx + 1] + data[idx + 2]) / 3;
 
-                        // Look for the bright silhouette region (light pixels > 180 brightness)
-                        // This matches the white dotted silhouette visible in the screenshot
                         if (alpha > 100 && brightness > 180) {
                             particlesArray.push(new Particle(x, y, brightness));
                         }
                     }
                 }
-
-                console.log('[Portrait] Particles built:', particlesArray.length);
             }
 
-            // ── Particle class ─────────────────────────────────────────────────
             class Particle {
                 constructor(x, y, brightness) {
                     this.originX = x;
                     this.originY = y;
-                    // Map brightness to a grey shade — brighter pixel = lighter dot
                     const shade = Math.round(brightness);
                     this.color = `rgb(${shade},${shade},${shade})`;
                     this.size = 2;
@@ -465,7 +475,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 _placeOffscreen() {
                     const cw = portraitCanvas.width, ch = portraitCanvas.height;
-                    // Scatter to random point far off canvas
                     this.x = (Math.random() - 0.5) * cw * 3 + cw / 2;
                     this.y = (Math.random() - 0.5) * ch * 3 + ch / 2;
                     this.vx = 0;
@@ -483,14 +492,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     const speed = 10 + Math.random() * 18;
                     this.vx = Math.cos(angle) * speed + (Math.random() - 0.5) * 5;
                     this.vy = Math.sin(angle) * speed + (Math.random() - 0.5) * 5;
-                    this.scattered = true; // will keep moving but fading
+                    this.scattered = true;
                 }
 
                 update(t) {
                     if (this.scattered && this.alpha <= 0) return;
 
                     if (this.scattered) {
-                        // After explode — coast outward and fade
                         this.vx *= 0.90;
                         this.vy *= 0.90;
                         this.x += this.vx;
@@ -499,7 +507,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         return;
                     }
 
-                    // Mouse repulsion
                     if (mouse.x !== null) {
                         const dx = mouse.x - this.x;
                         const dy = mouse.y - this.y;
@@ -511,7 +518,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
 
-                    // Symbiote breathing drift toward origin
                     const phaseX = this.originX * 0.03;
                     const phaseY = this.originY * 0.03;
                     const wobbleX = Math.sin(t * 1.2 + phaseX) * 4;
@@ -526,7 +532,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.x += this.vx;
                     this.y += this.vy;
 
-                    // Fade in
                     this.alpha = Math.min(1, this.alpha + 0.04);
                 }
 
@@ -538,7 +543,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // ── Animation loop ─────────────────────────────────────────────────
             const clock = { start: performance.now() };
             function render() {
                 animFrameId = requestAnimationFrame(render);
@@ -551,48 +555,57 @@ document.addEventListener('DOMContentLoaded', () => {
                 ctx.globalAlpha = 1;
             }
 
-            // ── Scroll trigger via IntersectionObserver ────────────────────────
             let sectionVisible = false;
+            let activationTimeouts = [];
+            let explosionTimeout = null;
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting && !sectionVisible) {
-                        // Section entered view — build if needed, then activate particles with stagger
                         sectionVisible = true;
-                        if (particlesArray.length === 0) buildParticles();
 
+                        if (explosionTimeout) {
+                            clearTimeout(explosionTimeout);
+                            explosionTimeout = null;
+                        }
+
+                        if (particlesArray.length === 0) buildParticles();
                         particlesArray.forEach((p, i) => {
                             p._placeOffscreen();
                             const delay = Math.random() * 1000;
-                            setTimeout(() => { p.activate(); }, delay);
+                            const timeout = setTimeout(() => {
+                                if (sectionVisible) p.activate();
+                            }, delay);
+                            activationTimeouts.push(timeout);
                         });
-
                     } else if (!entry.isIntersecting && sectionVisible) {
-                        // Section left view — explode out
                         sectionVisible = false;
-                        particlesArray.forEach(p => p.explode());
 
-                        // Reset after explosion for re-entry
-                        setTimeout(() => {
-                            particlesArray.forEach(p => p._placeOffscreen());
+                        activationTimeouts.forEach(t => clearTimeout(t));
+                        activationTimeouts = [];
+
+                        particlesArray.forEach(p => p.explode());
+                        explosionTimeout = setTimeout(() => {
+                            if (!sectionVisible) {
+                                particlesArray.forEach(p => p._placeOffscreen());
+                            }
                         }, 2000);
                     }
                 });
             }, { threshold: 0.15 });
 
-            // Observe the about section
             const aboutSection = document.getElementById('about');
             if (aboutSection) observer.observe(aboutSection);
 
-            // Initial build
             buildParticles();
-
-            // Start render loop
             render();
 
-            // Resize
+            let resizeTimeout;
             window.addEventListener('resize', () => {
-                buildParticles();
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    buildParticles();
+                }, 250);
             });
         });
     }
@@ -612,7 +625,6 @@ document.addEventListener('DOMContentLoaded', () => {
             rect.setAttribute('height', h);
             rect.setAttribute('rx', h / 2);
             rect.setAttribute('ry', h / 2);
-            // perimeter of a rounded-rect = 2*(w-h) + π*h
             const perimeter = 2 * (w - h) + Math.PI * h;
             btn.style.setProperty('--ring-perimeter', perimeter.toFixed(1));
         };
@@ -623,12 +635,10 @@ document.addEventListener('DOMContentLoaded', () => {
     /* --- 8. Liveblocks Services Grid Spotlight --- */
     const lbCards = document.querySelectorAll('.lb-feature-cell');
     lbCards.forEach(card => {
-
         card.addEventListener('mousemove', e => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-
             card.style.setProperty('--mouse-x', `${x}px`);
             card.style.setProperty('--mouse-y', `${y}px`);
         });
@@ -641,13 +651,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const followerStar = document.querySelector('.lb-follower.star-icon');
 
     if (magicRow && followerLogomark && followerStar && hoverText) {
-
-        // 1. Split text into individual letters for hover stagger
         const words = hoverText.querySelectorAll('.word');
         let letterIndex = 0;
         words.forEach(word => {
             const text = word.textContent;
-            word.textContent = ''; // clear word content
+            word.textContent = '';
             for (let char of text) {
                 const span = document.createElement('span');
                 span.className = 'letter';
@@ -658,23 +666,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // 2. GSAP Floating and Cursor Follow Logic
         let isFollowingCursor = false;
         let mouseX = 0;
         let mouseY = 0;
 
-        // Initialize elements
         gsap.set([followerLogomark, followerStar], {
             xPercent: -50,
             yPercent: -50,
             scale: 0.5
         });
 
-        // Random floating logic within row bounds
         function floatRandomly(element, delay = 0) {
             if (isFollowingCursor) return;
-
-            // Random target within the row's bounds
             const targetX = Math.random() * magicRow.clientWidth;
             const targetY = Math.random() * magicRow.clientHeight;
             const dur = 2 + Math.random() * 2;
@@ -692,19 +695,15 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Start hovering in the container -> random float
         floatRandomly(followerLogomark, 0);
         floatRandomly(followerStar, 0.5);
 
-        // Track global mouse position over row
         magicRow.addEventListener('mousemove', (e) => {
             const rect = magicRow.getBoundingClientRect();
             mouseX = e.clientX - rect.left;
             mouseY = e.clientY - rect.top;
 
-            // Only stick to cursor if we are over the text
             if (isFollowingCursor) {
-                // Logomark follows with slightly more drag
                 gsap.to(followerLogomark, {
                     x: mouseX,
                     y: mouseY,
@@ -713,14 +712,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     overwrite: "auto"
                 });
 
-                // Calculate trailing position for the star + collision offset
-                const trailOffsetX = 35;
-                const trailOffsetY = 35;
-
-                // Star follows with elasticity and more drag/delay
                 gsap.to(followerStar, {
-                    x: mouseX + trailOffsetX,
-                    y: mouseY + trailOffsetY,
+                    x: mouseX + 35,
+                    y: mouseY + 35,
                     duration: 1.2,
                     ease: "elastic.out(1.2, 0.5)",
                     overwrite: "auto"
@@ -728,33 +722,25 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Toggle cursor tracking when hovering the large text
         hoverText.addEventListener('mouseenter', () => {
             isFollowingCursor = true;
             gsap.killTweensOf([followerLogomark, followerStar]);
-
-            // Scale and snap into position representing the physical capture by cursor
             gsap.to([followerLogomark, followerStar], {
                 scale: 1,
                 duration: 0.4,
                 ease: "back.out(1.5)"
             });
-
             gsap.to(followerLogomark, { x: mouseX, y: mouseY, duration: 0.6, ease: "power2.out" });
             gsap.to(followerStar, { x: mouseX + 35, y: mouseY + 35, duration: 1.2, ease: "elastic.out(1.2, 0.5)" });
         });
 
         hoverText.addEventListener('mouseleave', () => {
             isFollowingCursor = false;
-
-            // Scale back down
             gsap.to([followerLogomark, followerStar], {
                 scale: 0.5,
                 duration: 0.4,
                 ease: "power2.out"
             });
-
-            // Resume random floating from current position
             floatRandomly(followerLogomark, 0);
             floatRandomly(followerStar, 0.2);
         });
@@ -762,15 +748,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* --- 9. Case Study Back to Top --- */
     const backToTopBtn = document.getElementById('backToTop');
-
     if (backToTopBtn) {
         backToTopBtn.addEventListener('click', () => {
             if (typeof gsap !== 'undefined') {
-                // Register plugin in case it wasn't already
                 if (typeof ScrollToPlugin !== 'undefined') {
                     gsap.registerPlugin(ScrollToPlugin);
                 }
-                // Animate window scroll to top
                 gsap.to(window, {
                     scrollTo: { y: 0, autoKill: false },
                     duration: 1.3,
