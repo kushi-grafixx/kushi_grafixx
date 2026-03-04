@@ -998,3 +998,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 });
+
+/* ═══════════════════════════════════════════════════════════════════
+   --- 12. AUTO-FILTER ON RETURN (From Subpages / bfcache)
+   ═══════════════════════════════════════════════════════════════════ */
+window.addEventListener('pageshow', function (e) {
+    // Triggered when returning from logo-design.html (either via button or browser back)
+    const shouldReturnToProjects = sessionStorage.getItem('returnToProjects') === '1';
+    const isHashProjects = window.location.hash === '#projects';
+
+    if (shouldReturnToProjects || isHashProjects) {
+        sessionStorage.removeItem('returnToProjects'); // clear the flag
+
+        const allProjectsBtn = document.querySelector('.filter-btn[data-filter="all"]');
+        const projectsEl = document.getElementById('projects');
+
+        if (allProjectsBtn) {
+            setTimeout(() => {
+                // Reset the filter to All Projects
+                allProjectsBtn.click();
+
+                // Scroll to the projects section (below the fixed nav)
+                if (projectsEl) {
+                    const navHeight = document.querySelector('.top-nav')?.offsetHeight || 80;
+                    const top = projectsEl.getBoundingClientRect().top + window.scrollY - navHeight - 20;
+                    window.scrollTo({ top, behavior: 'auto' });
+                }
+            }, 120);
+        }
+    }
+});
+/* ═══════════════════════════════════════════════════════════════════ */
