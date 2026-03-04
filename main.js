@@ -780,38 +780,197 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* --- 11. Footer Logo Easter Egg (hold 1.5s) --- */
+    /* --- 11. Footer Logo Easter Egg — Liquid Fill Canvas --- */
     const logoBox = document.getElementById('fv3-logo-box');
+    const liquidCanvas = document.getElementById('fv3-liquid-canvas');
     const easterPopup = document.getElementById('fv3-easter-popup');
     const easterClose = document.getElementById('fv3-easter-close');
     const easterBd = document.getElementById('fv3-easter-backdrop');
 
-    if (logoBox && easterPopup && easterClose && easterBd) {
-        let holdTimer = null;
+    if (logoBox && liquidCanvas && easterPopup && easterClose && easterBd) {
+
+        /* ── Canvas setup ── */
+        const ctx = liquidCanvas.getContext('2d');
+        const HOLD_DURATION = 1500; // ms
+
+        let fillProgress = 0;   // 0 → 1
         let isHolding = false;
+        let holdStartTime = null;
+        let rafId = null;
+        let draining = false;
 
+        /* Bubble particles */
+        const bubbles = [];
+        const MAX_BUBBLES = 18;
+
+        function randomBubble(w, h) {
+            return {
+                x: Math.random() * w,
+                y: h * (1 - fillProgress) + Math.random() * fillProgress * h * 0.9,
+                r: 2 + Math.random() * 5,
+                vy: -(0.3 + Math.random() * 0.7),
+                vx: (Math.random() - 0.5) * 0.4,
+                alpha: 0.4 + Math.random() * 0.4,
+                wobble: Math.random() * Math.PI * 2,
+            };
+        }
+
+        function sizeCanvas() {
+            const boxRect = logoBox.getBoundingClientRect();
+            liquidCanvas.width = boxRect.width;
+            liquidCanvas.height = boxRect.height;
+        }
+
+        sizeCanvas();
+        window.addEventListener('resize', sizeCanvas);
+
+        /* ── Draw one frame ── */
+        function drawFrame(ts) {
+            const w = liquidCanvas.width;
+            const h = liquidCanvas.height;
+
+            ctx.clearRect(0, 0, w, h);
+            if (fillProgress <= 0) return;
+
+            const t = ts * 0.001;
+            const fillY = h * (1 - fillProgress); // y where liquid surface starts
+
+            /* Wave path */
+            ctx.beginPath();
+            ctx.moveTo(0, h);
+            ctx.lineTo(0, fillY);
+
+            const WAVE_COUNT = 3;
+            for (let x = 0; x <= w; x += 2) {
+                const wave =
+                    Math.sin(x * 0.04 + t * 2.5) * (4 - fillProgress * 3) +
+                    Math.sin(x * 0.025 - t * 1.8) * (3 - fillProgress * 2) +
+                    Math.sin(x * 0.06 + t * 3.2) * 1.5 * (1 - fillProgress * 0.7);
+                ctx.lineTo(x, fillY + wave);
+            }
+
+            ctx.lineTo(w, h);
+            ctx.closePath();
+
+            /* Gradient fill — red brand + slight glow */
+            const grad = ctx.createLinearGradient(0, fillY, 0, h);
+            grad.addColorStop(0, `rgba(255, 44, 44, ${0.55 + fillProgress * 0.3})`);
+            grad.addColorStop(0.5, `rgba(200, 20, 20, ${0.45 + fillProgress * 0.3})`);
+            grad.addColorStop(1, `rgba(120, 10, 10, ${0.35 + fillProgress * 0.3})`);
+            ctx.fillStyle = grad;
+            ctx.fill();
+
+            /* Subtle shine on wave surface */
+            ctx.beginPath();
+            for (let x = 0; x <= w; x += 2) {
+                const wave =
+                    Math.sin(x * 0.04 + t * 2.5) * (4 - fillProgress * 3) +
+                    Math.sin(x * 0.025 - t * 1.8) * (3 - fillProgress * 2) +
+                    Math.sin(x * 0.06 + t * 3.2) * 1.5 * (1 - fillProgress * 0.7);
+                const y = fillY + wave;
+                if (x === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.strokeStyle = `rgba(255, 120, 120, ${0.4 * fillProgress})`;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            /* Bubbles */
+            while (bubbles.length < Math.floor(fillProgress * MAX_BUBBLES)) {
+                bubbles.push(randomBubble(w, h));
+            }
+
+            for (let i = bubbles.length - 1; i >= 0; i--) {
+                const b = bubbles[i];
+                b.wobble += 0.06;
+                b.x += b.vx + Math.sin(b.wobble) * 0.4;
+                b.y += b.vy;
+
+                /* Remove if above liquid surface */
+                const surfaceY = fillY - 4;
+                if (b.y + b.r < surfaceY) {
+                    bubbles.splice(i, 1);
+                    continue;
+                }
+
+                /* Clip bubble drawing to within liquid */
+                ctx.save();
+                /* Draw bubble */
+                const ballGrad = ctx.createRadialGradient(b.x - b.r * 0.3, b.y - b.r * 0.3, 0, b.x, b.y, b.r);
+                ballGrad.addColorStop(0, `rgba(255,200,200,${b.alpha})`);
+                ballGrad.addColorStop(1, `rgba(220,60,60,${b.alpha * 0.3})`);
+                ctx.beginPath();
+                ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+                ctx.fillStyle = ballGrad;
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        /* ── Animation loop ── */
+        function animLoop(ts) {
+            if (isHolding && holdStartTime !== null) {
+                const elapsed = ts - holdStartTime;
+                fillProgress = Math.min(1, elapsed / HOLD_DURATION);
+
+                if (fillProgress >= 1) {
+                    /* Fill complete → trigger easter egg */
+                    isHolding = false;
+                    holdStartTime = null;
+                    drawFrame(ts);
+                    openEasterEgg();
+                    return;
+                }
+            } else if (draining) {
+                fillProgress -= 0.025;
+                if (fillProgress <= 0) {
+                    fillProgress = 0;
+                    draining = false;
+                    bubbles.length = 0;
+                    ctx.clearRect(0, 0, liquidCanvas.width, liquidCanvas.height);
+                    logoBox.classList.remove('holding');
+                    cancelAnimationFrame(rafId);
+                    rafId = null;
+                    return;
+                }
+            }
+
+            drawFrame(ts);
+            rafId = requestAnimationFrame(animLoop);
+        }
+
+        /* ── Hold start / cancel ── */
         function startHold(e) {
-            // Only left-click or touch
             if (e.button !== undefined && e.button !== 0) return;
+            if (isHolding) return;
             isHolding = true;
-            logoBox.classList.add('holding', 'filling');
+            draining = false;
+            holdStartTime = null; // set on first rAF
+            logoBox.classList.add('holding');
 
-            holdTimer = setTimeout(() => {
-                openEasterEgg();
-            }, 1500);
+            if (rafId) cancelAnimationFrame(rafId);
+            rafId = requestAnimationFrame((ts) => {
+                holdStartTime = ts - (fillProgress * HOLD_DURATION); // continue from current
+                animLoop(ts);
+            });
         }
 
         function cancelHold() {
-            if (!isHolding) return;
+            if (!isHolding && !draining) return;
             isHolding = false;
-            clearTimeout(holdTimer);
-            holdTimer = null;
-            logoBox.classList.remove('holding', 'filling');
+            holdStartTime = null;
+            draining = true;
+            if (!rafId) rafId = requestAnimationFrame(animLoop);
         }
 
         function openEasterEgg() {
-            isHolding = false;
-            logoBox.classList.remove('holding', 'filling');
+            logoBox.classList.remove('holding');
+            bubbles.length = 0;
+            fillProgress = 0;
+            draining = false;
+            if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+            ctx.clearRect(0, 0, liquidCanvas.width, liquidCanvas.height);
+
             easterPopup.classList.add('active');
             easterBd.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -823,22 +982,19 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = '';
         }
 
-        // Mouse events
+        /* Events */
         logoBox.addEventListener('mousedown', startHold);
         logoBox.addEventListener('mouseup', cancelHold);
         logoBox.addEventListener('mouseleave', cancelHold);
 
-        // Touch events
         logoBox.addEventListener('touchstart', startHold, { passive: true });
         logoBox.addEventListener('touchend', cancelHold, { passive: true });
         logoBox.addEventListener('touchcancel', cancelHold, { passive: true });
 
-        // Close
         easterClose.addEventListener('click', closeEasterEgg);
         easterBd.addEventListener('click', closeEasterEgg);
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeEasterEgg();
-        });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeEasterEgg(); });
     }
+
 
 });

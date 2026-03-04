@@ -1650,7 +1650,7 @@ h4 {
     gap: 1.5rem;
     width: max-content;
     /* Infinite CSS loop animation */
-    animation: marquee 90s linear infinite;
+    animation: marquee 150s linear infinite;
 }
 
 .marquee-track:hover {
@@ -3137,6 +3137,7 @@ footer {
     padding: 1rem 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     list-style: none;
+    position: relative;
 }
 
 .fv3-division-name {
@@ -3159,47 +3160,94 @@ footer {
     margin-top: 0.2rem;
 }
 
-
-/* ── Hold-Ring (easter egg trigger) ─────────────────────────── */
-.fv3-hold-ring {
+/* Coming Soon sticker */
+.fv3-coming-soon {
+    display: inline-block;
+    background: #e62020;
+    color: #fff;
+    font-size: 0.58rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.22rem 0.55rem;
+    border-radius: 20px;
+    transform: rotate(-10deg);
+    transform-origin: left center;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80px;
-    height: 80px;
+    top: 0.85rem;
+    right: 0;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(230, 32, 32, 0.45);
+    animation: sticker-float 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes sticker-float {
+
+    0%,
+    100% {
+        transform: rotate(-10deg) translateY(0px);
+    }
+
+    50% {
+        transform: rotate(-10deg) translateY(-2px);
+    }
+}
+
+
+/* ── Liquid Fill Canvas (easter egg trigger — full box fill) ─────── */
+
+/*
+  The canvas covers the entire logo box so the fluid fills the whole area.
+*/
+.fv3-liquid-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.3s ease;
+    z-index: 4;
 }
 
-/* Show ring while holding */
-.fv3-box-logo.holding .fv3-hold-ring {
+/* Show canvas while holding */
+.fv3-box-logo.holding .fv3-liquid-canvas {
     opacity: 1;
 }
 
-.fv3-hold-ring-track {
-    fill: none;
-    stroke: rgba(255, 255, 255, 0.12);
-    stroke-width: 3;
+/* Pulse hint on logo when idle */
+@keyframes logo-idle-pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.015);
+    }
 }
 
-.fv3-hold-ring-fill {
-    fill: none;
-    stroke: var(--accent);
-    stroke-width: 3;
-    stroke-linecap: round;
-    stroke-dasharray: 213.6;
-    /* 2π × 34 */
-    stroke-dashoffset: 213.6;
-    transform-origin: 40px 40px;
-    rotate: -90deg;
-    transition: stroke-dashoffset 1.5s linear;
+/* Hold-to-fill cursor hint label */
+.fv3-box-logo::before {
+    content: 'Hold to unlock';
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.25);
+    pointer-events: none;
+    white-space: nowrap;
+    transition: opacity 0.3s ease;
+    opacity: 1;
+    z-index: 5;
 }
 
-/* Animate fill when .filling class is added via JS */
-.fv3-box-logo.filling .fv3-hold-ring-fill {
-    stroke-dashoffset: 0;
+.fv3-box-logo.holding::before {
+    opacity: 0;
 }
 
 
