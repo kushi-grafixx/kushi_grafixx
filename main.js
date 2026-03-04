@@ -780,4 +780,65 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    /* --- 11. Footer Logo Easter Egg (hold 1.5s) --- */
+    const logoBox = document.getElementById('fv3-logo-box');
+    const easterPopup = document.getElementById('fv3-easter-popup');
+    const easterClose = document.getElementById('fv3-easter-close');
+    const easterBd = document.getElementById('fv3-easter-backdrop');
+
+    if (logoBox && easterPopup && easterClose && easterBd) {
+        let holdTimer = null;
+        let isHolding = false;
+
+        function startHold(e) {
+            // Only left-click or touch
+            if (e.button !== undefined && e.button !== 0) return;
+            isHolding = true;
+            logoBox.classList.add('holding', 'filling');
+
+            holdTimer = setTimeout(() => {
+                openEasterEgg();
+            }, 1500);
+        }
+
+        function cancelHold() {
+            if (!isHolding) return;
+            isHolding = false;
+            clearTimeout(holdTimer);
+            holdTimer = null;
+            logoBox.classList.remove('holding', 'filling');
+        }
+
+        function openEasterEgg() {
+            isHolding = false;
+            logoBox.classList.remove('holding', 'filling');
+            easterPopup.classList.add('active');
+            easterBd.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeEasterEgg() {
+            easterPopup.classList.remove('active');
+            easterBd.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Mouse events
+        logoBox.addEventListener('mousedown', startHold);
+        logoBox.addEventListener('mouseup', cancelHold);
+        logoBox.addEventListener('mouseleave', cancelHold);
+
+        // Touch events
+        logoBox.addEventListener('touchstart', startHold, { passive: true });
+        logoBox.addEventListener('touchend', cancelHold, { passive: true });
+        logoBox.addEventListener('touchcancel', cancelHold, { passive: true });
+
+        // Close
+        easterClose.addEventListener('click', closeEasterEgg);
+        easterBd.addEventListener('click', closeEasterEgg);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeEasterEgg();
+        });
+    }
+
 });

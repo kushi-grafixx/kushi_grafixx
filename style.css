@@ -1650,7 +1650,7 @@ h4 {
     gap: 1.5rem;
     width: max-content;
     /* Infinite CSS loop animation */
-    animation: marquee 30s linear infinite;
+    animation: marquee 90s linear infinite;
 }
 
 .marquee-track:hover {
@@ -2622,4 +2622,653 @@ footer {
     object-fit: contain;
     background: transparent;
     border: none;
+}
+
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   FOOTER V2 — Premium Grid Style (Bordered Boxes)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.footer-v2 {
+    background: #000;
+    padding: 80px 0;
+    overflow: hidden;
+}
+
+.fv2-grid-wrapper {
+    position: relative;
+}
+
+.fv2-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr) 2fr;
+    gap: 1.5px;
+    /* The "gap" creates the visible border lines */
+    background: rgba(255, 255, 255, 0.1);
+    /* The border color */
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+}
+
+.fv2-grid>div {
+    background: #000;
+    /* Cell background */
+    padding: 2.5rem;
+}
+
+/* Nav Columns */
+.fv2-cell-nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.fv2-col-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 2rem;
+}
+
+.fv2-cell-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.fv2-cell-nav ul li {
+    margin-bottom: 0.8rem;
+}
+
+.fv2-cell-nav ul li a {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+}
+
+.fv2-cell-nav ul li a:hover {
+    color: #fff;
+}
+
+/* Partners Placeholder */
+.fv2-partner-box {
+    width: 100px;
+    height: 140px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    margin-top: 1rem;
+}
+
+/* Logo & CTA Panel */
+.fv2-cell-logo-panel {
+    grid-column: 5;
+    grid-row: 1 / 3;
+    display: flex;
+    flex-direction: column;
+    padding: 0 !important;
+}
+
+.fv2-panel-top {
+    padding: 2.5rem;
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.fv2-cta-label {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #fff;
+    margin: 0;
+}
+
+.fv2-cta-btn {
+    background: #fff;
+    color: #000;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    border-radius: 4px;
+    transition: transform 0.3s ease, background 0.3s ease;
+    white-space: nowrap;
+}
+
+.fv2-cta-btn:hover {
+    transform: translateY(-2px);
+    background: #eee;
+}
+
+.fv2-panel-logo {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.fv2-logo-img {
+    width: 320px;
+    max-width: 90%;
+    height: auto;
+    opacity: 0.8;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
+}
+
+.fv2-panel-logo:hover .fv2-logo-img {
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+/* Bottom Spacer/Extra Cell */
+.fv2-cell-bottom {
+    grid-column: 1 / 5;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+}
+
+.fv2-bottom-placeholder {
+    width: 100%;
+    height: 120px;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 100%;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .fv2-grid {
+        grid-template-columns: repeat(2, 1fr) 2fr;
+    }
+
+    .fv2-cell-logo-panel {
+        grid-column: 3;
+    }
+
+    .fv2-cell-bottom {
+        grid-column: 1 / 3;
+    }
+}
+
+@media (max-width: 900px) {
+    .fv2-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .fv2-cell-logo-panel {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    .fv2-cell-bottom {
+        display: none;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   FOOTER V3 — Brand-aligned: Big Logo, Monochrome Boxes
+   ═══════════════════════════════════════════════════════════════ */
+
+.footer-v3 {
+    background: #000;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ── Top Banner ─────────────────────────────────────────────── */
+.fv3-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3.5rem clamp(2rem, 6vw, 6rem);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    gap: 2rem;
+}
+
+.fv3-tagline {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: rgba(255, 255, 255, 0.15);
+}
+
+.fv3-tagline span {
+    color: #fff;
+    display: block;
+}
+
+.fv3-book-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 2.2rem;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    border-radius: var(--rounded-pill);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.3s ease,
+        background 0.3s ease;
+    flex-shrink: 0;
+}
+
+.fv3-book-btn:hover {
+    transform: scale(1.06);
+    box-shadow: 0 0 30px rgba(255, 42, 42, 0.4);
+    background: #e02020;
+}
+
+.fv3-book-btn svg {
+    flex-shrink: 0;
+    transition: rotate 0.4s ease;
+}
+
+.fv3-book-btn:hover svg {
+    rotate: 20deg;
+}
+
+/* ── Main Grid ──────────────────────────────────────────────── */
+.fv3-main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 2fr;
+    /* gap created by box borders rather than actual gap */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.fv3-box {
+    padding: 3rem clamp(1.5rem, 3vw, 3rem);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    transition: background 0.4s ease;
+}
+
+.fv3-box:last-child {
+    border-right: none;
+}
+
+.fv3-box:not(.fv3-box-logo):hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.fv3-box-label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.3);
+    margin-bottom: 2rem;
+}
+
+/* ── Service / Work Lists ───────────────────────────────────── */
+.fv3-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.fv3-list li a {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: color 0.25s ease, padding-left 0.25s ease;
+    display: block;
+}
+
+.fv3-list li a:hover {
+    color: #fff;
+    padding-left: 6px;
+}
+
+/* ── Connect / Social Links ─────────────────────────────────── */
+.fv3-connect-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.fv3-social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.92rem;
+    text-decoration: none;
+    transition: color 0.25s ease, background 0.25s ease;
+    border-radius: 6px;
+}
+
+.fv3-social-link:last-child {
+    border-bottom: none;
+}
+
+.fv3-social-link:hover {
+    color: #fff;
+}
+
+.fv3-social-link svg:first-child {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    opacity: 0.5;
+    transition: opacity 0.25s ease;
+}
+
+.fv3-social-link:hover svg:first-child {
+    opacity: 1;
+}
+
+.fv3-arrow {
+    width: 14px;
+    height: 14px;
+    margin-left: auto;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    flex-shrink: 0;
+}
+
+.fv3-social-link:hover .fv3-arrow {
+    opacity: 0.6;
+    transform: translateX(0);
+}
+
+/* ── Big Logo Box ───────────────────────────────────────────── */
+.fv3-box-logo {
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
+    /* dot-grid background */
+    background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 22px 22px;
+    cursor: pointer;
+}
+
+.fv3-logo-inner {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3.5rem;
+    overflow: hidden;
+}
+
+.fv3-big-logo {
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+    object-fit: contain;
+    filter: grayscale(100%) brightness(0.9);
+    opacity: 0.65;
+    transition:
+        filter 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.fv3-box-logo:hover .fv3-big-logo {
+    filter: grayscale(0%) brightness(1);
+    opacity: 1;
+    transform: scale(1.04);
+}
+
+/* Subtle red glow that reveals on hover */
+.fv3-box-logo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(255, 42, 42, 0.08) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+}
+
+.fv3-box-logo:hover::after {
+    opacity: 1;
+}
+
+/* ── Bottom Bar ─────────────────────────────────────────────── */
+.fv3-bottom-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem clamp(2rem, 6vw, 6rem);
+    gap: 2rem;
+}
+
+.fv3-copy {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.25);
+    margin: 0;
+}
+
+.fv3-copy-right {
+    text-align: right;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+    .fv3-main-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+    }
+
+    .fv3-box-services {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .fv3-box-work {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .fv3-box-logo {
+        grid-column: 1 / -1;
+        border-right: none;
+        min-height: 280px;
+    }
+
+    .fv3-big-logo {
+        max-width: 380px;
+    }
+}
+
+@media (max-width: 700px) {
+    .fv3-top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2rem;
+        padding: 2.5rem 1.5rem;
+    }
+
+    .fv3-main-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .fv3-box {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .fv3-box-logo {
+        grid-column: 1;
+        min-height: 220px;
+    }
+
+    .fv3-bottom-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        padding: 1.5rem;
+    }
+
+    .fv3-copy-right {
+        text-align: left;
+    }
+}
+
+
+/* ── Divisions Box ───────────────────────────────────────────── */
+.fv3-list .fv3-division-entry {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    list-style: none;
+}
+
+.fv3-division-name {
+    color: #fff;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.fv3-division-sub {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.85rem;
+    font-weight: 400;
+}
+
+.fv3-division-tags {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    margin-top: 0.2rem;
+}
+
+
+/* ── Hold-Ring (easter egg trigger) ─────────────────────────── */
+.fv3-hold-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Show ring while holding */
+.fv3-box-logo.holding .fv3-hold-ring {
+    opacity: 1;
+}
+
+.fv3-hold-ring-track {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.12);
+    stroke-width: 3;
+}
+
+.fv3-hold-ring-fill {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 213.6;
+    /* 2π × 34 */
+    stroke-dashoffset: 213.6;
+    transform-origin: 40px 40px;
+    rotate: -90deg;
+    transition: stroke-dashoffset 1.5s linear;
+}
+
+/* Animate fill when .filling class is added via JS */
+.fv3-box-logo.filling .fv3-hold-ring-fill {
+    stroke-dashoffset: 0;
+}
+
+
+/* ── Easter Egg Popup ────────────────────────────────────────── */
+.fv3-easter-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 9000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.fv3-easter-backdrop.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.fv3-easter-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.88);
+    z-index: 9001;
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    width: min(520px, 92vw);
+    min-height: 280px;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 40px 80px -10px rgba(0, 0, 0, 0.9),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.fv3-easter-popup.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.fv3-easter-close {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, color 0.2s ease;
+    font-family: inherit;
+}
+
+.fv3-easter-close:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
 }
