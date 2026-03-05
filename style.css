@@ -1927,7 +1927,7 @@ footer {
 .cs-hero-image-wrapper {
     width: 100%;
     aspect-ratio: 16 / 9;
-    border-radius: var(--rounded-lg);
+    border-radius: 8px;
     overflow: hidden;
     background: #111;
 }
@@ -2006,7 +2006,7 @@ footer {
 .waterfall-grid img {
     width: 100%;
     height: auto;
-    border-radius: var(--rounded-lg);
+    border-radius: 8px;
     margin-bottom: 1.5rem;
     break-inside: avoid;
     /* Prevent image splitting across columns */
