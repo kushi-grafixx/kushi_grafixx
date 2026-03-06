@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en" class="has-scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kushi Grafixx | Your Brand Fixed</title>
+    <!-- Preconnect for Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Outfit for Headings, Readex Pro for Body -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&family=Readex+Pro:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- GSAP / ScrollTrigger / Lenis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+    <!-- Import Map for Three.js (Venom Symbiote Effect) -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+</head>
+
+<body class="loading">
+
+    <!-- Global Elements -->
+    <div class="grain"></div>
+    <div class="scroll-progress-line" id="global-scroll-line"></div>
+    <div class="custom-cursor"></div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="main-nav">
+        <a href="#" class="nav-logo hover-scale" id="nav-logo">
+            <img src="assets/footer_final_logo3.png" alt="KG Logo">
+        </a>
+        <div class="nav-links">
+            <a href="#services" class="nav-link hover-underline">Services</a>
+            <a href="#projects" class="nav-link hover-underline">Projects</a>
+            <a href="#testimonials" class="nav-link hover-underline">Testimonials</a>
+        </div>
+    </nav>
+
+    <!-- Smooth Scroll Wrapper -->
+    <div id="smooth-wrapper">
+        <div id="smooth-content">
+
+            <!-- SECTION 1: HERO -->
+            <section class="sec-hero" id="hero">
+                <!-- WebGL Symbiote Background -->
+                <div id="canvas-container">
+                    <canvas id="webgl-canvas"></canvas>
+                </div>
+                <!-- Dark fade overlay over canvas to help text readability -->
+                <div class="hero-curtain" id="hero-curtain"></div>
+                <!-- Initial Logo for Intro Sequence -->
+                <div class="hero-center-logo" id="hero-center-logo">
+                    <img src="assets/footer_final_logo3.png" alt="KG Logo Loading">
+                </div>
+
+                <div class="hero-content">
+                    <h1 class="text-display hero-headline" id="hero-line-1">
+                        <span class="word">Your</span> <span class="word">brand</span> <span class="word">called.</span>
+                    </h1>
+                    <h1 class="text-display hero-headline" id="hero-line-2">
+                        <span class="word">It</span> <span class="word">needs</span> <span class="word">help.</span>
+                    </h1>
+                    <p class="text-body hero-subtext" id="hero-subtext">Don't worry. I got this.</p>
+
+                    <a href="#projects" class="btn primary-btn magnetic" id="hero-cta">
+                        <span class="btn-text">Get Your Brand Fixed</span>
+                    </a>
+
+                    <div class="scroll-indicator-wrap" id="hero-scroll-indicator">
+                        <div class="scroll-indicator-bar"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: PROJECTS -->
+            <section class="sec-projects" id="projects">
+                <div class="container container-wide">
+                    <div class="project-header-wrap">
+                        <h2 class="text-display heading-split" id="projects-title" style="margin-bottom: 2rem;">Proof
+                            before<br>promises.</h2>
+                    </div>
+
+                    <div class="gallery-header">
+                        <div class="filter-nav">
+                            <button class="filter-btn active" data-filter="all">All Projects</button>
+                            <button class="filter-btn" data-filter="branding">Brand Identity</button>
+                            <a href="logo-design.html" class="filter-btn logo-glow-btn">Logo Design</a>
+                            <button class="filter-btn" data-filter="social">Social Media</button>
+                            <button class="filter-btn" data-filter="event">Event Brand Identity</button>
+                            <button class="filter-btn" data-filter="posters">Posters and Others</button>
+                        </div>
+                    </div>
+
+                    <!-- Projects Gallery V2 -->
+                    <div class="gallery-grid-v2">
+                        <!-- Card 1: Vitalyx -->
+                        <a href="vitalyx.html" class="gallery-card-v2" data-category="branding">
+                            <div class="card-logo-tag"><img src="assets/kushi_icon_red.png" alt="KG"></div>
+                            <div class="card-content-v2 bg-vitalyx-v2">
+                                <img src="assets/vitalyx_logo_white.png" alt="Vitalyx Logo"
+                                    onerror="this.src='https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&auto=format&fit=crop'">
+                            </div>
+                            <div class="card-cta-btn">
+                                View Casestudy
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M7 17l10-10M7 7h10v10"></path>
+                                </svg>
+                            </div>
+                        </a>
+
+                        <!-- Card 3: Logos Grid -->
+                        <a href="logo-design.html" class="gallery-card-v2" data-category="logo-design">
+                            <div class="card-logo-tag"><img src="assets/kushi_icon_red.png" alt="KG"></div>
+                            <div class="card-content-v2 bg-logos-grid-v2">
+                                <img src="assets/footer_final_logo3.png" alt="Logos Grid">
+                            </div>
+                            <div class="card-cta-btn">
+                                View Logos
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M7 17l10-10M7 7h10v10"></path>
+                                </svg>
+                            </div>
+                        </a>
+
+                        <!-- Card 4: WIP 1 -->
+                        <a href="social-media-design.html" class="gallery-card-v2" data-category="social">
+                            <div class="card-logo-tag"><img src="assets/kushi_icon_red.png" alt="KG"></div>
+                            <div class="card-content-v2 bg-wip-grid-v2">
+                                <div class="wip-text-v2">ZERO STUDIOS.<br>SOCIAL SYSTEMS.</div>
+                            </div>
+                            <div class="card-cta-btn">
+                                View Casestudy
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M7 17l10-10M7 7h10v10"></path>
+                                </svg>
+                            </div>
+                        </a>
+
+                        <!-- Card 5: WIP 2 -->
+                        <a href="event-branding.html" class="gallery-card-v2" data-category="event">
+                            <div class="card-logo-tag"><img src="assets/kushi_icon_red.png" alt="KG"></div>
+                            <div class="card-content-v2 bg-wip-grid-v2">
+                                <div class="wip-text-v2">ECHO PLATFORM.<br>EVENT IDENTITY.</div>
+                            </div>
+                            <div class="card-cta-btn">
+                                View Casestudy
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M7 17l10-10M7 7h10v10"></path>
+                                </svg>
+                            </div>
+                        </a>
+
+                        <!-- Card 6: WIP 3 -->
+                        <a href="posters.html" class="gallery-card-v2" data-category="posters">
+                            <div class="card-logo-tag"><img src="assets/kushi_icon_red.png" alt="KG"></div>
+                            <div class="card-content-v2 bg-wip-grid-v2">
+                                <div class="wip-text-v2">LUMI WELLNESS.<br>POSTER SERIES.</div>
+                            </div>
+                            <div class="card-cta-btn">
+                                View Casestudy
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M7 17l10-10M7 7h10v10"></path>
+                                </svg>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: SERVICES & WORKFLOW -->
+            <section class="sec-services" id="services">
+                <div class="container workflow-header">
+                    <h2 class="text-display heading-split" id="services-title">This isn't talent.<br>It's a system.</h2>
+                </div>
+
+                <div class="workflow-wrapper" id="workflow-wrapper">
+                    <!-- Step 01 -->
+                    <div class="workflow-step" id="wf-1">
+                        <div class="container step-inner">
+                            <div class="step-num text-display">01</div>
+                            <div class="step-content">
+                                <h3 class="step-title text-display">Audit & Discovery</h3>
+                                <p class="step-desc text-body">We tear down everything you currently have to understand
+                                    the gaps and opportunities.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Connector 1 -->
+                    <div class="step-connector" id="conn-1"></div>
+
+                    <!-- Step 02 -->
+                    <div class="workflow-step" id="wf-2">
+                        <div class="container step-inner">
+                            <div class="step-num text-display">02</div>
+                            <div class="step-content">
+                                <h3 class="step-title text-display">Strategy & Design</h3>
+                                <p class="step-desc text-body">A rigorous creative phase building foundations that cut
+                                    through market noise.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Connector 2 -->
+                    <div class="step-connector" id="conn-2"></div>
+
+                    <!-- Step 03 -->
+                    <div class="workflow-step" id="wf-3">
+                        <div class="container step-inner">
+                            <div class="step-num text-display">03</div>
+                            <div class="step-content">
+                                <h3 class="step-title text-display">Delivery & Launch</h3>
+                                <p class="step-desc text-body">Rolling out systems that empower your brand to scale
+                                    seamlessly.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Marquee Services -->
+                <div class="services-marquee-wrap lb-marquee-box">
+                    <div class="marquee-track track-left">
+                        <div class="marquee-items lb-marquee-inner text-body">
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                                    <path d="M9 9h6M9 12h6M9 15h4" />
+                                </svg>Layout Design</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                                </svg>Presentation Design</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="3" />
+                                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+                                    <path d="M4.93 4.93a10 10 0 0 0 0 14.14" />
+                                </svg>Visual Systems</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                                </svg>Brand Identity</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                                </svg>Packaging Design</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" />
+                                    <path d="M8 21h8M12 17v4" />
+                                </svg>Mockup Design</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <path d="M12 20h9" />
+                                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                                </svg>Copywriting</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line x1="2" y1="12" x2="22" y2="12" />
+                                    <path
+                                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                                </svg>Web Design</span>
+                        </div>
+                        <div class="marquee-items lb-marquee-inner text-body" aria-hidden="true">
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                                    <path d="M9 9h6M9 12h6M9 15h4" />
+                                </svg>Layout Design</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                                </svg>Presentation Design</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="3" />
+                                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+                                    <path d="M4.93 4.93a10 10 0 0 0 0 14.14" />
+                                </svg>Visual Systems</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                                </svg>Brand Identity</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                                </svg>Packaging Design</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" />
+                                    <path d="M8 21h8M12 17v4" />
+                                </svg>Mockup Design</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <path d="M12 20h9" />
+                                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                                </svg>Copywriting</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line x1="2" y1="12" x2="22" y2="12" />
+                                    <path
+                                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                                </svg>Web Design</span>
+                        </div>
+                    </div>
+                    <div class="marquee-track track-right">
+                        <div class="marquee-items lb-marquee-inner text-body">
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                                </svg>Creative Direction</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z" />
+                                </svg>Iconography</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" />
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                                </svg>Social Media Visuals</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                                    <line x1="3" y1="6" x2="21" y2="6" />
+                                    <path d="M16 10a4 4 0 0 1-8 0" />
+                                </svg>Product Brand Identity</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                    <polyline points="9 22 9 12 15 12 15 22" />
+                                </svg>Institutional Design</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <line x1="12" y1="1" x2="12" y2="23" />
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                                </svg>Marketing Assets</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                                </svg>Motion Graphics</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="3" />
+                                    <path
+                                        d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
+                                </svg>Art Direction</span>
+                        </div>
+                        <div class="marquee-items lb-marquee-inner text-body" aria-hidden="true">
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                                </svg>Creative Direction</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z" />
+                                </svg>Iconography</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" />
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                                </svg>Social Media Visuals</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                                    <line x1="3" y1="6" x2="21" y2="6" />
+                                    <path d="M16 10a4 4 0 0 1-8 0" />
+                                </svg>Product Brand Identity</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                    <polyline points="9 22 9 12 15 12 15 22" />
+                                </svg>Institutional Design</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <line x1="12" y1="1" x2="12" y2="23" />
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                                </svg>Marketing Assets</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                                </svg>Motion Graphics</span>
+                            <span class="lb-tag"><svg viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="3" />
+                                    <path
+                                        d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
+                                </svg>Art Direction</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: ABOUT -->
+            <section class="sec-about" id="about">
+                <div class="container about-grid">
+                    <div class="about-visual">
+                        <canvas id="portraitCanvas" class="parallax-img"
+                            style="width: 100%; height: 100%; display: block;"></canvas>
+                    </div>
+                    <div class="about-text-content">
+                        <h2 class="text-display heading-split">I'm Kushi.</h2>
+                        <p class="text-body about-subline">
+                            Brands stick with me for years — not because I'm cheap, but because I make them look like
+                            they mean something.
+                        </p>
+                        <div class="experience-tags">
+                            <div class="exp-tag">Founder @ Kushi Grafixx</div>
+                            <div class="exp-tag">Sr. Art Director</div>
+                            <div class="exp-tag">Creative Strategist</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Marquee Skills -->
+                <div class="skills-marquee-wrap">
+                    <div class="marquee-track track-left fast">
+                        <div class="marquee-items text-body">
+                            <span>Figma Master</span> <span class="dot">·</span> <span>Front-end Tinkerer</span> <span
+                                class="dot">·</span> <span>Visual Storyteller</span> <span class="dot">·</span>
+                            <span>Typography Nerd</span> <span class="dot">·</span>
+                            <span>Figma Master</span> <span class="dot">·</span> <span>Front-end Tinkerer</span> <span
+                                class="dot">·</span> <span>Visual Storyteller</span> <span class="dot">·</span>
+                            <span>Typography Nerd</span> <span class="dot">·</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="container receipts-wrap">
+                    <p class="text-body intro-receipts">Still not convinced? The receipts are below.</p>
+                </div>
+            </section>
+
+            <!-- SECTION 5: TESTIMONIALS -->
+            <section class="sec-testimonials" id="testimonials">
+                <div class="testimonials-stack-container" id="testimonials-stack">
+
+                    <div class="t-card">
+                        <p class="t-quote">"Thank you very much for all your efforts & support in branding our
+                            company... I really liked your thought process on the logo part... It made perfect sense and
+                            looking at the response we getting from visitors, it's safe to say people are liking it."
+                        </p>
+                        <div class="t-stars" style="color:#ffd700; margin-bottom: 1rem; font-size:1.2rem;">★★★★★</div>
+                        <h4 class="t-name">Enosh</h4>
+                        <p class="t-role text-muted">Director of Business Operations</p>
+                    </div>
+
+                    <div class="t-card">
+                        <p class="t-quote">"Kushi means happiness and that's what we get after receiving the final work
+                            from him. His service and dedication is impeccable. He takes up every work professionally
+                            along with a personal touch."</p>
+                        <div class="t-stars" style="color:#ffd700; margin-bottom: 1rem; font-size:1.2rem;">★★★★★</div>
+                        <h4 class="t-name">Swasthik Acharya</h4>
+                        <p class="t-role text-muted">Yoga Therapist</p>
+                    </div>
+
+                    <div class="t-card">
+                        <p class="t-quote">"Thankyou Kushi Grafixx for being such a sweet person to work with. Your
+                            speed and effort is immensely commendable... Loved how you worked very patiently until
+                            perfection. I couldn’t have asked for a better result of my imagination for Lumi."</p>
+                        <div class="t-stars" style="color:#ffd700; margin-bottom: 1rem; font-size:1.2rem;">★★★★★</div>
+                        <h4 class="t-name">Shikshaa Shetty</h4>
+                        <p class="t-role text-muted">Lumi Wellness Founder</p>
+                    </div>
+
+                    <!-- Stat Slam 1 -->
+                    <div class="stat-slam s-card">
+                        <h2 class="stat-number text-display"><span class="counter" data-target="60">0</span>+</h2>
+                        <p class="stat-desc text-body">Projects Delivered</p>
+                    </div>
+
+                    <div class="t-card">
+                        <p class="t-quote">"His ability to create beautiful designs rapidly continues to amaze me. Not
+                            only does he have an eye for aesthetics, but the turnaround time is blazing fast—without
+                            compromising on quality or intent."</p>
+                        <div class="t-stars" style="color:#ffd700; margin-bottom: 1rem; font-size:1.2rem;">★★★★★</div>
+                        <h4 class="t-name">James L.</h4>
+                        <p class="t-role text-muted">VP Growth</p>
+                    </div>
+
+                    <div class="t-card">
+                        <p class="t-quote">"It's not just pretty. It converts. Our engagement went through the roof
+                            since adapting to the new systems Kushi built for us."</p>
+                        <div class="t-stars" style="color:#ffd700; margin-bottom: 1rem; font-size:1.2rem;">★★★★★</div>
+                        <h4 class="t-name">Marcus T.</h4>
+                        <p class="t-role text-muted">Founder, Echo Tech</p>
+                    </div>
+
+                    <div class="t-card">
+                        <p class="t-quote">"Stop looking for other agencies. Just hire him. Absolutely smashed our
+                            expectations and built a visual identity that scales cleanly."</p>
+                        <div class="t-stars" style="color:#ffd700; margin-bottom: 1rem; font-size:1.2rem;">★★★★★</div>
+                        <h4 class="t-name">David W.</h4>
+                        <p class="t-role text-muted">E-commerce Founder</p>
+                    </div>
+
+                    <!-- Stat Slam 2 -->
+                    <div class="stat-slam s-card">
+                        <h2 class="stat-number text-display"><span class="counter" data-target="98">0</span>%</h2>
+                        <p class="stat-desc text-body">Client Satisfaction</p>
+                    </div>
+
+                    <!-- Stat Slam 3 -->
+                    <div class="stat-slam s-card">
+                        <h2 class="stat-number text-display"><span class="counter" data-target="5">0</span>+</h2>
+                        <p class="stat-desc text-body">Years of Excellence</p>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- SECTION 6: FAQ -->
+            <section class="sec-faq container" id="faq">
+                <h2 class="text-display heading-split faq-title">Intel.</h2>
+                <div class="faq-accordion">
+
+                    <div class="faq-row">
+                        <div class="faq-header">
+                            <h3 class="faq-question text-display">How long does a typical project run?</h3>
+                            <div class="faq-icon">+</div>
+                        </div>
+                        <div class="faq-answer-wrap">
+                            <div class="faq-answer-inner text-body">
+                                <img src="assets/kushi_icon_red.png" class="faq-tiny-icon" alt="KG">
+                                <p>Brand identities and comprehensive web builds usually take 4 to 6 weeks, depending on
+                                    complexity and how quickly we lock in decisions during reviews.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-row">
+                        <div class="faq-header">
+                            <h3 class="faq-question text-display">What is your pricing model?</h3>
+                            <div class="faq-icon">+</div>
+                        </div>
+                        <div class="faq-answer-wrap">
+                            <div class="faq-answer-inner text-body">
+                                <img src="assets/kushi_icon_red.png" class="faq-tiny-icon" alt="KG">
+                                <p>Value-based flat rate project fees. No hourly billing, no surprises. You know exactly
+                                    what you're investing from the kickoff call.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-row">
+                        <div class="faq-header">
+                            <h3 class="faq-question text-display">Do you offer a la carte services like just a logo?
+                            </h3>
+                            <div class="faq-icon">+</div>
+                        </div>
+                        <div class="faq-answer-wrap">
+                            <div class="faq-answer-inner text-body">
+                                <img src="assets/kushi_icon_red.png" class="faq-tiny-icon" alt="KG">
+                                <p>Very rarely. A logo without a brand system is useless. My value comes from building
+                                    holistic identities and cinematic web experiences that work as an entire ecosystem.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- SECTION 7: CLOSING CTA -->
+            <section class="sec-closing" id="closing">
+                <div class="closing-content">
+                    <h2 class="text-display closing-line" id="closing-headline">
+                        <span class="word">Your</span> <span class="word">brand</span> <span class="word">called.</span>
+                    </h2>
+                    <h2 class="text-display closing-line-sub" id="closing-sub">Let's fix it.</h2>
+
+                    <div class="cta-btn-wrap" id="closing-btn-wrap">
+                        <a href="https://cal.com/kushi-grafixx-lfgzty/15min" target="_blank"
+                            class="btn primary-btn magnetic" id="closing-cta">
+                            <span class="btn-text">I'm Ready</span>
+                        </a>
+                        <p class="text-muted cta-micro">Free 15-min call. No commitment. Just clarity.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FOOTER -->
+            <footer class="footer">
+                <div class="container footer-grid">
+                    <div class="footer-col">
+                        <h4 class="text-display">Services</h4>
+                        <div class="footer-links text-body">
+                            <p>Brand Identity</p>
+                            <p>Web Design</p>
+                            <p>UI/UX</p>
+                        </div>
+                    </div>
+                    <div class="footer-col">
+                        <h4 class="text-display">Divisions</h4>
+                        <div class="footer-links text-body">
+                            <p>Kushi Core</p>
+                            <p class="disabled text-muted">Kushi Geo <span class="badge">Soon</span></p>
+                        </div>
+                    </div>
+                    <div class="footer-col">
+                        <h4 class="text-display">Connect</h4>
+                        <div class="footer-links text-body">
+                            <a href="#" class="hover-underline">Instagram</a>
+                            <a href="#" class="hover-underline">Twitter / X</a>
+                            <a href="#" class="hover-underline">LinkedIn</a>
+                        </div>
+                    </div>
+                    <div class="footer-col align-right logo-col">
+                        <div class="footer-logo magnetic">
+                            <img src="assets/footer_final_logo3.png" alt="Kushi Grafixx">
+                        </div>
+                    </div>
+                </div>
+                <div class="container footer-bottom text-muted text-body">
+                    <p>© 2026 Kushi Grafixx. All rights reserved.</p>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
+    <!-- Main Logic -->
+    <script src="main.js"></script>
+    <script type="module" src="webgl-hero.js"></script>
+</body>
+
+</html>

@@ -79,11 +79,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                             // 2. Hero Entry Animations (Staggered after symbiote starts)
                             setTimeout(() => {
-                                const heroTL = gsap.timeline();
-                                heroTL.to("#hero-pill", { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" })
-                                    .to(".hero-title .line-inner", { y: "0%", duration: 0.85, stagger: 0.15, ease: "power3.out" }, "-=0.3")
-                                    .to("#hero-subtitle", { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, "-=0.4");
-                            }, 600);
+                                gsap.fromTo(".hero-content > *",
+                                    { y: 40, opacity: 0 },
+                                    { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out" }
+                                );
+                            }, 1000);
                         }
                     });
                 }, 400);
@@ -215,30 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof gsap !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger);
 
-        // Heading Splitting Helper
-        document.querySelectorAll('.heading-split').forEach(heading => {
-            let htmlContext = heading.innerHTML;
-            let lines = htmlContext.split('<br>');
-            heading.innerHTML = lines.map(line => `<span class="line-wrapper"><span class="line-inner">${line}</span></span>`).join('<br>');
-
-            if (!heading.classList.contains('hero-title')) {
-                gsap.to(heading.querySelectorAll('.line-inner'), {
-                    y: '0%',
-                    duration: 0.8,
-                    stagger: 0.15,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: heading,
-                        start: 'top 85%',
-                        toggleActions: "play none none reverse"
-                    }
-                });
-            }
-        });
-
         gsap.utils.toArray('.section-title').forEach(title => {
-            if (title.classList.contains('heading-split')) return; // handled above
-
             gsap.fromTo(title,
                 { y: 50, opacity: 0 },
                 {
@@ -250,37 +227,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             );
-        });
-
-        // 🎰 Stat Counter Animation (0 to Target)
-        document.querySelectorAll('.jackpot-text').forEach(stat => {
-            const originalText = stat.innerText.trim();
-            // Extract the numeric part and the symbol part (e.g., "60+", "98%", "6+")
-            const match = originalText.match(/^(\d+)(.*)$/);
-
-            if (match) {
-                const targetNum = parseInt(match[1]);
-                const symbol = match[2];
-
-                // Set initial state
-                stat.innerText = `0${symbol}`;
-
-                // Animate the object
-                let obj = { val: 0 };
-                gsap.to(obj, {
-                    val: targetNum,
-                    duration: 2.5,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: stat,
-                        start: "top 85%",
-                        toggleActions: "play none none reverse"
-                    },
-                    onUpdate: function () {
-                        stat.innerText = `${Math.floor(obj.val)}${symbol}`;
-                    }
-                });
-            }
         });
 
         if (document.querySelector('.umbrel-grid')) {
@@ -357,60 +303,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* --- 6. Gallery Filtering --- */
     const filterBtns = document.querySelectorAll('.filter-btn');
-    const subFilterBtns = document.querySelectorAll('.sub-filter-btn');
     const galleryCards = document.querySelectorAll('.gallery-card, .gallery-card-v2');
-
-    let activeCategory = 'all';
-    let activeNiche = 'all';
-
-    const filterGallery = () => {
-        galleryCards.forEach(card => {
-            const cardCategory = card.getAttribute('data-category');
-            const cardNiche = card.getAttribute('data-niche') || 'all';
-
-            const categoryMatch = (activeCategory === 'all' || cardCategory === activeCategory);
-            const nicheMatch = (activeNiche === 'all' || cardNiche === activeNiche);
-
-            if (categoryMatch && nicheMatch) {
-                card.style.display = 'block';
-                if (typeof gsap !== 'undefined') {
-                    gsap.fromTo(card,
-                        { opacity: 0, y: 20 },
-                        { opacity: 1, y: 0, duration: 0.4, clearProps: "all" }
-                    );
-                }
-            } else {
-                card.style.display = 'none';
-            }
-        });
-
-        if (typeof ScrollTrigger !== 'undefined') {
-            setTimeout(() => ScrollTrigger.refresh(), 300);
-        }
-    };
 
     if (filterBtns.length > 0 && galleryCards.length > 0) {
         filterBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                if (btn.tagName.toLowerCase() === 'a') return;
-
+            btn.addEventListener('click', () => {
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                activeCategory = btn.getAttribute('data-filter');
-                filterGallery();
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                galleryCards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    if (filterValue === 'all' || cardCategory === filterValue) {
+                        card.style.display = 'block';
+                        if (typeof gsap !== 'undefined') {
+                            gsap.fromTo(card,
+                                { opacity: 0, y: 20 },
+                                { opacity: 1, y: 0, duration: 0.4, clearProps: "all" }
+                            );
+                        }
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                if (typeof ScrollTrigger !== 'undefined') {
+                    setTimeout(() => ScrollTrigger.refresh(), 300);
+                }
             });
         });
-
-        if (subFilterBtns.length > 0) {
-            subFilterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    subFilterBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    activeNiche = btn.getAttribute('data-sub-filter');
-                    filterGallery();
-                });
-            });
-        }
     }
 
     /* --- 6. Process Section GSAP Animations --- */

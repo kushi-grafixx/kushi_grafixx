@@ -130,12 +130,11 @@
                     <canvas id="webgl-canvas"></canvas>
                 </div>
                 <div class="hero-content">
-                    <div class="availability-pill" id="hero-pill" style="opacity:0; transform:translateY(20px);">
+                    <div class="availability-pill">
                         <span class="status-dot"></span> Available for Work
                     </div>
-                    <h1 class="hero-title heading-split" id="hero-title">Your brand called.<br>It needs help.</h1>
-                    <p class="hero-subtitle" id="hero-subtitle" style="opacity:0; transform:translateY(20px);">Don't
-                        worry. I got this.</p>
+                    <h1 class="hero-title">Your brand called.<br>It needs help.</h1>
+                    <p class="hero-subtitle">Don't worry. I got this.</p>
                 </div>
 
                 <div class="scroll-down-bar">
@@ -146,32 +145,6 @@
                     </div>
                     <span class="scroll-text">to see projects</span>
                     <span class="line right-line"></span>
-                </div>
-            </section>
-
-            <!-- Client Logo Marquee Section -->
-            <section class="client-marquee-section">
-                <div class="client-marquee-container">
-                    <div class="client-marquee-track">
-                        <!-- Group 1 -->
-                        <div class="client-marquee-inner">
-                            <span class="client-logo-placeholder">YOUR LOGO</span>
-                            <span class="client-logo-placeholder">YOUR LOGO</span>
-                            <span class="client-logo-placeholder">YOUR LOGO</span>
-                            <span class="client-logo-placeholder">YOUR LOGO</span>
-                            <span class="client-logo-placeholder">YOUR LOGO</span>
-                            <span class="client-logo-placeholder">YOUR LOGO</span>
-                        </div>
-                        <!-- Group 2 (duplicate for loop) -->
-                        <div class="client-marquee-inner" aria-hidden="true">
-                            <span class="client-logo-placeholder">YOUR LOGO</span>
-                            <span class="client-logo-placeholder">YOUR LOGO</span>
-                            <span class="client-logo-placeholder">YOUR LOGO</span>
-                            <span class="client-logo-placeholder">YOUR LOGO</span>
-                            <span class="client-logo-placeholder">YOUR LOGO</span>
-                            <span class="client-logo-placeholder">YOUR LOGO</span>
-                        </div>
-                    </div>
                 </div>
             </section>
 
@@ -188,23 +161,12 @@
                             <button class="filter-btn" data-filter="event">Event Brand Identity</button>
                             <button class="filter-btn" data-filter="posters">Posters and Others</button>
                         </div>
-                        <!-- Niche Filter (Sub tags) -->
-                        <div class="sub-filter-nav">
-                            <button class="sub-filter-btn active" data-sub-filter="all">All Niches</button>
-                            <button class="sub-filter-btn" data-sub-filter="fnb">F&B</button>
-                            <button class="sub-filter-btn" data-sub-filter="saas">SaaS</button>
-                            <button class="sub-filter-btn" data-sub-filter="health-tech">Health Tech</button>
-                            <button class="sub-filter-btn" data-sub-filter="agri-tech">Agri Tech</button>
-                            <button class="sub-filter-btn" data-sub-filter="hospitality">Hospitality</button>
-                            <button class="sub-filter-btn" data-sub-filter="lifestyle">Lifestyle</button>
-                        </div>
                     </div>
 
                     <!-- Projects Gallery V2 (Reference-inspired layout) -->
                     <div class="gallery-grid-v2">
                         <!-- Card 1: Vitalyx (Brand Identity) -->
-                        <a href="vitalyx.html" class="gallery-card-v2" data-category="branding"
-                            data-niche="health-tech">
+                        <a href="vitalyx.html" class="gallery-card-v2" data-category="branding">
                             <div class="card-logo-tag"><img src="assets/kushi_logo_exact.png" alt="KG"></div>
                             <div class="card-content-v2 bg-vitalyx-v2">
                                 <img src="assets/vitalyx_logo_white.png" alt="Vitalyx Logo"
@@ -220,14 +182,14 @@
                         </a>
 
                         <!-- Card 2: Silhouette / About (Category: all/personal) -->
-                        <a href="#about" class="gallery-card-v2" data-category="all" data-niche="lifestyle">
+                        <a href="#about" class="gallery-card-v2" data-category="all">
                             <div class="card-content-v2 bg-silhouette-v2">
                                 <img src="assets/silhouette.jpg" alt="Kushi Silhouette">
                             </div>
                         </a>
 
                         <!-- Card 3: Logos Grid (Logo Design) -->
-                        <a href="logo-design.html" class="gallery-card-v2" data-category="logo-design" data-niche="all">
+                        <a href="logo-design.html" class="gallery-card-v2" data-category="logo-design">
                             <div class="card-logo-tag"><img src="assets/kushi_logo_exact.png" alt="KG"></div>
                             <div class="card-content-v2 bg-logos-grid-v2">
                                 <img src="assets/footer_final_logo3.png" alt="Logos Grid">
@@ -242,8 +204,7 @@
                         </a>
 
                         <!-- Card 4: WIP 1 (Social Media) -->
-                        <a href="social-media-design.html" class="gallery-card-v2" data-category="social"
-                            data-niche="saas">
+                        <a href="social-media-design.html" class="gallery-card-v2" data-category="social">
                             <div class="card-logo-tag"><img src="assets/kushi_logo_exact.png" alt="KG"></div>
                             <div class="card-content-v2 bg-wip-grid-v2">
                                 <div class="wip-text-v2">ZERO STUDIOS. SOCIAL SYSTEMS.</div>
@@ -258,7 +219,7 @@
                         </a>
 
                         <!-- Card 5: WIP 2 (Event Brand Identity) -->
-                        <a href="event-branding.html" class="gallery-card-v2" data-category="event" data-niche="fnb">
+                        <a href="event-branding.html" class="gallery-card-v2" data-category="event">
                             <div class="card-logo-tag"><img src="assets/kushi_logo_exact.png" alt="KG"></div>
                             <div class="card-content-v2 bg-wip-grid-v2">
                                 <div class="wip-text-v2">ECHO PLATFORM. EVENT IDENTITY.</div>
@@ -273,7 +234,7 @@
                         </a>
 
                         <!-- Card 6: WIP 3 (Posters) -->
-                        <a href="posters.html" class="gallery-card-v2" data-category="posters" data-niche="hospitality">
+                        <a href="posters.html" class="gallery-card-v2" data-category="posters">
                             <div class="card-logo-tag"><img src="assets/kushi_logo_exact.png" alt="KG"></div>
                             <div class="card-content-v2 bg-wip-grid-v2">
                                 <div class="wip-text-v2">LUMI WELLNESS. POSTER SERIES.</div>
@@ -347,7 +308,7 @@
             <!-- Services Section -->
             <section class="services-section" id="services">
                 <div class="container container-wide">
-                    <h2 class="section-title text-center heading-split">Services</h2>
+                    <h2 class="section-title text-center">Services</h2>
 
                     <div class="lb-container">
                         <!-- Top Section -->
@@ -679,7 +640,7 @@
             <!-- Process Section (Horizontal Timeline) -->
             <section class="process-section" id="process">
                 <div class="container container-wide">
-                    <h2 class="section-title text-center heading-split">The KG Workflow</h2>
+                    <h2 class="section-title text-center">The KG Workflow</h2>
                     <p class="process-intro text-center">A simple, no-nonsense workflow that keeps things clean, fast,
                         and drama-free.</p>
 
@@ -754,10 +715,10 @@
 
             <!-- About Section (Meet Kushi) -->
             <section class="about-section" id="about">
-                <div class="container container-wide">
+                <div class="container">
                     <div class="about-grid">
                         <div class="about-text">
-                            <h2 class="section-title heading-split">Meet Kushi</h2>
+                            <h2 class="section-title">Meet Kushi</h2>
                             <p class="bio">I’m Kushi, the designer brands accidentally stick with for years. I build
                                 identities that look premium, feel intentional, and make people say “who designed this?”
                                 (I promise I won’t expose the “temporary logo” you used for 2 years.)</p>
@@ -802,8 +763,8 @@
 
             <!-- Testimonials -->
             <section class="reviews-section" id="testimonials">
-                <div class="container container-wide">
-                    <h2 class="section-title text-center heading-split">Don't just take my word for it.</h2>
+                <div class="container">
+                    <h2 class="section-title text-center">Don't just take my word for it.</h2>
                 </div>
 
                 <div class="marquee-container">
@@ -1055,20 +1016,20 @@
 
             <!-- Stats Section -->
             <section class="stats-section">
-                <div class="container container-wide">
+                <div class="container">
                     <div class="stats-card">
                         <div class="stat-item">
-                            <h3 class="stat-number jackpot-text">60+</h3>
+                            <h3 class="stat-number">60+</h3>
                             <p class="stat-desc">Projects that didn't make me lose my sanity.</p>
                         </div>
                         <div class="stat-divider"></div>
                         <div class="stat-item">
-                            <h3 class="stat-number jackpot-text">98%</h3>
+                            <h3 class="stat-number">98%</h3>
                             <p class="stat-desc">Clients who loved the work. The other 2% probably needed sleep.</p>
                         </div>
                         <div class="stat-divider"></div>
                         <div class="stat-item">
-                            <h3 class="stat-number jackpot-text">6+</h3>
+                            <h3 class="stat-number">5+</h3>
                             <p class="stat-desc">Years of designing at unhealthy zoom levels.</p>
                         </div>
                     </div>
@@ -1132,7 +1093,7 @@
             <!-- FAQ Section (Chat Style) -->
             <section class="faq-section" id="faq">
                 <div class="container container-wide">
-                    <h2 class="section-title text-center heading-split">Frequently Asked Questions</h2>
+                    <h2 class="section-title text-center">Frequently Asked Questions</h2>
                     <div class="chat-container">
                         <!-- FAQ Item 1 -->
                         <div class="faq-item">

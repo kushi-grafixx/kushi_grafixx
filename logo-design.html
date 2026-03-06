@@ -99,7 +99,7 @@
             overflow: hidden;
             position: relative;
             background: #111;
-            border: 1px solid rgba(255, 255, 255, 0.07);
+            border: 1px solid transparent;
             cursor: pointer;
             will-change: transform, opacity;
 
@@ -115,6 +115,7 @@
         .logo-card.visible {
             opacity: 1;
             transform: translateY(0);
+            border-color: rgba(255, 255, 255, 0.07);
         }
 
         .logo-card.visible:hover {
@@ -375,48 +376,44 @@
         const cols = 4; // matches grid-template-columns: repeat(4, 1fr)
         const allCards = document.querySelectorAll('.logo-card');
 
-        // Defer measurement by two rAF frames so the browser finishes layout
-        // before we call getBoundingClientRect (avoids the glitch where all
-        // cards measure as top:0 and animate at the same time).
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                const viewportBottom = window.innerHeight;
-                const inViewCards = [];
-                const belowFoldCards = [];
+        // Defer sequence until all images load to prevent empty boxes/borders rendering as weird artifacts
+        window.addEventListener('load', () => {
+            const viewportBottom = window.innerHeight;
+            const inViewCards = [];
+            const belowFoldCards = [];
 
-                allCards.forEach(card => {
-                    const rect = card.getBoundingClientRect();
-                    if (rect.top < viewportBottom + 100) {
-                        inViewCards.push(card);
-                    } else {
-                        belowFoldCards.push(card);
+            allCards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top < viewportBottom + 100) {
+                    inViewCards.push(card);
+                } else {
+                    belowFoldCards.push(card);
+                }
+            });
+
+            // Animate in-viewport cards with stagger on page load
+            inViewCards.forEach((card, idx) => {
+                const col = idx % cols;
+                const row = Math.floor(idx / cols);
+                const delay = col * 60 + row * 80; // wave from top-left
+                setTimeout(() => {
+                    card.classList.add('visible');
+                }, delay);
+            });
+
+            // Use IO only for below-fold cards
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        const col = parseInt(e.target.dataset.col);
+                        e.target.style.transitionDelay = `${col * 55}ms`;
+                        e.target.classList.add('visible');
+                        io.unobserve(e.target);
                     }
                 });
+            }, { threshold: 0.06 });
 
-                // Animate in-viewport cards with stagger on page load
-                inViewCards.forEach((card, idx) => {
-                    const col = idx % cols;
-                    const row = Math.floor(idx / cols);
-                    const delay = col * 60 + row * 80; // wave from top-left
-                    setTimeout(() => {
-                        card.classList.add('visible');
-                    }, delay);
-                });
-
-                // Use IO only for below-fold cards
-                const io = new IntersectionObserver((entries) => {
-                    entries.forEach(e => {
-                        if (e.isIntersecting) {
-                            const col = parseInt(e.target.dataset.col);
-                            e.target.style.transitionDelay = `${col * 55}ms`;
-                            e.target.classList.add('visible');
-                            io.unobserve(e.target);
-                        }
-                    });
-                }, { threshold: 0.06 });
-
-                belowFoldCards.forEach(c => io.observe(c));
-            });
+            belowFoldCards.forEach(c => io.observe(c));
         });
 
 

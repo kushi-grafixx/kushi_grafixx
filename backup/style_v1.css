@@ -603,84 +603,6 @@ h4 {
     }
 }
 
-/* --- Client Logo Marquee --- */
-.client-marquee-section {
-    padding: 3rem 0;
-    border-top: 1px solid var(--border-subtle);
-    border-bottom: 1px solid var(--border-subtle);
-    background: rgba(10, 10, 10, 0.3);
-    overflow: hidden;
-    position: relative;
-    z-index: 2;
-}
-
-.client-marquee-container {
-    display: flex;
-    overflow: hidden;
-    white-space: nowrap;
-    position: relative;
-    max-width: 100vw;
-}
-
-.client-marquee-container::before,
-.client-marquee-container::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    width: 15vw;
-    height: 100%;
-    z-index: 2;
-    pointer-events: none;
-}
-
-.client-marquee-container::before {
-    left: 0;
-    background: linear-gradient(to right, var(--bg-main) 0%, transparent 100%);
-}
-
-.client-marquee-container::after {
-    right: 0;
-    background: linear-gradient(to left, var(--bg-main) 0%, transparent 100%);
-}
-
-.client-marquee-track {
-    display: flex;
-    animation: client-marquee-scroll 20s linear infinite;
-    gap: 4rem;
-    padding-right: 4rem;
-    width: max-content;
-}
-
-@keyframes client-marquee-scroll {
-    0% {
-        transform: translateX(0);
-    }
-
-    100% {
-        transform: translateX(-50%);
-    }
-}
-
-.client-marquee-inner {
-    display: flex;
-    gap: 4rem;
-    align-items: center;
-}
-
-.client-logo-placeholder {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--text-muted);
-    letter-spacing: 2px;
-    opacity: 0.4;
-    transition: opacity 0.3s ease, color 0.3s ease;
-}
-
-.client-logo-placeholder:hover {
-    opacity: 1;
-    color: white;
-}
-
 /* --- Projects Section --- */
 .projects-section {
     padding: 6rem 0;
@@ -723,37 +645,6 @@ h4 {
     color: black;
     border-color: white;
     font-weight: 500;
-}
-
-.sub-filter-nav {
-    display: flex;
-    gap: 0.8rem;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-top: 1.5rem;
-}
-
-.sub-filter-btn {
-    background: transparent;
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--rounded-pill);
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    font-family: 'Outfit', sans-serif;
-    cursor: pointer;
-    padding: 6px 16px;
-    transition: all 0.3s ease;
-}
-
-.sub-filter-btn:hover {
-    color: white;
-    border-color: rgba(255, 255, 255, 0.3);
-}
-
-.sub-filter-btn.active {
-    background: rgba(40, 40, 40, 0.6);
-    color: white;
-    border-color: rgba(255, 255, 255, 0.2);
 }
 
 /* ── Animated Ring-Glow Logo Design Button ─────────────────────────── */
@@ -1064,7 +955,7 @@ h4 {
 
 /* --- Liveblocks Inspired Services Grid --- */
 .lb-container {
-    max-width: 100%;
+    max-width: 1000px;
     margin: 4rem auto 0;
     background: #080808;
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -2399,24 +2290,12 @@ footer {
     align-items: center;
     padding: 4rem 2rem;
     text-align: center;
-    max-width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
-    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-}
-
-.stats-card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.8);
 }
 
 .stat-item {
     padding: 0 1rem;
-    transition: transform 0.4s ease;
-}
-
-.stat-item:hover {
-    transform: scale(1.05);
 }
 
 .stat-number {
@@ -2540,7 +2419,7 @@ footer {
 .chat-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    max-width: 100%;
+    max-width: 1300px;
     margin: 5rem auto 0;
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--rounded-lg);
@@ -3440,58 +3319,4 @@ footer {
 .fv3-easter-close:hover {
     background: rgba(255, 255, 255, 0.12);
     color: #fff;
-}
-
-/* =========================================================================
-   UTILITIES & ANIMATION CLASSES
-   ========================================================================= */
-
-/* Text line slide up utility for GSAP */
-.line-wrapper {
-    overflow: hidden;
-    display: inline-block;
-    vertical-align: top;
-}
-
-.line-inner {
-    display: inline-block;
-    transform: translateY(100%);
-    will-change: transform;
-}
-
-.word {
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(24px);
-    will-change: transform, opacity;
-}
-
-/* Jackpot Casino Stat Animation */
-.jackpot-text {
-    display: inline-flex;
-    position: relative;
-}
-
-.jackpot-wrapper {
-    display: inline-flex;
-    overflow: hidden;
-    vertical-align: bottom;
-    height: 1em;
-    /* matches line-height */
-}
-
-.jackpot-reel {
-    display: inline-flex;
-    flex-direction: column;
-    text-align: center;
-    will-change: transform;
-    font-variant-numeric: tabular-nums;
-}
-
-.jackpot-reel span {
-    height: 1em;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
