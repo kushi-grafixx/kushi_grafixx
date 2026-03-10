@@ -1,0 +1,62 @@
+"use client";
+
+const steps = [
+    {
+        number: 1,
+        title: "Define Your Vision.",
+        desc: "We figure out what your brand should actually look like. Startups, institutes, personal brands. Everyone is welcome to confess their design sins. I turn that chaos into a clear direction.",
+        icon: (
+            <svg className="step-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+        )
+    },
+    {
+        number: 2,
+        title: "Submit Your Request.",
+        desc: "You drop everything into my design portal. No scattered screenshots. No late night voice notes. Just a clean brief and a clear starting point.",
+        icon: (
+            <svg className="step-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M22 2L11 13"></path>
+                <path d="M22 2l-7 20-4-9-9-4 20-7z"></path>
+            </svg>
+        )
+    },
+    {
+        number: 3,
+        title: "Review & Refine.",
+        desc: "I present the strongest concept first. We refine it together until it feels right. Not endless revisions. Just smart improvements.",
+        icon: (
+            <svg className="step-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+        )
+    }
+];
+
+const ProcessFlow = () => {
+    return (
+        <div className="process-grid-new mt-12">
+            <div className="timeline-line-new hidden md:block"></div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+                {steps.map((step, i) => (
+                    <div key={i} className="process-step">
+                        <div className="step-icon-wrapper">
+                            {step.icon}
+                        </div>
+                        <div className="timeline-point-new hidden md:flex">
+                            <div className="timeline-badge-new">{step.number}</div>
+                        </div>
+                        <div className="process-content-new">
+                            <h3>{step.title}</h3>
+                            <p className="secondary-text mt-4">{step.desc}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
+
+export default ProcessFlow;
