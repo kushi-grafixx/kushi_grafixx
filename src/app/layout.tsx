@@ -33,9 +33,9 @@ export default function RootLayout({
                 <main id="smooth-wrapper">
                     <div id="smooth-content">
                         {children}
+                        <Footer />
                     </div>
                 </main>
-                <Footer />
             </body>
         </html>
     );

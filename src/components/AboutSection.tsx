@@ -15,9 +15,9 @@ const skills = [
 
 const AboutSection = () => {
     return (
-        <section className="about-section py-24" id="about">
+        <section className="about-section" id="about">
             <div className="container container-wide">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div className="about-grid">
                     <div className="about-text">
                         <h2 className="section-title mb-8">Meet Kushi</h2>
                         <p className="bio text-xl text-white/60 leading-relaxed mb-10">
@@ -47,7 +47,7 @@ const AboutSection = () => {
                         </div>
                     </div>
 
-                    <div className="about-image relative aspect-square rounded-3xl overflow-hidden bg-black border border-white/10">
+                    <div className="about-image">
                         <PortraitCanvas />
                     </div>
                 </div>

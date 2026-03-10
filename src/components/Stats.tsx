@@ -1,9 +1,9 @@
 "use client";
 
+import React, { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -62,21 +62,19 @@ const stats = [
 
 const Stats = () => {
     return (
-        <section className="stats-section py-24 bg-black/50 border-y border-white/5">
+        <section className="stats-section">
             <div className="container container-wide">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center relative">
+                <div className="stats-card">
                     {stats.map((stat, i) => (
-                        <div key={i} className="stat-item relative">
-                            <h3 className="stat-number text-6xl md:text-7xl font-bold text-white mb-4 leading-none">
-                                <JackpotStat value={stat.value} />
-                            </h3>
-                            <p className="stat-desc text-white/40 max-w-[200px] mx-auto text-sm leading-relaxed">
-                                {stat.desc}
-                            </p>
-                            {i < stats.length - 1 && (
-                                <div className="hidden md:block absolute top-1/2 -right-6 w-[1px] h-20 bg-white/10 -translate-y-1/2"></div>
-                            )}
-                        </div>
+                        <React.Fragment key={i}>
+                            <div className="stat-item">
+                                <h3 className="stat-number jackpot-text">
+                                    <JackpotStat value={stat.value} />
+                                </h3>
+                                <p className="stat-desc">{stat.desc}</p>
+                            </div>
+                            {i < stats.length - 1 && <div className="stat-divider"></div>}
+                        </React.Fragment>
                     ))}
                 </div>
             </div>

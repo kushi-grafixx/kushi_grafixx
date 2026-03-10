@@ -10,7 +10,7 @@ const projects = [
         category: "branding",
         niche: "health-tech",
         bgClass: "bg-vitalyx-v2",
-        logoSrc: "/assets/vitalyx_logo_white.png",
+        logoSrc: "/assets/vitalyx/Logo.png",
         projectName: "Vitalyx"
     },
     {
@@ -140,7 +140,7 @@ const ProjectsGallery = () => {
                     </div>
                 </div>
 
-                <div className="gallery-grid-v2 mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="gallery-grid-v2">
                     {filteredProjects.map(project => (
                         <ProjectCard key={project.id} {...project} />
                     ))}

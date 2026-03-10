@@ -1,8 +1,6 @@
 "use client";
-
-import { motion } from "framer-motion";
-
 const testimonials = [
+
     {
         name: "Hammad",
         role: "Freelance Graphic Designer & Video Editor",
@@ -37,27 +35,34 @@ const testimonials = [
 
 const Testimonials = () => {
     return (
-        <section className="testimonials-section py-24 overflow-hidden" id="testimonials">
+        <section className="reviews-section" id="testimonials">
             <div className="container container-wide">
-                <h2 className="section-title text-center mb-16">What my clients say</h2>
+                <h2 className="section-title text-center heading-split">Don&apos;t just take my word for it.</h2>
+            </div>
 
-                <div className="relative">
-                    <motion.div
-                        className="flex gap-8 cursor-grab active:cursor-grabbing"
-                        drag="x"
-                        dragConstraints={{ right: 0, left: -1500 }} // Adjust based on content width
-                    >
-                        {testimonials.map((t, i) => (
-                            <div key={i} className="lovi-card flex-shrink-0 w-[400px] p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm">
-                                <div className="lovi-header mb-4">
-                                    <span className="lovi-name block text-xl font-bold">{t.name}</span>
-                                    <span className="lovi-role block text-sm text-white/40">{t.role}</span>
-                                </div>
-                                <div className="lovi-stars text-[#ff3c3c] mb-4">{t.stars}</div>
-                                <p className="lovi-text text-white/70 leading-relaxed italic">&quot;{t.text}&quot;</p>
+            <div className="marquee-container">
+                <div className="marquee-track">
+                    {testimonials.map((t, i) => (
+                        <div key={`t1-${i}`} className="lovi-card">
+                            <div className="lovi-header">
+                                <span className="lovi-name">{t.name}</span>
+                                <span className="lovi-role">{t.role}</span>
                             </div>
-                        ))}
-                    </motion.div>
+                            <div className="lovi-stars">{t.stars}</div>
+                            <p className="lovi-text">&quot;{t.text}&quot;</p>
+                        </div>
+                    ))}
+                    {/* Duplicate the testimonials for continuous marquee scrolling */}
+                    {testimonials.map((t, i) => (
+                        <div key={`t2-${i}`} className="lovi-card">
+                            <div className="lovi-header">
+                                <span className="lovi-name">{t.name}</span>
+                                <span className="lovi-role">{t.role}</span>
+                            </div>
+                            <div className="lovi-stars">{t.stars}</div>
+                            <p className="lovi-text">&quot;{t.text}&quot;</p>
+                        </div>
+                    ))}
                 </div>
             </div>
         </section>

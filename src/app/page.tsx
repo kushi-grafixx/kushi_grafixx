@@ -1,16 +1,19 @@
 import Hero from "@/components/Hero";
+import ClientMarquee from "@/components/ClientMarquee";
 import ProjectsGallery from "@/components/ProjectsGallery";
 import ServicesGrid from "@/components/ServicesGrid";
 import ProcessFlow from "@/components/ProcessFlow";
 import AboutSection from "@/components/AboutSection";
 import Stats from "@/components/Stats";
 import Testimonials from "@/components/Testimonials";
+import TagsMarquee from "@/components/TagsMarquee";
 import FAQ from "@/components/FAQ";
 
 export default function Home() {
     return (
         <main>
             <Hero />
+            <ClientMarquee />
             <ProjectsGallery />
             <ServicesGrid />
             <Stats />
@@ -27,6 +30,7 @@ export default function Home() {
 
             <AboutSection />
             <Testimonials />
+            <TagsMarquee />
             <FAQ />
         </main>
     );

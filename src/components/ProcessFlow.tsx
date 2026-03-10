@@ -3,7 +3,7 @@
 const steps = [
     {
         number: 1,
-        title: "Define Your Vision.",
+        title: <><>Define Your</><br /><span className="secondary-text">Vision.</span></>,
         desc: "We figure out what your brand should actually look like. Startups, institutes, personal brands. Everyone is welcome to confess their design sins. I turn that chaos into a clear direction.",
         icon: (
             <svg className="step-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -14,7 +14,7 @@ const steps = [
     },
     {
         number: 2,
-        title: "Submit Your Request.",
+        title: <><>Submit Your</><br /><span className="secondary-text">Request.</span></>,
         desc: "You drop everything into my design portal. No scattered screenshots. No late night voice notes. Just a clean brief and a clear starting point.",
         icon: (
             <svg className="step-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -25,7 +25,7 @@ const steps = [
     },
     {
         number: 3,
-        title: "Review & Refine.",
+        title: <><>Review &amp;</><br /><span className="secondary-text">Refine.</span></>,
         desc: "I present the strongest concept first. We refine it together until it feels right. Not endless revisions. Just smart improvements.",
         icon: (
             <svg className="step-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
