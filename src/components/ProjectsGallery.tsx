@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import ProjectCard from "./ProjectCard";
+import Link from "next/link";
 
 const projects = [
     {
@@ -112,30 +113,44 @@ const ProjectsGallery = () => {
     });
 
     return (
-        <section className="projects-section" id="projects">
+        <section className="projects-section py-32" id="projects">
             <div className="container container-wide">
                 <div className="gallery-header">
                     <div className="filter-nav">
                         {categories.map(cat => (
-                            <button
-                                key={cat.id}
-                                className={`filter-btn ${activeCategory === cat.id ? 'active' : ''} ${cat.id === 'logo-design' ? 'logo-glow-btn' : ''}`}
-                                onClick={() => setActiveCategory(cat.id)}
-                            >
-                                {cat.label}
-                            </button>
+                            cat.id === 'logo-design' ? (
+                                <Link
+                                    key={cat.id}
+                                    href="/projects/logo-design"
+                                    className="filter-btn logo-glow-btn"
+                                >
+                                    {cat.label}
+                                </Link>
+                            ) : (
+                                <button
+                                    key={cat.id}
+                                    className={`filter-btn ${activeCategory === cat.id ? 'active' : ''}`}
+                                    onClick={() => setActiveCategory(cat.id)}
+                                >
+                                    {cat.label}
+                                </button>
+                            )
                         ))}
                     </div>
 
                     <div className="sub-filter-nav">
-                        {niches.map(niche => (
-                            <button
-                                key={niche.id}
-                                className={`sub-filter-btn ${activeNiche === niche.id ? 'active' : ''}`}
-                                onClick={() => setActiveNiche(niche.id)}
-                            >
-                                {niche.label}
-                            </button>
+                        {niches.map((niche, index) => (
+                            <div key={niche.id} className="flex flex-wrap items-center gap-2">
+                                <button
+                                    className={`sub-filter-btn ${activeNiche === niche.id ? 'active' : ''}`}
+                                    onClick={() => setActiveNiche(niche.id)}
+                                >
+                                    {niche.label}
+                                </button>
+                                {index < niches.length - 1 && (
+                                    <span className="sub-filter-separator">|</span>
+                                )}
+                            </div>
                         ))}
                     </div>
                 </div>

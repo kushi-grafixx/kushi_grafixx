@@ -89,7 +89,7 @@ const LogoDesignGallery = () => {
     }, { scope: container, dependencies: [hasMounted] });
 
     return (
-        <div className="logo-design-page pt-32 pb-24" ref={container}>
+        <div className="logo-design-page pb-24" style={{ paddingTop: '160px' }} ref={container}>
             <div className="container mx-auto px-6 max-w-7xl">
                 <Link
                     href="/#projects"
@@ -105,52 +105,57 @@ const LogoDesignGallery = () => {
                     <p>
                         A curated collection of brand identities and logo marks crafted with precision and intention — each one a visual system in itself.
                     </p>
-                    <span className="count-badge">40 LOGOS</span>
                 </div>
 
                 {hasMounted && (
                     <div className="logo-row">
                         {logoIndices.map((num) => (
                             <div key={num} className="logo-card">
-                                <span className="card-num">#{num.toString().padStart(2, '0')}</span>
-                                <Image
-                                    src={`/assets/logos/${num}.png`}
-                                    alt={`Logo ${num}`}
-                                    width={300}
-                                    height={300}
-                                    style={{ objectFit: 'contain', width: '100%', height: '100%' }}
-                                />
+                                <div className="logo-image-wrapper bg-[#0a0a0a] rounded-[12px] p-6 sm:p-8 w-full flex items-center justify-center transition-transform hover:scale-[1.02] duration-300">
+                                    <img
+                                        src={`/assets/logos/${num}.png`}
+                                        alt={`Logo ${num}`}
+                                        className="w-full h-auto object-contain"
+                                        loading="lazy"
+                                    />
+                                </div>
                             </div>
                         ))}
                     </div>
                 )}
 
                 {/* Bottom Nav */}
-                <section className="cs-bottom-nav mt-24">
-                    <div className="flex justify-center gap-6">
-                        <button
-                            onClick={handleBackToTop}
-                            className="p-6 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-colors group relative"
-                        >
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M12 19V5M5 12l7-7 7 7" />
-                            </svg>
-                        </button>
-                        <Link
-                            href="/#projects"
-                            onClick={handleBackToProjects}
-                            className="p-6 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-colors group relative"
-                        >
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                                <polyline points="9 22 9 12 15 12 15 22" />
-                            </svg>
-                        </Link>
+                <section className="cs-bottom-nav">
+                    <div className="container">
+                        <div className="cs-nav-actions">
+                            <button
+                                onClick={handleBackToTop}
+                                className="cs-nav-btn btn-top"
+                                data-label="Back to Top"
+                            >
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M12 19V5M5 12l7-7 7 7" />
+                                </svg>
+                            </button>
+                            <Link
+                                href="/"
+                                onClick={handleBackToProjects}
+                                className="cs-nav-btn btn-home"
+                                data-label="Back to Home"
+                            >
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                    <polyline points="9 22 9 12 15 12 15 22" />
+                                </svg>
+                            </Link>
+                        </div>
                     </div>
                 </section>
             </div>
-            <style jsx>{`
+      <style jsx>{`
         /* ── Page-specific overrides ──────────────────────────────────────── */
+        :global(.side-dock) { display: none !important; }
+
         .logo-hero {
             padding-top: 5vh;
             padding-bottom: 3rem;
@@ -196,7 +201,7 @@ const LogoDesignGallery = () => {
         .logo-row {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: .9rem;
+            gap: 0.35rem;
         }
 
         @media (max-width: 1100px) {
@@ -221,56 +226,27 @@ const LogoDesignGallery = () => {
             border-radius: 12px;
             overflow: hidden;
             position: relative;
-            background: #111;
-            border: 1px solid transparent;
+            background: transparent;
+            border: none;
             cursor: pointer;
             will-change: transform, opacity;
             opacity: 0; 
             transform: translateY(24px);
-            transition: box-shadow .3s ease, border-color .3s ease, transform .3s ease;
+            transition: transform .3s ease;
             aspect-ratio: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
+            padding: 0;
         }
 
         .logo-card:hover {
-            box-shadow: 0 0 0 1px rgba(255, 42, 42, .4), 0 14px 40px rgba(255, 42, 42, .1);
-            border-color: rgba(255, 42, 42, .28);
-            transform: translateY(-3px) !important;
+            transform: translateY(-5px) !important;
         }
 
         /* Number badge */
-        .card-num {
-            position: absolute;
-            top: .6rem;
-            left: .6rem;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(6px);
-            border: 1px solid rgba(255, 255, 255, 0.09);
-            border-radius: 999px;
-            font-size: .66rem;
-            font-weight: 400;
-            color: rgba(255, 255, 255, 0.4);
-            padding: .16rem .5rem;
-            letter-spacing: .08em;
-            z-index: 10;
-        }
-
-        /* Hover red overlay */
         .logo-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, rgba(255, 42, 42, .06) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity .32s ease;
-            pointer-events: none;
-        }
-
-        .logo-card:hover::after {
-            opacity: 1;
+            display: none;
         }
       `}</style>
         </div>

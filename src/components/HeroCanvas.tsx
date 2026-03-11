@@ -276,13 +276,11 @@ const HeroCanvas = () => {
             const fadeStart = heroH * 0.30;
             const fadeEnd = heroH * 0.80;
             const y = window.scrollY;
-            scrollFade = Math.max(0, Math.min(1, (y - fadeStart) / (fadeEnd - fadeStart)));
+            
+            // Limit fade to 0.999 to guarantee shader always evaluates gracefully without arbitrary DOM toggles
+            scrollFade = Math.max(0, Math.min(0.999, (y - fadeStart) / (fadeEnd - fadeStart)));
             uniforms.uScrollFade.value = scrollFade;
             glowMat.uniforms.uScrollFade.value = scrollFade;
-
-            if (canvas) {
-                canvas.style.opacity = scrollFade >= 1 ? "0" : "1";
-            }
         };
         window.addEventListener("scroll", onScroll);
 
@@ -307,7 +305,6 @@ const HeroCanvas = () => {
         let rafId: number;
         const animate = () => {
             rafId = requestAnimationFrame(animate);
-            if (scrollFade >= 1) return;
 
             const t = clock.getElapsedTime();
             uniforms.uTime.value = t;

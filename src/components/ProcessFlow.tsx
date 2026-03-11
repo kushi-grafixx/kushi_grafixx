@@ -1,5 +1,12 @@
 "use client";
 
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const steps = [
     {
         number: 1,
@@ -36,8 +43,30 @@ const steps = [
 ];
 
 const ProcessFlow = () => {
+    const container = useRef<HTMLDivElement>(null);
+
+    useGSAP(() => {
+        const steps = gsap.utils.toArray(".process-step", container.current);
+        
+        gsap.fromTo(steps, 
+            { y: 50, opacity: 0 },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 0.8,
+                stagger: 0.3,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: container.current,
+                    start: "top 80%",
+                    toggleActions: "play none none reverse"
+                }
+            }
+        );
+    }, { scope: container });
+
     return (
-        <div className="process-grid-new mt-12">
+        <div className="process-grid-new mt-12" ref={container}>
             <div className="timeline-line-new"></div>
             <div className="process-steps-grid">
                 {steps.map((step, i) => (
@@ -48,9 +77,9 @@ const ProcessFlow = () => {
                         <div className="timeline-point-new">
                             <div className="timeline-badge-new">{step.number}</div>
                         </div>
-                        <div className="process-content-new">
-                            <h3>{step.title}</h3>
-                            <p className="secondary-text mt-4">{step.desc}</p>
+                        <div className="process-content-new flex flex-col justify-center py-6 px-4 md:px-8">
+                            <h3 className="mb-4">{step.title}</h3>
+                            <p className="secondary-text leading-relaxed">{step.desc}</p>
                         </div>
                     </div>
                 ))}

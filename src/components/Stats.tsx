@@ -9,16 +9,20 @@ gsap.registerPlugin(ScrollTrigger);
 
 const JackpotStat = ({ value }: { value: string }) => {
     const container = useRef(null);
-    const numbers = "0123456789".split("");
+    // Duplicate array to ensure even '0' has a satisfying spin
+    const numbers = "01234567890123456789".split("");
 
     useGSAP(() => {
         const reels = gsap.utils.toArray(".jackpot-reel", container.current);
 
-        reels.forEach((reel: any) => {
-            const target = reel.getAttribute("data-target");
+        reels.forEach((reel: any, index: number) => {
+            const rawTarget = parseInt(reel.getAttribute("data-target") || "0", 10);
+            const target = rawTarget + 10; // Always land on the 2nd instance for a full spin
+
             gsap.to(reel, {
-                y: `-${target * 10}%`,
-                duration: 2.5,
+                y: `-${target}em`, // use accurate em instead of % to perfectly align to the 1em tall spans
+                duration: 2.5 + (index * 0.2), // Optional stagger feel per reel
+
                 ease: "power4.out",
                 scrollTrigger: {
                     trigger: container.current,
@@ -71,7 +75,6 @@ const Stats = ({ inline = false }: { inline?: boolean }) => {
                         </h3>
                         <p className="stat-desc">{stat.desc}</p>
                     </div>
-                    {i < stats.length - 1 && <div className="stat-divider"></div>}
                 </React.Fragment>
             ))}
         </div>

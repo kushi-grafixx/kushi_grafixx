@@ -65,7 +65,7 @@ const Hero = () => {
                     Available for Work
                 </div>
                 <h1 className="hero-title">
-                    <span className="line-wrapper"><span className="line-inner">Your brand called.</span></span><br />
+                    <span className="line-wrapper"><span className="line-inner">Your brand called.</span></span>
                     <span className="line-wrapper"><span className="line-inner">It needs help.</span></span>
                 </h1>
                 <p className="hero-subtitle" id="hero-subtitle" style={{ opacity: 0 }}>

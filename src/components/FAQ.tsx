@@ -68,17 +68,21 @@ const FaqItem = ({ q, a }: { q: string; a: string }) => {
         <div className={`faq-item ${isOpen ? 'active' : ''}`}>
             {/* Client question — scroll-revealed by GSAP */}
             <div
-                className="chat-msg client faq-client-msg"
+                className="chat-msg client faq-client-msg flex-nowrap"
                 onClick={() => setIsOpen(!isOpen)}
-                style={{ cursor: 'pointer', opacity: 0, transform: 'translateY(16px)' }}
+                style={{ opacity: 0, transform: 'translateY(16px)' }}
             >
-                <span className="faq-toggle">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                        <line x1="12" y1="5" x2="12" y2="19" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-                        <line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+                {/* The Pill Content */}
+                <div className="chat-bubble faq-pill flex items-center justify-between no-select shrink-1">
+                    <span className="faq-question-text font-medium text-left">{q}</span>
+                </div>
+
+                {/* The Toggle Icon - Sits OUTSIDE the pill, to the Right */}
+                <div className="faq-toggle-icon shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-white/5 border border-white/10 transition-colors duration-300 ml-3">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="transition-transform duration-300 transform">
+                        <polyline points="6 9 12 15 18 9" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
-                </span>
-                <div className="chat-bubble">{q}</div>
+                </div>
             </div>
 
             {/* Kushi answer — hidden by CSS until .active, then CSS-animated in */}

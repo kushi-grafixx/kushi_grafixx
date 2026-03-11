@@ -111,7 +111,7 @@ const ServicesGrid = () => {
     };
 
     return (
-        <section className="services-section py-20" id="services">
+        <section className="services-section py-32" id="services">
             <div className="container container-wide">
                 <h2 className="section-title text-center">Services</h2>
 

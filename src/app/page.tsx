@@ -17,10 +17,10 @@ export default function Home() {
             <ProjectsGallery />
             <ServicesGrid />
 
-            <section id="process" className="py-20 bg-black">
+            <section id="process" className="py-32 bg-black">
                 <div className="container container-wide">
                     <h2 className="section-title text-center">The KG Workflow</h2>
-                    <p className="text-center text-white/40 max-w-2xl mx-auto mb-12">
+                    <p className="text-center text-white/40 max-w-2xl mx-auto mb-16">
                         A simple, no-nonsense workflow that keeps things clean, fast, and drama-free.
                     </p>
                     <ProcessFlow />
@@ -29,14 +29,16 @@ export default function Home() {
 
             <AboutSection />
 
-            {/* Testimonials heading + Stats card, then the scrolling marquee */}
-            <section id="testimonials" style={{ paddingTop: '8rem', paddingBottom: '2rem', background: '#000' }}>
-                <div className="container container-wide">
+            {/* Testimonials marquee first, then the stats */}
+            <section id="testimonials" className="pt-32 pb-16 bg-black">
+                <div className="container container-wide mb-8">
                     <h2 className="section-title text-center heading-split">Don&apos;t just take my word for it.</h2>
+                </div>
+                <Testimonials hideHeading />
+                <div className="container container-wide mt-8 flex justify-center">
                     <Stats inline />
                 </div>
             </section>
-            <Testimonials hideHeading />
 
             <TagsMarquee />
             <FAQ />

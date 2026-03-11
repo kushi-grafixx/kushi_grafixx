@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const navItems = [
     {
@@ -75,6 +76,7 @@ const navItems = [
 const SideDock = () => {
     const [activeTab, setActiveTab] = useState("home");
     const [indicatorY, setIndicatorY] = useState(0);
+    const pathname = usePathname();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -128,6 +130,15 @@ const SideDock = () => {
                         href={`#${item.id}`}
                         className={`dock-icon ${activeTab === item.id ? 'active' : ''}`}
                         data-tooltip={item.label}
+                        onClick={(e) => {
+                            if (pathname === '/') {
+                                e.preventDefault();
+                                const target = document.getElementById(item.id);
+                                if (target) {
+                                    target.scrollIntoView({ behavior: 'smooth' });
+                                }
+                            }
+                        }}
                     >
                         {item.icon}
                     </Link>

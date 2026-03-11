@@ -10,18 +10,17 @@ const Preloader = () => {
         // Prevent scrolling while loading
         document.body.style.overflow = 'hidden';
 
-        let progress = 0;
         const fillEl = document.querySelector('.kushi-preloader-fill') as HTMLElement;
         const preloader = document.getElementById('kushi-preloader');
 
         if (!fillEl || !preloader) return;
 
-        const interval = setInterval(() => {
-            progress += Math.random() * 15 + 5; // increment random amount
-            if (progress >= 100) {
-                progress = 100;
-                clearInterval(interval);
-
+        // Smooth continuous fill animation
+        gsap.to(fillEl, {
+            clipPath: "inset(0% 0 0 0)",
+            duration: 2.0,
+            ease: "power2.inOut",
+            onComplete: () => {
                 // Allow a small pause at 100% before fading out
                 setTimeout(() => {
                     gsap.to(preloader, {
@@ -31,17 +30,13 @@ const Preloader = () => {
                         onComplete: () => {
                             setIsLoaded(true);
                             document.body.style.overflow = '';
-
                             // 1. Trigger Symbiote Formation & Hero Animations
                             window.dispatchEvent(new CustomEvent("kg-preloader-finished"));
                         }
                     });
-                }, 400);
+                }, 300);
             }
-            if (fillEl) fillEl.style.clipPath = `inset(${100 - progress}% 0 0 0)`;
-        }, 120);
-
-        return () => clearInterval(interval);
+        });
     }, []);
 
     if (isLoaded) return null;

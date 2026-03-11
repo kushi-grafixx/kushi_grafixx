@@ -304,7 +304,7 @@ const Footer = () => {
                             alt="Kushi Grafixx"
                             width={480}
                             height={200}
-                            className="fv3-big-logo"
+                            className="fv3-big-logo relative z-10 p-4 md:p-8"
                             id="fv3-big-logo"
                         />
                         <canvas
