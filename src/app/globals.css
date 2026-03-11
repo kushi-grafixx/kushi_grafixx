@@ -1419,7 +1419,22 @@ body {
     position: relative;
 }
 
+.process-steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    position: relative;
+}
+
+@media (min-width: 768px) {
+    .process-steps-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+    }
+}
+
 .timeline-line-new {
+    display: none;
     position: absolute;
     top: 8.375rem;
     left: 4rem;
@@ -1427,6 +1442,12 @@ body {
     height: 1px;
     background: linear-gradient(90deg, transparent, #ff2a2a, transparent);
     z-index: 1;
+}
+
+@media (min-width: 768px) {
+    .timeline-line-new {
+        display: block;
+    }
 }
 
 .process-step {
