@@ -2,16 +2,24 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import HeroCanvas from "./HeroCanvas";
 
 const Hero = () => {
     const container = useRef(null);
+    const [preloaderDone, setPreloaderDone] = useState(false);
+
+    useEffect(() => {
+        const handler = () => setPreloaderDone(true);
+        window.addEventListener("kg-preloader-finished", handler);
+        return () => window.removeEventListener("kg-preloader-finished", handler);
+    }, []);
 
     useGSAP(() => {
-        const tl = gsap.timeline({ delay: 0.2 });
+        if (!preloaderDone) return;
 
-        // Pill entry
+        const tl = gsap.timeline({ delay: 0.1 });
+
         tl.to("#hero-pill", {
             y: 0,
             opacity: 1,
@@ -19,7 +27,6 @@ const Hero = () => {
             ease: "power3.out"
         });
 
-        // Split text animation for title
         tl.to(".hero-title .line-inner", {
             y: "0%",
             duration: 0.85,
@@ -27,7 +34,6 @@ const Hero = () => {
             ease: "power3.out"
         }, "-=0.3");
 
-        // Subtitle entry
         tl.to("#hero-subtitle", {
             y: 0,
             opacity: 1,
@@ -35,7 +41,7 @@ const Hero = () => {
             ease: "power3.out"
         }, "-=0.4");
 
-    }, { scope: container });
+    }, { scope: container, dependencies: [preloaderDone] });
 
     return (
         <section className="hero" ref={container} id="home">

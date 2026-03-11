@@ -16,7 +16,6 @@ export default function Home() {
             <ClientMarquee />
             <ProjectsGallery />
             <ServicesGrid />
-            <Stats />
 
             <section id="process" className="py-20 bg-black">
                 <div className="container container-wide">
@@ -30,6 +29,7 @@ export default function Home() {
 
             <AboutSection />
             <Testimonials />
+            <Stats />
             <TagsMarquee />
             <FAQ />
         </main>

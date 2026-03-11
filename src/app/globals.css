@@ -45,6 +45,11 @@
         margin-bottom: 1em;
     }
 
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
     :root {
         --background: #0a0a0a;
         --foreground: #ffffff;
@@ -367,19 +372,155 @@ body {
 .fv3-box-logo {
     background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
     background-size: 22px 22px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.fv3-logo-inner {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3.5rem;
+    overflow: hidden;
 }
 
 .fv3-big-logo {
     width: 100%;
+    max-width: 480px;
+    height: auto;
+    object-fit: contain;
     filter: grayscale(100%) brightness(0.9);
     opacity: 0.65;
-    transition: filter 0.6s ease, opacity 0.6s ease, transform 0.6s ease;
+    transition: filter 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    z-index: 2;
 }
 
 .fv3-box-logo:hover .fv3-big-logo {
     filter: grayscale(0%) brightness(1);
     opacity: 1;
     transform: scale(1.04);
+}
+
+.fv3-box-logo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(255, 42, 42, 0.08) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+}
+
+.fv3-box-logo:hover::after {
+    opacity: 1;
+}
+
+/* Hold to unlock hint */
+.fv3-box-logo::before {
+    content: 'Hold to unlock';
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.25);
+    pointer-events: none;
+    white-space: nowrap;
+    transition: opacity 0.3s ease;
+    opacity: 1;
+    z-index: 5;
+}
+
+.fv3-box-logo.holding::before {
+    opacity: 0;
+}
+
+/* Liquid fill canvas */
+.fv3-liquid-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 4;
+}
+
+.fv3-box-logo.holding .fv3-liquid-canvas {
+    opacity: 1;
+}
+
+/* Easter Egg Popup */
+.fv3-easter-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 9000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.fv3-easter-backdrop.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.fv3-easter-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.88);
+    z-index: 9001;
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    width: min(520px, 92vw);
+    min-height: 280px;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 40px 80px -10px rgba(0, 0, 0, 0.9), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.fv3-easter-popup.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.fv3-easter-close {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, color 0.2s ease;
+    font-family: inherit;
+}
+
+.fv3-easter-close:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
 }
 
 .fv3-bottom-bar {
@@ -395,12 +536,33 @@ body {
 }
 
 .fv3-coming-soon {
+    display: inline-block;
     background: #e62020;
     color: #fff;
     font-size: 0.58rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     padding: 0.22rem 0.55rem;
     border-radius: 20px;
     transform: rotate(-10deg);
+    transform-origin: left center;
+    position: absolute;
+    top: 0.85rem;
+    right: 0;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(230, 32, 32, 0.45);
+    animation: sticker-float 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes sticker-float {
+    0%, 100% { transform: rotate(-10deg) translateY(0px); }
+    50% { transform: rotate(-10deg) translateY(-2px); }
+}
+
+.fv3-division-entry {
+    position: relative;
 }
 
 /* --- Hero Section --- */
@@ -669,6 +831,19 @@ body {
     color: var(--text-muted);
     font-size: 0.85rem;
     transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.filter-btn:hover,
+.sub-filter-btn:hover {
+    color: white;
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+.filter-btn:active,
+.sub-filter-btn:active {
+    transform: scale(0.96);
 }
 
 .filter-btn.active,
@@ -678,18 +853,50 @@ body {
     border-color: white;
 }
 
+@property --ring-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
 .logo-glow-btn {
     position: relative;
     overflow: hidden;
+    border: 1px solid rgba(255, 42, 42, 0.25);
+    color: #ff2a2a;
+    z-index: 0;
 }
 
 .logo-glow-btn::before {
     content: '';
     position: absolute;
-    inset: -2px;
-    background: conic-gradient(from var(--ring-angle, 0deg), transparent 70%, #ff2a2a, transparent);
+    inset: -1px;
+    border-radius: inherit;
+    background: conic-gradient(from var(--ring-angle),
+            transparent 0deg,
+            transparent 250deg,
+            #ff2a2a 275deg,
+            #ff6060 300deg,
+            #ff2a2a 325deg,
+            transparent 350deg);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    padding: 1.5px;
     animation: ring-spin 2.2s linear infinite;
+    filter: blur(0.3px);
     z-index: -1;
+}
+
+.logo-glow-btn:hover {
+    color: #ff2a2a;
+    background: rgba(255, 42, 42, 0.05);
+    box-shadow: 0 0 16px rgba(255, 42, 42, 0.12);
 }
 
 @keyframes ring-spin {
@@ -1056,6 +1263,71 @@ body {
     border-right: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
     flex-direction: column;
+    transition: background 0.4s ease;
+}
+
+.faq-item:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.faq-item .chat-msg.client {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.faq-item .chat-msg.client:hover {
+    transform: translateY(-2px);
+}
+
+.faq-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-bottom: 0.5rem;
+}
+
+.faq-item.active .faq-toggle {
+    background: #ffffff;
+    border-color: #ffffff;
+    color: #000000;
+    transform: rotate(90deg);
+}
+
+.faq-item.active .faq-toggle .faq-icon-v {
+    opacity: 0;
+}
+
+.faq-item.active .chat-msg.client .chat-bubble {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.faq-item .chat-msg.kushi {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition:
+        max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.3s ease 0.05s,
+        margin 0.4s ease;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.faq-item.active .chat-msg.kushi {
+    max-height: 800px;
+    opacity: 1;
+    margin-top: 10px;
+    margin-bottom: 15px;
 }
 
 .faq-item:nth-child(2n) {
@@ -1150,34 +1422,58 @@ body {
 
 .timeline-line-new {
     position: absolute;
-    top: 60px;
-    left: 10%;
-    right: 10%;
+    top: 8.375rem;
+    left: 4rem;
+    right: 4rem;
     height: 1px;
-    background: rgba(255, 255, 255, 0.08);
+    background: linear-gradient(90deg, transparent, #ff2a2a, transparent);
+    z-index: 1;
 }
 
 .process-step {
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    z-index: 3;
+    transition: transform 0.4s ease;
+}
+
+.process-step:hover {
+    transform: translateY(-8px);
 }
 
 .step-icon-wrapper {
-    width: 56px;
-    height: 56px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    box-shadow: 0 10px 30px -10px rgba(255, 42, 42, 0.15);
+    transition: all 0.4s ease;
+}
+
+.process-step:hover .step-icon-wrapper {
+    border-color: var(--accent);
+    box-shadow: 0 10px 40px -10px rgba(255, 42, 42, 0.4);
+    transform: scale(1.05);
+}
+
+.process-step:hover .step-svg {
+    animation: iconPulse 1s ease infinite alternate;
+}
+
+@keyframes iconPulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(1.15); opacity: 1; }
 }
 
 .step-svg {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     display: block;
     flex-shrink: 0;
     color: rgba(255, 255, 255, 0.6);
@@ -1187,6 +1483,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 64px;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 3;
 }
 
 .timeline-badge-new {
@@ -1194,7 +1494,7 @@ body {
     height: 32px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid var(--accent);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1480,4 +1780,15 @@ body {
 
 .tags-marquee-right {
     animation: marqueeRight 50s linear infinite;
+}
+/* ── Preloader Fill ─────────────────────────────────────────────────── */
+.kushi-preloader-fill {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/kushi_icon_red.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    clip-path: inset(100% 0 0 0);
 }

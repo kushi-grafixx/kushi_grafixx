@@ -13,7 +13,7 @@ const Preloader = () => {
             onComplete: () => setIsLoaded(true)
         });
 
-        // Fill the icon
+        // Fill the icon using clip-path animation
         tl.to(".kushi-preloader-fill", {
             clipPath: "inset(0% 0 0 0)",
             duration: 1.5,
@@ -51,24 +51,8 @@ const Preloader = () => {
                     height={64}
                     className="kushi-preloader-outline absolute w-full h-full object-contain opacity-15 grayscale"
                 />
-                <div className="kushi-preloader-fill absolute w-full h-full bg-[#ff3c3c] clip-path-inset-full">
-                    {/* Using a background image trick similar to original */}
-                    <div
-                        className="w-full h-full"
-                        style={{
-                            backgroundImage: "url('/assets/kushi_icon_red.png')",
-                            backgroundSize: 'contain',
-                            backgroundRepeat: 'no-repeat',
-                            backgroundPosition: 'bottom'
-                        }}
-                    />
-                </div>
+                <div className="kushi-preloader-fill" />
             </div>
-            <style jsx>{`
-        .clip-path-inset-full {
-             clip-path: inset(100% 0 0 0);
-        }
-      `}</style>
         </div>
     );
 };
