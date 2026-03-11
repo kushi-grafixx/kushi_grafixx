@@ -40,7 +40,8 @@ const CustomCursor = () => {
     return (
         <div
             ref={cursorRef}
-            className="cursor-dot fixed top-0 left-0 w-4 h-4 bg-[#555555] rounded-full pointer-events-none z-[99999] -translate-x-1/2 -translate-y-1/2 mix-blend-exclusion transition-transform duration-200"
+            style={{ opacity: 0 }}
+            className="cursor-dot fixed top-0 left-0 w-4 h-4 bg-white rounded-full pointer-events-none z-[99999] -translate-x-1/2 -translate-y-1/2 mix-blend-exclusion transition-transform duration-200"
         />
     );
 };

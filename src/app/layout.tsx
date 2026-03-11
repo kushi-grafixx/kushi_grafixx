@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className="scroll-smooth">
-            <body className={`${outfit.variable} font-sans antialiased bg-black text-white`}>
+            <body className={`${outfit.variable} antialiased bg-black text-white`} style={{ fontFamily: 'var(--font-outfit), sans-serif' }}>
                 <Preloader />
                 <CustomCursor />
                 <Navbar />

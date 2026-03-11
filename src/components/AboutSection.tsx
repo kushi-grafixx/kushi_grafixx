@@ -27,7 +27,7 @@ const AboutSection = () => {
                         <div className="experience-list space-y-6 mb-12">
                             {experience.map((exp, i) => (
                                 <div key={i} className="exp-item border-b border-white/5 pb-4">
-                                    <div className="flex justify-between items-end">
+                                    <div className="flex justify-between items-start">
                                         <div>
                                             <div className="exp-role text-white font-medium">{exp.role}</div>
                                             <div className="exp-company text-white/40">{exp.company}</div>

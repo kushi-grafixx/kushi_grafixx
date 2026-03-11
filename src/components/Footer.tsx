@@ -11,10 +11,10 @@ const Footer = () => {
     const backdropRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const logoBox = logoBoxRef.current;
-        const liquidCanvas = canvasRef.current;
-        const easterPopup = popupRef.current;
-        const easterBd = backdropRef.current;
+        const logoBox = logoBoxRef.current as HTMLDivElement;
+        const liquidCanvas = canvasRef.current as HTMLCanvasElement;
+        const easterPopup = popupRef.current as HTMLDivElement;
+        const easterBd = backdropRef.current as HTMLDivElement;
 
         if (!logoBox || !liquidCanvas || !easterPopup || !easterBd) return;
 
