@@ -59,6 +59,57 @@ body {
     overflow-x: hidden;
 }
 
+/* Reset link styles — prevent browser default underline / blue colour */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* @property for logo-glow conic-gradient animation */
+@property --ring-angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+}
+
+/* --- Preloader --- */
+#kushi-preloader {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+}
+
+.kushi-preloader-wrapper {
+    position: relative;
+    width: 110px;
+    height: 110px;
+}
+
+.kushi-preloader-outline {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0.18;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+.kushi-preloader-fill {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background-image: url('/assets/kushi_icon_red.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    clip-path: inset(100% 0 0 0);
+}
+
 /* Base custom cursor styles from vanilla project */
 .cursor-dot {
     pointer-events: none;
@@ -392,15 +443,6 @@ body {
 .fv3-copy {
     font-size: 0.8rem;
     color: rgba(255, 255, 255, 0.25);
-}
-
-.fv3-coming-soon {
-    background: #e62020;
-    color: #fff;
-    font-size: 0.58rem;
-    padding: 0.22rem 0.55rem;
-    border-radius: 20px;
-    transform: rotate(-10deg);
 }
 
 /* --- Hero Section --- */
@@ -741,11 +783,15 @@ body {
     display: flex;
     align-items: flex-start;
     gap: 1.25rem;
-    transition: transform 0.3s ease;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s ease;
 }
 
 .lb-service-item:hover {
-    transform: translateX(5px);
+    transform: translateX(5px) scale(1.02);
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .lb-icon-box {
@@ -756,13 +802,19 @@ body {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    transition: transform 0.4s ease, filter 0.4s ease;
 }
 
 .lb-icon-box svg {
-    width: 20px;
-    height: 20px;
+    width: 26px;
+    height: 26px;
     display: block;
     flex-shrink: 0;
+}
+
+.lb-service-item:hover .lb-icon-box {
+    transform: scale(1.1) rotate(5deg);
+    filter: brightness(1.3);
 }
 
 .lb-feature-cell {
@@ -1165,9 +1217,9 @@ body {
 .timeline-line-new {
     display: none;
     position: absolute;
-    top: 8.375rem;
-    left: 4rem;
-    right: 4rem;
+    top: 2rem;
+    left: 0;
+    right: 0;
     height: 1px;
     background: linear-gradient(90deg, transparent, #ff2a2a, transparent);
     z-index: 1;
@@ -1556,4 +1608,430 @@ body {
 
 .tags-marquee-right {
     animation: marqueeRight 50s linear infinite;
+}
+
+/* ─── FAQ: answers hidden until question clicked ────────────────────────── */
+.chat-msg.kushi {
+    display: none;
+}
+
+.faq-item.active .chat-msg.kushi {
+    display: flex;
+    animation: chatReveal 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes chatReveal {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* FAQ toggle icon rotation */
+.faq-item.active .faq-toggle svg {
+    transform: rotate(45deg);
+}
+
+.faq-toggle svg {
+    transition: transform 0.3s ease;
+}
+
+/* ─── Footer Liquid Fill Easter Egg ───────────────────────────────────────── */
+.fv3-logo-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    overflow: hidden;
+    border-radius: 12px;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.fv3-liquid-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    border-radius: 12px;
+}
+
+.fv3-box-logo.holding {
+    cursor: grabbing;
+}
+
+.fv3-box-logo.holding .fv3-big-logo {
+    filter: grayscale(0%) brightness(1) !important;
+    opacity: 1 !important;
+}
+
+.fv3-easter-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.85);
+    background: #111;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    padding: 3rem;
+    z-index: 10000;
+    width: min(90vw, 400px);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.fv3-easter-popup.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.fv3-easter-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.fv3-easter-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.fv3-easter-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.fv3-easter-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+/* ─── Filter/Sub-filter button micro-interactions ────────────────────────── */
+.filter-btn,
+.sub-filter-btn {
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.filter-btn:hover,
+.sub-filter-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.filter-btn:active,
+.sub-filter-btn:active {
+    transform: scale(0.95);
+}
+
+.filter-btn.active,
+.sub-filter-btn.active {
+    transform: none;
+}
+
+/* ─── Services: process-steps alignment ─────────────────────────────────── */
+.process-steps-grid {
+    align-items: start;
+}
+
+/* ─── Gallery card images — no stretching ───────────────────────────────── */
+.card-content-v2 img {
+    object-fit: contain;
+    max-width: 80%;
+    max-height: 80%;
+    width: auto;
+    height: auto;
+}
+
+/* For silhouette card — allow fill */
+.bg-silhouette-v2 img {
+    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 100%;
+}
+
+/* ─── Testimonials + Stats side-by-side layout ───────────────────────────── */
+.reviews-stats-wrapper {
+    position: relative;
+    z-index: 2;
+}
+
+/* ─── Navbar / Footer link fix (belt-and-suspenders) ────────────────────── */
+.nav-links a,
+.fv3-list li a,
+.fv3-social-link,
+.fv3-book-btn,
+.cta-pill {
+    text-decoration: none;
+}
+
+.lb-service-text h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 0.25rem;
+}
+
+.lb-service-text p {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.45);
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* ─── Case Study Pages ─────────────────────────────────────────────────── */
+.case-study-page {
+    background: #050505;
+    color: #e0e0e0;
+}
+
+.case-study-bg {
+    padding-top: 100px;
+    padding-bottom: 60px;
+}
+
+.cs-hero {
+    margin-bottom: 4rem;
+}
+
+.cs-hero-image-wrapper {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #111;
+}
+
+.cs-hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.02);
+}
+
+.cs-text-section {
+    margin-bottom: 6rem;
+}
+
+.cs-content-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.cs-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    margin-bottom: 2.5rem;
+    letter-spacing: -0.02em;
+    color: white;
+    font-weight: 600;
+}
+
+.cs-body p {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    color: var(--text-muted);
+}
+
+.cs-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.cs-tag {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--rounded-pill);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+}
+
+.cs-gallery-section {
+    margin-bottom: 6rem;
+}
+
+.waterfall-grid {
+    column-count: 2;
+    column-gap: 1.5rem;
+    width: 100%;
+}
+
+.waterfall-grid img,
+.waterfall-grid .cs-gallery-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    break-inside: avoid;
+    display: block;
+}
+
+.cs-bottom-nav {
+    padding: 4rem 0;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.cs-nav-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.cs-nav-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0;
+    overflow: visible;
+    transition:
+        background 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+        border-color 0.3s ease,
+        color 0.3s ease,
+        transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.4s ease;
+}
+
+.cs-nav-btn::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    opacity: 0;
+    transform: scale(0.85);
+    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+}
+
+.cs-nav-btn::after {
+    content: attr(data-label);
+    position: absolute;
+    bottom: calc(100% + 14px);
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: rgba(15, 15, 15, 0.96);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.6px;
+    white-space: nowrap;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.cs-nav-btn svg {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.cs-nav-btn:hover {
+    background: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+    transform: scale(1.14);
+    box-shadow: 0 0 28px rgba(255, 255, 255, 0.22), 0 10px 28px rgba(0, 0, 0, 0.45);
+}
+
+.cs-nav-btn:hover::before {
+    opacity: 1;
+    transform: scale(1.18);
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+.cs-nav-btn:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+@keyframes csNavBounceUp {
+    0%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-6px); }
+    65% { transform: translateY(-2px); }
+}
+
+@keyframes csNavSlideLeft {
+    0%, 100% { transform: translateX(0); }
+    40% { transform: translateX(-6px); }
+    65% { transform: translateX(-1px); }
+}
+
+.cs-nav-btn.btn-top:hover svg {
+    animation: csNavBounceUp 0.7s ease infinite;
+}
+
+.cs-nav-btn.btn-home:hover svg {
+    animation: csNavSlideLeft 0.7s ease infinite;
+}
+
+.cs-nav-btn:active {
+    transform: scale(0.94);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+@media (max-width: 768px) {
+    .waterfall-grid {
+        column-count: 1;
+    }
 }

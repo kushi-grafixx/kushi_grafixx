@@ -16,7 +16,6 @@ export default function Home() {
             <ClientMarquee />
             <ProjectsGallery />
             <ServicesGrid />
-            <Stats />
 
             <section id="process" className="py-20 bg-black">
                 <div className="container container-wide">
@@ -29,7 +28,16 @@ export default function Home() {
             </section>
 
             <AboutSection />
-            <Testimonials />
+
+            {/* Testimonials heading + Stats card, then the scrolling marquee */}
+            <section id="testimonials" style={{ paddingTop: '8rem', paddingBottom: '2rem', background: '#000' }}>
+                <div className="container container-wide">
+                    <h2 className="section-title text-center heading-split">Don&apos;t just take my word for it.</h2>
+                    <Stats inline />
+                </div>
+            </section>
+            <Testimonials hideHeading />
+
             <TagsMarquee />
             <FAQ />
         </main>

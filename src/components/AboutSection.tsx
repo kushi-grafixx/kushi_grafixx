@@ -19,30 +19,24 @@ const AboutSection = () => {
             <div className="container container-wide">
                 <div className="about-grid">
                     <div className="about-text">
-                        <h2 className="section-title mb-8">Meet Kushi</h2>
-                        <p className="bio text-xl text-white/60 leading-relaxed mb-10">
+                        <h2 className="section-title heading-split">Meet Kushi</h2>
+                        <p className="bio">
                             I’m Kushi, the designer brands accidentally stick with for years. I build identities that look premium, feel intentional, and make people say “who designed this?” (I promise I won’t expose the “temporary logo” you used for 2 years.)
                         </p>
 
-                        <div className="experience-list space-y-6 mb-12">
+                        <div className="experience-list">
                             {experience.map((exp, i) => (
-                                <div key={i} className="exp-item border-b border-white/5 pb-4">
-                                    <div className="flex justify-between items-end">
-                                        <div>
-                                            <div className="exp-role text-white font-medium">{exp.role}</div>
-                                            <div className="exp-company text-white/40">{exp.company}</div>
-                                        </div>
-                                        <div className="exp-date text-white/30 text-sm whitespace-nowrap">{exp.date}</div>
-                                    </div>
+                                <div key={i} className="exp-item">
+                                    <div className="exp-role">{exp.role}</div>
+                                    <div className="exp-company">{exp.company}</div>
+                                    <div className="exp-date">{exp.date}</div>
                                 </div>
                             ))}
                         </div>
 
-                        <div className="skill-pills flex flex-wrap gap-3">
+                        <div className="skill-pills">
                             {skills.map((skill, i) => (
-                                <span key={i} className="px-4 py-2 rounded-full border border-white/10 bg-white/5 text-sm text-white/60">
-                                    {skill}
-                                </span>
+                                <span key={i}>{skill}</span>
                             ))}
                         </div>
                     </div>

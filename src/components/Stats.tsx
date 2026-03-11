@@ -60,23 +60,29 @@ const stats = [
     { value: "6+", desc: "Years of designing at unhealthy zoom levels." }
 ];
 
-const Stats = () => {
+const Stats = ({ inline = false }: { inline?: boolean }) => {
+    const card = (
+        <div className="stats-card">
+            {stats.map((stat, i) => (
+                <React.Fragment key={i}>
+                    <div className="stat-item">
+                        <h3 className="stat-number jackpot-text">
+                            <JackpotStat value={stat.value} />
+                        </h3>
+                        <p className="stat-desc">{stat.desc}</p>
+                    </div>
+                    {i < stats.length - 1 && <div className="stat-divider"></div>}
+                </React.Fragment>
+            ))}
+        </div>
+    );
+
+    if (inline) return card;
+
     return (
         <section className="stats-section">
             <div className="container container-wide">
-                <div className="stats-card">
-                    {stats.map((stat, i) => (
-                        <React.Fragment key={i}>
-                            <div className="stat-item">
-                                <h3 className="stat-number jackpot-text">
-                                    <JackpotStat value={stat.value} />
-                                </h3>
-                                <p className="stat-desc">{stat.desc}</p>
-                            </div>
-                            {i < stats.length - 1 && <div className="stat-divider"></div>}
-                        </React.Fragment>
-                    ))}
-                </div>
+                {card}
             </div>
         </section>
     );

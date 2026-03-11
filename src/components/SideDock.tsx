@@ -96,25 +96,31 @@ const SideDock = () => {
 
             if (currentSection) {
                 setActiveTab(currentSection);
-                const index = navItems.findIndex(item => item.id === currentSection);
-                if (index !== -1) {
-                    // Approximate calculation based on padding and gap
-                    setIndicatorY(index * 66); // 44px height + 22px gap
+
+                // Real DOM calculation for indicator position
+                const dock = document.querySelector('.side-dock');
+                const activeLink = document.querySelector(`.dock-icon[href="#${currentSection}"]`);
+                const indicator = document.querySelector('.dock-indicator') as HTMLElement;
+
+                if (dock && activeLink && indicator) {
+                    const dockRect = dock.getBoundingClientRect();
+                    const linkRect = activeLink.getBoundingClientRect();
+                    const offset = linkRect.top - dockRect.top;
+                    indicator.style.transform = `translateY(${offset}px)`;
                 }
             }
         };
 
         window.addEventListener("scroll", handleScroll);
-        handleScroll();
+        // Small delay to ensure DOM is rendered before first calculation
+        setTimeout(handleScroll, 100);
+
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
     return (
         <nav className="side-dock">
-            <div
-                className="dock-indicator"
-                style={{ transform: `translateY(${indicatorY}px)` }}
-            />
+            <div className="dock-indicator" />
             {navItems.map((item, index) => (
                 <div key={item.id}>
                     {index === 1 && <div className="dock-divider" />}

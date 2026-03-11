@@ -3,7 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { motion, Variants } from "framer-motion";
+import { motion } from "framer-motion";
+import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
@@ -33,30 +35,61 @@ const LogoDesignGallery = () => {
         }
     };
 
-    const containerVariants: Variants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.05
-            }
-        }
-    };
+    const container = useRef(null);
 
-    const itemVariants: Variants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: 0.5,
-                ease: "easeOut"
+    useGSAP(() => {
+        if (!hasMounted) return;
+
+        const allCards = gsap.utils.toArray('.logo-card');
+        
+        // Split cards into viewport vs below fold
+        const viewportHeight = window.innerHeight;
+        const initialCards: any[] = [];
+        const scrollCards: any[] = [];
+
+        allCards.forEach((card: any) => {
+            const rect = card.getBoundingClientRect();
+            if (rect.top < viewportHeight + 100) {
+                initialCards.push(card);
+            } else {
+                scrollCards.push(card);
             }
+        });
+
+        // Intro stagger for in-view
+        if (initialCards.length > 0) {
+            gsap.to(initialCards, {
+                opacity: 1,
+                y: 0,
+                duration: 0.5,
+                stagger: {
+                    grid: "auto",
+                    from: "start",
+                    amount: 0.8
+                },
+                ease: "power2.out"
+            });
         }
-    };
+
+        // Scroll reveal for the rest
+        scrollCards.forEach((card: any, idx) => {
+            gsap.to(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 95%",
+                    toggleActions: "play none none reverse"
+                },
+                opacity: 1,
+                y: 0,
+                duration: 0.5,
+                ease: "power2.out"
+            });
+        });
+
+    }, { scope: container, dependencies: [hasMounted] });
 
     return (
-        <div className="logo-design-page pt-32 pb-24">
+        <div className="logo-design-page pt-32 pb-24" ref={container}>
             <div className="container mx-auto px-6 max-w-7xl">
                 <Link
                     href="/#projects"
@@ -67,43 +100,29 @@ const LogoDesignGallery = () => {
                 </Link>
 
                 <div className="logo-hero mb-16">
-                    <p className="text-[#ff3c3c] uppercase tracking-[0.2em] text-sm mb-4">Selected Work</p>
-                    <h1 className="text-5xl md:text-7xl font-medium mb-6 tracking-tight">Logo Design</h1>
-                    <p className="text-xl text-white/40 max-w-2xl leading-relaxed">
+                    <p className="tag">Selected Work</p>
+                    <h1>Logo Design</h1>
+                    <p>
                         A curated collection of brand identities and logo marks crafted with precision and intention — each one a visual system in itself.
                     </p>
+                    <span className="count-badge">40 LOGOS</span>
                 </div>
 
                 {hasMounted && (
-                    <motion.div
-                        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-                        variants={containerVariants}
-                        initial="hidden"
-                        animate="visible"
-                    >
+                    <div className="logo-row">
                         {logoIndices.map((num) => (
-                            <motion.div
-                                key={num}
-                                className="logo-card group relative bg-[#111] rounded-xl overflow-hidden border border-white/5 hover:border-[#ff3c3c]/30 transition-all duration-300 hover:-translate-y-1"
-                                variants={itemVariants}
-                                whileHover={{ scale: 1.02 }}
-                            >
-                                <div className="relative aspect-square p-8 flex items-center justify-center">
-                                    <Image
-                                        src={`/assets/logos/${num}.png`}
-                                        alt={`Logo ${num}`}
-                                        width={300}
-                                        height={300}
-                                        className="object-contain w-full h-full"
-                                    />
-                                    <span className="absolute top-3 left-3 bg-black/50 backdrop-blur-md border border-white/10 px-2 py-1 rounded-full text-[10px] text-white/40">
-                                        #{num.toString().padStart(2, '0')}
-                                    </span>
-                                    <div className="absolute inset-0 bg-radial-gradient opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-                                </div>
-                            </motion.div>
+                            <div key={num} className="logo-card">
+                                <span className="card-num">#{num.toString().padStart(2, '0')}</span>
+                                <Image
+                                    src={`/assets/logos/${num}.png`}
+                                    alt={`Logo ${num}`}
+                                    width={300}
+                                    height={300}
+                                    style={{ objectFit: 'contain', width: '100%', height: '100%' }}
+                                />
+                            </div>
                         ))}
-                    </motion.div>
+                    </div>
                 )}
 
                 {/* Bottom Nav */}
@@ -131,8 +150,127 @@ const LogoDesignGallery = () => {
                 </section>
             </div>
             <style jsx>{`
-        .bg-radial-gradient {
-            background: radial-gradient(circle at center, rgba(255, 60, 60, 0.08) 0%, transparent 70%);
+        /* ── Page-specific overrides ──────────────────────────────────────── */
+        .logo-hero {
+            padding-top: 5vh;
+            padding-bottom: 3rem;
+        }
+
+        .logo-hero .tag {
+            font-size: .78rem;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: #ff2a2a;
+            margin-bottom: .9rem;
+        }
+
+        .logo-hero h1 {
+            font-size: clamp(2.4rem, 5vw, 4.2rem);
+            font-weight: 500;
+            line-height: 1.05;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .logo-hero p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            max-width: 480px;
+            line-height: 1.65;
+            font-weight: 300;
+        }
+
+        .count-badge {
+            display: inline-block;
+            margin-top: 1.4rem;
+            padding: .34rem .9rem;
+            border: 1px solid rgba(255, 42, 42, .3);
+            border-radius: 999px;
+            color: #ff2a2a;
+            font-size: .78rem;
+            font-weight: 400;
+            letter-spacing: .1em;
+        }
+
+        /* ── Horizontal grid — left to right numbering ────────────────────── */
+        .logo-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: .9rem;
+        }
+
+        @media (max-width: 1100px) {
+            .logo-row {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 720px) {
+            .logo-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 460px) {
+            .logo-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .logo-card {
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            background: #111;
+            border: 1px solid transparent;
+            cursor: pointer;
+            will-change: transform, opacity;
+            opacity: 0; 
+            transform: translateY(24px);
+            transition: box-shadow .3s ease, border-color .3s ease, transform .3s ease;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .logo-card:hover {
+            box-shadow: 0 0 0 1px rgba(255, 42, 42, .4), 0 14px 40px rgba(255, 42, 42, .1);
+            border-color: rgba(255, 42, 42, .28);
+            transform: translateY(-3px) !important;
+        }
+
+        /* Number badge */
+        .card-num {
+            position: absolute;
+            top: .6rem;
+            left: .6rem;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 999px;
+            font-size: .66rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.4);
+            padding: .16rem .5rem;
+            letter-spacing: .08em;
+            z-index: 10;
+        }
+
+        /* Hover red overlay */
+        .logo-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(255, 42, 42, .06) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity .32s ease;
+            pointer-events: none;
+        }
+
+        .logo-card:hover::after {
+            opacity: 1;
         }
       `}</style>
         </div>

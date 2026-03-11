@@ -36,7 +36,7 @@ const SocialMediaCaseStudy = () => {
         <div className="case-study-page">
             <div className="case-study-bg">
                 {/* 16:9 Hero Container */}
-                <section className="cs-hero pt-32">
+                <section className="cs-hero">
                     <div className="container container-wide">
                         <div className="cs-hero-image-wrapper">
                             <Image
@@ -44,7 +44,7 @@ const SocialMediaCaseStudy = () => {
                                 alt="Social Media Design Hero"
                                 width={1920}
                                 height={1080}
-                                className="cs-hero-image w-full h-auto rounded-3xl"
+                                className="cs-hero-image"
                                 priority
                             />
                         </div>
@@ -52,10 +52,10 @@ const SocialMediaCaseStudy = () => {
                 </section>
 
                 {/* Case Study Text */}
-                <section className="cs-text-section py-20">
-                    <div className="container max-w-4xl mx-auto px-6">
-                        <h1 className="cs-title text-4xl md:text-6xl font-bold mb-8">Zero Studios: Social Systems</h1>
-                        <div className="cs-body text-xl text-white/60 leading-relaxed space-y-6">
+                <section className="cs-text-section">
+                    <div className="container cs-content-container">
+                        <h1 className="cs-title">Zero Studios — Social Systems</h1>
+                        <div className="cs-body">
                             <p>
                                 How do you maintain a high-impact social presence while keeping the design overhead low?
                                 For Zero Studios, the answer was a robust design system that prioritizes speed and
@@ -65,38 +65,31 @@ const SocialMediaCaseStudy = () => {
                                 The challenge was to create a visual language that felt alive and reactive, yet remained
                                 bound by clear structural rules. We developed a series of dynamic templates that allow
                                 the team to push out content in minutes, not hours, ensuring the brand remains
-                                top-of-mind without burning out the creative team. Every grid line, every color shift,
-                                and every typography choice was pre-calculated to drive engagement while maintaining
-                                that signature premium feel.
+                                top-of-mind without burning out the creative team.
                             </p>
                             <p>
                                 This isn't just about posting; it's about building a digital architecture that houses a
-                                community. The result is a social presence that feels like a natural extension of the
-                                brand's physical and digital products—consistent, daring, and always intentional.
+                                community—consistent, daring, and always intentional.
                             </p>
                         </div>
-                        <div className="cs-tags flex flex-wrap gap-3 mt-10">
+                        <div className="cs-tags">
                             {["Social Media", "Design Systems", "Content Strategy", "Templates"].map(tag => (
-                                <span key={tag} className="cs-tag px-4 py-1 rounded-full border border-white/10 bg-white/5 text-sm text-white/50">
-                                    {tag}
-                                </span>
+                                <span key={tag} className="cs-tag">{tag}</span>
                             ))}
                         </div>
                     </div>
                 </section>
 
                 {/* Case Study Waterfall Gallery */}
-                <section className="cs-gallery-section pb-24">
+                <section className="cs-gallery-section">
                     <div className="container container-wide">
-                        <div className="waterfall-grid grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="waterfall-grid">
                             {images.map((img, i) => (
-                                <Image
+                                <img
                                     key={i}
                                     src={img.src}
                                     alt={img.alt}
-                                    width={1000}
-                                    height={1000}
-                                    className="w-full h-auto rounded-3xl"
+                                    className="cs-gallery-image"
                                 />
                             ))}
                         </div>
@@ -104,23 +97,25 @@ const SocialMediaCaseStudy = () => {
                 </section>
 
                 {/* Case Study Bottom Navigation */}
-                <section className="cs-bottom-nav pb-20">
-                    <div className="container flex justify-center">
-                        <div className="cs-nav-actions flex gap-6">
+                <section className="cs-bottom-nav">
+                    <div className="container">
+                        <div className="cs-nav-actions">
                             <button
                                 onClick={handleBackToTop}
-                                className="cs-nav-btn btn-top p-6 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-colors group relative"
+                                className="cs-nav-btn btn-top"
+                                data-label="Back to Top"
                             >
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M12 19V5M5 12l7-7 7 7" />
                                 </svg>
                             </button>
                             <Link
                                 href="/"
                                 onClick={handleBackToProjects}
-                                className="cs-nav-btn btn-home p-6 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-colors group relative"
+                                className="cs-nav-btn btn-home"
+                                data-label="Back to Home"
                             >
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
                                     <polyline points="9 22 9 12 15 12 15 22" />
                                 </svg>

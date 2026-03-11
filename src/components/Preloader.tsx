@@ -1,74 +1,59 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import Image from "next/image";
 
 const Preloader = () => {
     const [isLoaded, setIsLoaded] = useState(false);
 
-    useGSAP(() => {
-        const tl = gsap.timeline({
-            onComplete: () => setIsLoaded(true)
-        });
+    useEffect(() => {
+        // Prevent scrolling while loading
+        document.body.style.overflow = 'hidden';
 
-        // Fill the icon
-        tl.to(".kushi-preloader-fill", {
-            clipPath: "inset(0% 0 0 0)",
-            duration: 1.5,
-            ease: "power2.inOut"
-        });
+        let progress = 0;
+        const fillEl = document.querySelector('.kushi-preloader-fill') as HTMLElement;
+        const preloader = document.getElementById('kushi-preloader');
 
-        // Fade out preloader
-        tl.to("#kushi-preloader", {
-            opacity: 0,
-            duration: 0.8,
-            ease: "power2.inOut",
-            onStart: () => {
-                window.dispatchEvent(new CustomEvent("kg-preloader-finished"));
+        if (!fillEl || !preloader) return;
+
+        const interval = setInterval(() => {
+            progress += Math.random() * 15 + 5; // increment random amount
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(interval);
+
+                // Allow a small pause at 100% before fading out
+                setTimeout(() => {
+                    gsap.to(preloader, {
+                        opacity: 0,
+                        duration: 0.8,
+                        ease: "power2.inOut",
+                        onComplete: () => {
+                            setIsLoaded(true);
+                            document.body.style.overflow = '';
+
+                            // 1. Trigger Symbiote Formation & Hero Animations
+                            window.dispatchEvent(new CustomEvent("kg-preloader-finished"));
+                        }
+                    });
+                }, 400);
             }
-        }, "+=0.2");
+            if (fillEl) fillEl.style.clipPath = `inset(${100 - progress}% 0 0 0)`;
+        }, 120);
 
-        // Scale up wrapper slightly while fading out
-        tl.to(".kushi-preloader-wrapper", {
-            scale: 1.1,
-            opacity: 0,
-            duration: 0.8,
-            ease: "power2.inOut"
-        }, "<");
-    });
+        return () => clearInterval(interval);
+    }, []);
 
     if (isLoaded) return null;
 
     return (
-        <div id="kushi-preloader" className="fixed inset-0 bg-[#080808] z-[99998] flex justify-center items-center">
-            <div className="kushi-preloader-wrapper relative w-16 h-16">
-                <Image
-                    src="/assets/kushi_icon_red.png"
-                    alt="KG Outline"
-                    width={64}
-                    height={64}
-                    className="kushi-preloader-outline absolute w-full h-full object-contain opacity-15 grayscale"
-                />
-                <div className="kushi-preloader-fill absolute w-full h-full bg-[#ff3c3c] clip-path-inset-full">
-                    {/* Using a background image trick similar to original */}
-                    <div
-                        className="w-full h-full"
-                        style={{
-                            backgroundImage: "url('/assets/kushi_icon_red.png')",
-                            backgroundSize: 'contain',
-                            backgroundRepeat: 'no-repeat',
-                            backgroundPosition: 'bottom'
-                        }}
-                    />
-                </div>
+        <div id="kushi-preloader">
+            <div className="kushi-preloader-wrapper">
+                {/* Dim outline layer */}
+                <img src="/assets/kushi_icon_red.png" alt="KG" className="kushi-preloader-outline" />
+                {/* Fill layer — revealed bottom-to-top via clip-path in JS */}
+                <div className="kushi-preloader-fill" />
             </div>
-            <style jsx>{`
-        .clip-path-inset-full {
-             clip-path: inset(100% 0 0 0);
-        }
-      `}</style>
         </div>
     );
 };

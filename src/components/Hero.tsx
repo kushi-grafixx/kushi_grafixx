@@ -9,32 +9,49 @@ const Hero = () => {
     const container = useRef(null);
 
     useGSAP(() => {
-        const tl = gsap.timeline({ delay: 0.2 });
+        const handlePreloaderDone = () => {
+            const tl = gsap.timeline();
 
-        // Pill entry
-        tl.to("#hero-pill", {
-            y: 0,
-            opacity: 1,
-            duration: 0.7,
-            ease: "power3.out"
-        });
+            // Pill entry
+            tl.fromTo("#hero-pill",
+                { y: 20, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.7,
+                    ease: "power3.out"
+                }
+            );
 
-        // Split text animation for title
-        tl.to(".hero-title .line-inner", {
-            y: "0%",
-            duration: 0.85,
-            stagger: 0.15,
-            ease: "power3.out"
-        }, "-=0.3");
+            // Split text animation for title
+            tl.to(".hero-title .line-inner", {
+                y: "0%",
+                duration: 0.85,
+                stagger: 0.15,
+                ease: "power3.out"
+            }, "-=0.3");
 
-        // Subtitle entry
-        tl.to("#hero-subtitle", {
-            y: 0,
-            opacity: 1,
-            duration: 0.7,
-            ease: "power3.out"
-        }, "-=0.4");
+            // Subtitle entry
+            tl.fromTo("#hero-subtitle",
+                { y: 20, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.7,
+                    ease: "power3.out"
+                },
+                "-=0.4");
+        };
 
+        window.addEventListener("kg-preloader-finished", handlePreloaderDone);
+
+        // Fallback in case it's already finished
+        const preloader = document.getElementById("kushi-preloader");
+        if (!preloader || window.getComputedStyle(preloader).display === "none") {
+            handlePreloaderDone();
+        }
+
+        return () => window.removeEventListener("kg-preloader-finished", handlePreloaderDone);
     }, { scope: container });
 
     return (
@@ -43,7 +60,7 @@ const Hero = () => {
                 <HeroCanvas />
             </div>
             <div className="hero-content relative z-10">
-                <div className="availability-pill" id="hero-pill" style={{ opacity: 0, transform: "translateY(20px)" }}>
+                <div className="availability-pill" id="hero-pill" style={{ opacity: 0 }}>
                     <span className="status-dot"></span>
                     Available for Work
                 </div>
@@ -51,7 +68,7 @@ const Hero = () => {
                     <span className="line-wrapper"><span className="line-inner">Your brand called.</span></span><br />
                     <span className="line-wrapper"><span className="line-inner">It needs help.</span></span>
                 </h1>
-                <p className="hero-subtitle" id="hero-subtitle" style={{ opacity: 0, transform: "translateY(20px)" }}>
+                <p className="hero-subtitle" id="hero-subtitle" style={{ opacity: 0 }}>
                     Don&apos;t worry. I got this.
                 </p>
             </div>

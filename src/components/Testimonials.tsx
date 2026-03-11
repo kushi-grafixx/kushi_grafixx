@@ -1,6 +1,41 @@
 "use client";
 const testimonials = [
-
+    {
+        name: "Enosh",
+        role: "Director of Business Operations",
+        stars: "★★★★★",
+        text: "Thank you very much for all your efforts & support in branding our company... I really liked your thought process on the logo part... It made perfect sense and looking at the response we getting from visitors, it's safe to say people are liking it."
+    },
+    {
+        name: "Swasthik Acharya",
+        role: "Yoga Therapist",
+        stars: "★★★★★",
+        text: "Kushi means happiness and that's what we get after receiving the final work from him. His service and dedication is impeccable. He takes up every work professionally along with a personal touch."
+    },
+    {
+        name: "Shikshaa Shetty",
+        role: "Business Owner",
+        stars: "★★★★★",
+        text: "Kushi is an exceptional digital artist with a high level of professionalism. He understands the context and theme easily and creates artworks in accordance with it. He delivers tasks on time as promised. Highly recommend him."
+    },
+    {
+        name: "Zac Solipsism",
+        role: "#1 Premium Ghostwriter For Self-Improvement Coaches",
+        stars: "★★★★★",
+        text: "This is by far the best banner/avatar combination I have ever used for my brand. Kushi takes the time to understand your brand and provides you with high quality assets. Would highly recommend."
+    },
+    {
+        name: "Pathanjali Pare",
+        role: "Co-founder",
+        stars: "★★★★★",
+        text: "Kushi is a good designer! Patiently handled revisions, delivering great designs for our hoodies and t-shirts. Attentive to our preferences, he transformed ideas into stunning designs. A skilled artist with a keen understanding of client needs ✨"
+    },
+    {
+        name: "Key",
+        role: "Ghostwriter",
+        stars: "★★★★★",
+        text: "Working with Kushi was awesome. He over-delivered and was always worried if everything was ok. He didn't mind changing things over and over again. Would 100% recommend him and will 100% use him again!"
+    },
     {
         name: "Hammad",
         role: "Freelance Graphic Designer & Video Editor",
@@ -33,12 +68,14 @@ const testimonials = [
     }
 ];
 
-const Testimonials = () => {
+const Testimonials = ({ hideHeading = false }: { hideHeading?: boolean }) => {
     return (
-        <section className="reviews-section" id="testimonials">
-            <div className="container container-wide">
-                <h2 className="section-title text-center heading-split">Don&apos;t just take my word for it.</h2>
-            </div>
+        <section className="reviews-section" id={hideHeading ? undefined : "testimonials"}>
+            {!hideHeading && (
+                <div className="container container-wide">
+                    <h2 className="section-title text-center heading-split">Don&apos;t just take my word for it.</h2>
+                </div>
+            )}
 
             <div className="marquee-container">
                 <div className="marquee-track">

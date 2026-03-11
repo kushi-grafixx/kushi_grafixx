@@ -1,7 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+}
 
 const faqs = [
     {
@@ -58,39 +65,58 @@ const FaqItem = ({ q, a }: { q: string; a: string }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div className={`faq-item border-b border-white/10 last:border-0 ${isOpen ? 'active' : ''}`}>
+        <div className={`faq-item ${isOpen ? 'active' : ''}`}>
+            {/* Client question — scroll-revealed by GSAP */}
             <div
-                className="chat-msg client"
+                className="chat-msg client faq-client-msg"
                 onClick={() => setIsOpen(!isOpen)}
+                style={{ cursor: 'pointer', opacity: 0, transform: 'translateY(16px)' }}
             >
                 <span className="faq-toggle">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="12" y1="5" x2="12" y2="19" />
-                        <line x1="5" y1="12" x2="19" y2="12" />
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                        <line x1="12" y1="5" x2="12" y2="19" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+                        <line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
                     </svg>
                 </span>
-                <div className="chat-bubble">
-                    {q}
-                </div>
+                <div className="chat-bubble">{q}</div>
             </div>
 
+            {/* Kushi answer — hidden by CSS until .active, then CSS-animated in */}
             <div className="chat-msg kushi">
                 <div className="chat-avatar">
-                    <Image src="/assets/kushi_icon_red.png" alt="Kushi" width={24} height={24} />
+                    <img src="/assets/kushi_icon_red.png" alt="Kushi" />
                 </div>
-                <div className="chat-bubble">
-                    {a}
-                </div>
+                <div className="chat-bubble">{a}</div>
             </div>
         </div>
     );
 };
 
 const FAQ = () => {
+    const container = useRef(null);
+
+    useGSAP(() => {
+        // Only scroll-reveal the client question bubbles
+        const questions = gsap.utils.toArray('.faq-client-msg');
+        questions.forEach((q: any) => {
+            gsap.to(q, {
+                scrollTrigger: {
+                    trigger: q,
+                    start: "top 95%",
+                    toggleActions: "play none none reverse"
+                },
+                y: 0,
+                opacity: 1,
+                duration: 0.55,
+                ease: "power2.out"
+            });
+        });
+    }, { scope: container });
+
     return (
-        <section className="faq-section" id="faq">
-            <div className="container max-w-4xl">
-                <h2 className="section-title text-center mb-16">Frequently Asked Questions</h2>
+        <section className="faq-section" id="faq" ref={container}>
+            <div className="container faq-container">
+                <h2 className="section-title text-center heading-split">Frequently Asked Questions</h2>
                 <div className="chat-container">
                     {faqs.map((faq, i) => (
                         <FaqItem key={i} {...faq} />

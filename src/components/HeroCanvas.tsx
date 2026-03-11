@@ -337,7 +337,7 @@ const HeroCanvas = () => {
         };
     }, []);
 
-    return <canvas ref={canvasRef} id="webgl-canvas" className="fixed inset-0 w-full h-full pointer-events-none z-0" />;
+    return <canvas ref={canvasRef} id="webgl-canvas" className="absolute inset-0 w-full h-full pointer-events-none z-0" />;
 };
 
 export default HeroCanvas;
