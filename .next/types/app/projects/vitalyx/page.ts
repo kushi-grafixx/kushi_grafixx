@@ -1,4 +1,4 @@
-// File: /Users/kushi/Documents/kushi-grafixx/src/app/projects/vitalyx/page.tsx
+// File: /Users/kushi/Documents/kushi-grafixx/.claude/worktrees/quirky-villani/src/app/projects/vitalyx/page.tsx
 import * as entry from '../../../../../src/app/projects/vitalyx/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

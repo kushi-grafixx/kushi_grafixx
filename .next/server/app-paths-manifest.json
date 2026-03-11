@@ -1,5 +1,9 @@
 {
+  "/not-found": "app/not-found.js",
+  "/projects/logo-design/page": "app/projects/logo-design/page.js",
   "/page": "app/page.js",
   "/projects/vitalyx/page": "app/projects/vitalyx/page.js",
-  "/projects/logo-design/page": "app/projects/logo-design/page.js"
+  "/projects/social-media-design/page": "app/projects/social-media-design/page.js",
+  "/projects/event-branding/page": "app/projects/event-branding/page.js",
+  "/projects/posters/page": "app/projects/posters/page.js"
 }
