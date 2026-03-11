@@ -1148,36 +1148,81 @@ body {
     position: relative;
 }
 
+.process-steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    position: relative;
+}
+
+@media (min-width: 768px) {
+    .process-steps-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+    }
+}
+
 .timeline-line-new {
+    display: none;
     position: absolute;
-    top: 60px;
-    left: 10%;
-    right: 10%;
+    top: 8.375rem;
+    left: 4rem;
+    right: 4rem;
     height: 1px;
-    background: rgba(255, 255, 255, 0.08);
+    background: linear-gradient(90deg, transparent, #ff2a2a, transparent);
+    z-index: 1;
+}
+
+@media (min-width: 768px) {
+    .timeline-line-new {
+        display: block;
+    }
 }
 
 .process-step {
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    z-index: 3;
+    transition: transform 0.4s ease;
+}
+
+.process-step:hover {
+    transform: translateY(-8px);
 }
 
 .step-icon-wrapper {
-    width: 56px;
-    height: 56px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    box-shadow: 0 10px 30px -10px rgba(255, 42, 42, 0.15);
+    transition: all 0.4s ease;
+}
+
+.process-step:hover .step-icon-wrapper {
+    border-color: var(--accent);
+    box-shadow: 0 10px 40px -10px rgba(255, 42, 42, 0.4);
+    transform: scale(1.05);
+}
+
+.process-step:hover .step-svg {
+    animation: iconPulse 1s ease infinite alternate;
+}
+
+@keyframes iconPulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(1.15); opacity: 1; }
 }
 
 .step-svg {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     display: block;
     flex-shrink: 0;
     color: rgba(255, 255, 255, 0.6);
@@ -1187,6 +1232,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 64px;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 3;
 }
 
 .timeline-badge-new {
@@ -1216,8 +1265,35 @@ body {
     line-height: 1.7;
 }
 
-/* --- fv3 Divisions --- */
+/* --- fv3 Footer Elements --- */
+.fv3-coming-soon {
+    display: inline-block;
+    background: #e62020;
+    color: #fff;
+    font-size: 0.58rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.22rem 0.55rem;
+    border-radius: 20px;
+    transform: rotate(-10deg);
+    transform-origin: left center;
+    position: absolute;
+    top: 0.85rem;
+    right: 0;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(230, 32, 32, 0.45);
+    animation: sticker-float 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes sticker-float {
+    0%, 100% { transform: rotate(-10deg) translateY(0px); }
+    50% { transform: rotate(-10deg) translateY(-2px); }
+}
+
 .fv3-division-entry {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 0.35rem;

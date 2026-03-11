@@ -38,14 +38,14 @@ const steps = [
 const ProcessFlow = () => {
     return (
         <div className="process-grid-new mt-12">
-            <div className="timeline-line-new hidden md:block"></div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+            <div className="timeline-line-new"></div>
+            <div className="process-steps-grid">
                 {steps.map((step, i) => (
                     <div key={i} className="process-step">
                         <div className="step-icon-wrapper">
                             {step.icon}
                         </div>
-                        <div className="timeline-point-new hidden md:flex">
+                        <div className="timeline-point-new">
                             <div className="timeline-badge-new">{step.number}</div>
                         </div>
                         <div className="process-content-new">
