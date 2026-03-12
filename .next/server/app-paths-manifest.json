@@ -1,5 +1,6 @@
 {
+  "/projects/logo-design/page": "app/projects/logo-design/page.js",
   "/page": "app/page.js",
   "/projects/vitalyx/page": "app/projects/vitalyx/page.js",
-  "/projects/logo-design/page": "app/projects/logo-design/page.js"
+  "/projects/event-branding/page": "app/projects/event-branding/page.js"
 }

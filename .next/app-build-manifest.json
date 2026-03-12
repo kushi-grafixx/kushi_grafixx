@@ -16,15 +16,20 @@
       "static/chunks/main-app.js",
       "static/chunks/app/projects/logo-design/page.js"
     ],
-    "/projects/event-branding/page": [
+    "/projects/posters/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/projects/event-branding/page.js"
+      "static/chunks/app/projects/posters/page.js"
     ],
     "/projects/vitalyx/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/projects/vitalyx/page.js"
+    ],
+    "/projects/event-branding/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/projects/event-branding/page.js"
     ]
   }
 }
