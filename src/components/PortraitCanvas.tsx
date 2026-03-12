@@ -12,7 +12,7 @@ const PortraitCanvas = () => {
         if (!ctx) return;
 
         let particlesArray: Particle[] = [];
-        let mouse = { x: 0, y: 0, radius: 80 };
+        let mouse = { x: -9999, y: -9999, radius: 150 };
         let animFrameId: number;
 
         const onMouseMove = (e: MouseEvent) => {
@@ -21,7 +21,13 @@ const PortraitCanvas = () => {
             mouse.y = e.clientY - rect.top;
         };
 
+        const onMouseLeave = () => {
+            mouse.x = -9999;
+            mouse.y = -9999;
+        };
+
         window.addEventListener("mousemove", onMouseMove);
+        canvas.addEventListener("mouseleave", onMouseLeave);
 
         const portraitImage = new Image();
         portraitImage.crossOrigin = "anonymous";

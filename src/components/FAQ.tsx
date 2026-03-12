@@ -72,16 +72,16 @@ const FaqItem = ({ q, a }: { q: string; a: string }) => {
                 onClick={() => setIsOpen(!isOpen)}
                 style={{ opacity: 0, transform: 'translateY(16px)' }}
             >
+                {/* The Toggle Icon - Sits OUTSIDE the pill, to the Left */}
+                <div className={`faq-toggle-icon shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-white/5 border border-white/10 transition-colors duration-300 mr-3 ${isOpen ? 'rotate-45' : ''}`}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="transition-transform duration-300 transform">
+                        <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                </div>
+
                 {/* The Pill Content */}
                 <div className="chat-bubble faq-pill flex items-center justify-between no-select shrink-1">
                     <span className="faq-question-text font-medium text-left">{q}</span>
-                </div>
-
-                {/* The Toggle Icon - Sits OUTSIDE the pill, to the Right */}
-                <div className="faq-toggle-icon shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-white/5 border border-white/10 transition-colors duration-300 ml-3">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="transition-transform duration-300 transform">
-                        <polyline points="6 9 12 15 18 9" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
                 </div>
             </div>
 
@@ -118,7 +118,7 @@ const FAQ = () => {
     }, { scope: container });
 
     return (
-        <section className="faq-section" id="faq" ref={container}>
+        <section className="faq-section py-32" id="faq" ref={container}>
             <div className="container faq-container">
                 <h2 className="section-title text-center heading-split">Frequently Asked Questions</h2>
                 <div className="chat-container">

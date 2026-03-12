@@ -30,12 +30,12 @@ export default function Home() {
             <AboutSection />
 
             {/* Testimonials marquee first, then the stats */}
-            <section id="testimonials" className="pt-32 pb-16 bg-black">
-                <div className="container container-wide mb-8">
+            <section id="testimonials" className="py-32 bg-black">
+                <div className="container container-wide mb-6">
                     <h2 className="section-title text-center heading-split">Don&apos;t just take my word for it.</h2>
                 </div>
                 <Testimonials hideHeading />
-                <div className="container container-wide mt-8 flex justify-center">
+                <div className="container container-wide mt-0 flex justify-center">
                     <Stats inline />
                 </div>
             </section>

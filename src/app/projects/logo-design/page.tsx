@@ -200,8 +200,8 @@ const LogoDesignGallery = () => {
         /* ── Horizontal grid — left to right numbering ────────────────────── */
         .logo-row {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.35rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
         }
 
         @media (max-width: 1100px) {
@@ -233,10 +233,8 @@ const LogoDesignGallery = () => {
             opacity: 0; 
             transform: translateY(24px);
             transition: transform .3s ease;
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            align-items: flex-start;
+            justify-content: flex-start;
             padding: 0;
         }
 

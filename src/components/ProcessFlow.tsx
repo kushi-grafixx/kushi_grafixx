@@ -78,8 +78,8 @@ const ProcessFlow = () => {
                             <div className="timeline-badge-new">{step.number}</div>
                         </div>
                         <div className="process-content-new flex flex-col justify-center py-6 px-4 md:px-8">
-                            <h3 className="mb-4">{step.title}</h3>
-                            <p className="secondary-text leading-relaxed">{step.desc}</p>
+                            <h3 className="mb-0 whitespace-nowrap text-2xl md:text-3xl font-bold">{step.title}</h3>
+                            <p className="secondary-text mt-2 text-sm md:text-base leading-relaxed text-white/50">{step.desc}</p>
                         </div>
                     </div>
                 ))}

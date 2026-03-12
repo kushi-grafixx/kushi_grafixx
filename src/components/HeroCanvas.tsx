@@ -270,19 +270,25 @@ const HeroCanvas = () => {
         };
         window.addEventListener("mousemove", onMouseMove);
 
-        let scrollFade = 0;
-        const onScroll = () => {
-            const heroH = window.innerHeight;
-            const fadeStart = heroH * 0.30;
-            const fadeEnd = heroH * 0.80;
-            const y = window.scrollY;
-            
-            // Limit fade to 0.999 to guarantee shader always evaluates gracefully without arbitrary DOM toggles
-            scrollFade = Math.max(0, Math.min(0.999, (y - fadeStart) / (fadeEnd - fadeStart)));
-            uniforms.uScrollFade.value = scrollFade;
-            glowMat.uniforms.uScrollFade.value = scrollFade;
-        };
-        window.addEventListener("scroll", onScroll);
+        let scrollFadeStr = { value: 0 };
+        const heroSection = document.getElementById("home");
+        if (heroSection) {
+            gsap.to(scrollFadeStr, {
+                value: 0.999,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: heroSection,
+                    start: "top top",
+                    end: "80% top",
+                    scrub: true,
+                    onUpdate: () => {
+                        const val = scrollFadeStr.value;
+                        uniforms.uScrollFade.value = val;
+                        glowMat.uniforms.uScrollFade.value = val;
+                    }
+                }
+            });
+        }
 
         const onResize = () => {
             camera.aspect = window.innerWidth / window.innerHeight;
@@ -323,7 +329,6 @@ const HeroCanvas = () => {
 
         return () => {
             window.removeEventListener("mousemove", onMouseMove);
-            window.removeEventListener("scroll", onScroll);
             window.removeEventListener("resize", onResize);
             window.removeEventListener("kg-preloader-finished", onPreloaderFinished);
             cancelAnimationFrame(rafId);

@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
@@ -11,12 +10,8 @@ if (typeof window !== "undefined") {
 }
 
 const SocialMediaCaseStudy = () => {
-    const images = [
-        { src: "https://images.unsplash.com/photo-1493612276216-ee3925520721?w=1000&auto=format&fit=crop", alt: "Social Media Gallery 1" },
-        { src: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1000&auto=format&fit=crop", alt: "Social Media Gallery 2" },
-        { src: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1000&auto=format&fit=crop", alt: "Social Media Gallery 3" },
-        { src: "https://images.unsplash.com/photo-1522071823991-b3b28b7e7ea5?w=1000&auto=format&fit=crop", alt: "Social Media Gallery 4" },
-    ];
+    // Empty array since we don't have assets for this dummy page yet
+    const images: { src: string, alt: string }[] = [];
 
     const handleBackToTop = () => {
         gsap.to(window, {
@@ -36,17 +31,13 @@ const SocialMediaCaseStudy = () => {
         <div className="case-study-page">
             <div className="case-study-bg">
                 {/* 16:9 Hero Container */}
-                <section className="cs-hero">
+                <section className="cs-hero pt-32">
                     <div className="container container-wide">
                         <div className="cs-hero-image-wrapper">
-                            <Image
-                                src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=2000&auto=format&fit=crop"
-                                alt="Social Media Design Hero"
-                                width={1920}
-                                height={1080}
-                                className="cs-hero-image"
-                                priority
-                            />
+                            {/* Placeholder Hero */}
+                            <div className="w-full aspect-video bg-white/5 rounded-3xl flex items-center justify-center">
+                                <span className="text-white/20 uppercase tracking-widest text-sm font-bold">Social Systems Concept</span>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -54,33 +45,28 @@ const SocialMediaCaseStudy = () => {
                 {/* Case Study Text */}
                 <section className="cs-text-section">
                     <div className="container cs-content-container">
-                        <h1 className="cs-title">Zero Studios — Social Systems</h1>
+                        <h1 className="cs-title">Zero Studios Social Systems</h1>
                         <div className="cs-body">
                             <p>
-                                How do you maintain a high-impact social presence while keeping the design overhead low?
-                                For Zero Studios, the answer was a robust design system that prioritizes speed and
-                                visual consistency.
+                                A comprehensive concept for scalable social media design systems. 
+                                The challenge was to create templates that maintain a cohesive brand
+                                identity across multiple platforms without feeling repetitive or rigid.
                             </p>
                             <p>
-                                The challenge was to create a visual language that felt alive and reactive, yet remained
-                                bound by clear structural rules. We developed a series of dynamic templates that allow
-                                the team to push out content in minutes, not hours, ensuring the brand remains
-                                top-of-mind without burning out the creative team.
-                            </p>
-                            <p>
-                                This isn't just about posting; it's about building a digital architecture that houses a
-                                community—consistent, daring, and always intentional.
+                                By utilizing a rigid grid approach paired with dynamic typography rules,
+                                the resulting assets allow internal teams to generate hundreds of 
+                                on-brand posts quickly, while retaining the premium feel of bespoke design.
                             </p>
                         </div>
                         <div className="cs-tags">
-                            {["Social Media", "Design Systems", "Content Strategy", "Templates"].map(tag => (
+                            {["Social Media", "SaaS", "Brand Systems"].map(tag => (
                                 <span key={tag} className="cs-tag">{tag}</span>
                             ))}
                         </div>
                     </div>
                 </section>
 
-                {/* Case Study Waterfall Gallery */}
+                {/* Case Study Waterfall Gallery - Empty for Dummy */}
                 <section className="cs-gallery-section">
                     <div className="container container-wide">
                         <div className="waterfall-grid">

@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
@@ -11,11 +10,8 @@ if (typeof window !== "undefined") {
 }
 
 const EventBrandingCaseStudy = () => {
-    const images = [
-        { src: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=1000&auto=format&fit=crop", alt: "Event Gallery 1" },
-        { src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1000&auto=format&fit=crop", alt: "Event Gallery 2" },
-        { src: "https://images.unsplash.com/photo-1514525253344-9914f6b28532?w=1000&auto=format&fit=crop", alt: "Event Gallery 3" },
-    ];
+    // Empty array since we don't have assets for this dummy page yet
+    const images: { src: string, alt: string }[] = [];
 
     const handleBackToTop = () => {
         gsap.to(window, {
@@ -35,17 +31,13 @@ const EventBrandingCaseStudy = () => {
         <div className="case-study-page">
             <div className="case-study-bg">
                 {/* 16:9 Hero Container */}
-                <section className="cs-hero">
+                <section className="cs-hero pt-32">
                     <div className="container container-wide">
                         <div className="cs-hero-image-wrapper">
-                            <Image
-                                src="https://images.unsplash.com/photo-1540575861501-7c00117fb3c9?w=2000&auto=format&fit=crop"
-                                alt="Event Brand Identity Hero"
-                                width={1920}
-                                height={1080}
-                                className="cs-hero-image"
-                                priority
-                            />
+                            {/* Placeholder Hero */}
+                            <div className="w-full aspect-video bg-white/5 rounded-3xl flex items-center justify-center">
+                                <span className="text-white/20 uppercase tracking-widest text-sm font-bold">Event Identity Concept</span>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -53,33 +45,28 @@ const EventBrandingCaseStudy = () => {
                 {/* Case Study Text */}
                 <section className="cs-text-section">
                     <div className="container cs-content-container">
-                        <h1 className="cs-title">Echo Platform — Event Identity</h1>
+                        <h1 className="cs-title">Echo Platform Event Identity</h1>
                         <div className="cs-body">
                             <p>
-                                For Echo Platform, an event is more than a gathering; it’s a high-frequency experience
-                                that requires a visual identity as loud and clear as its name.
+                                The Echo Platform required an expansive visual identity for their annual
+                                conference series. The design needed to stand out in the crowded F&B tech space,
+                                bridging the gap between raw culinary energy and sleek digital platforms.
                             </p>
                             <p>
-                                The goal was to build an identity that could cut through the noise of crowded digital and
-                                physical spaces. We used a core visual motif based on sound resonance—clean, vibrating
-                                geometric patterns paired with a high-contrast palette. This allowed the brand to feel
-                                experimental yet grounded, a perfect match for a platform that hosts the thinkers and
-                                makers of the digital age.
-                            </p>
-                            <p>
-                                From large-scale environmental graphics to small-scale ticket designs, the Echo identity
-                                remains unmistakable. It’s a system designed to be felt as much as it is seen.
+                                The final identity leans heavily on modular typography and high-contrast
+                                motion sequences, ensuring the brand translates powerfully from digital
+                                promotional material to physical stage backdrops.
                             </p>
                         </div>
                         <div className="cs-tags">
-                            {["Event Brand Identity", "Visual Identity", "Environmental Graphics", "Experience Design"].map(tag => (
+                            {["Event Brand Identity", "F&B", "Typography"].map(tag => (
                                 <span key={tag} className="cs-tag">{tag}</span>
                             ))}
                         </div>
                     </div>
                 </section>
 
-                {/* Case Study Waterfall Gallery */}
+                {/* Case Study Waterfall Gallery - Empty for Dummy */}
                 <section className="cs-gallery-section">
                     <div className="container container-wide">
                         <div className="waterfall-grid">
