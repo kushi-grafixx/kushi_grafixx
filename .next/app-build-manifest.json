@@ -1,35 +1,80 @@
 {
   "pages": {
+    "/_not-found": [
+      "static/chunks/webpack-a0d04183092b86f4.js",
+      "static/chunks/fd9d1056-2ad5c3b7f2ff18a5.js",
+      "static/chunks/69-892bca80cfd89da0.js",
+      "static/chunks/main-app-5b4e303438150c80.js",
+      "static/chunks/app/_not-found-1e2dad55cf69f813.js"
+    ],
     "/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/layout.css",
-      "static/chunks/app/layout.js"
+      "static/chunks/webpack-a0d04183092b86f4.js",
+      "static/chunks/fd9d1056-2ad5c3b7f2ff18a5.js",
+      "static/chunks/69-892bca80cfd89da0.js",
+      "static/chunks/main-app-5b4e303438150c80.js",
+      "static/chunks/c15bf2b0-d655bd5d551e8c35.js",
+      "static/chunks/45-eee07d43fde7652e.js",
+      "static/chunks/703-2799a2d838dfa136.js",
+      "static/css/17e586684c560a53.css",
+      "static/chunks/app/layout-d40c4e1bcade8922.js"
     ],
     "/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
-    ],
-    "/projects/logo-design/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/projects/logo-design/page.js"
+      "static/chunks/webpack-a0d04183092b86f4.js",
+      "static/chunks/fd9d1056-2ad5c3b7f2ff18a5.js",
+      "static/chunks/69-892bca80cfd89da0.js",
+      "static/chunks/main-app-5b4e303438150c80.js",
+      "static/chunks/c15bf2b0-d655bd5d551e8c35.js",
+      "static/chunks/b536a0f1-3536d24d087f6b80.js",
+      "static/chunks/45-eee07d43fde7652e.js",
+      "static/chunks/703-2799a2d838dfa136.js",
+      "static/chunks/545-2f9197d44eb213ea.js",
+      "static/chunks/app/page-9fcfacb2577520b3.js"
     ],
     "/projects/posters/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/projects/posters/page.js"
+      "static/chunks/webpack-a0d04183092b86f4.js",
+      "static/chunks/fd9d1056-2ad5c3b7f2ff18a5.js",
+      "static/chunks/69-892bca80cfd89da0.js",
+      "static/chunks/main-app-5b4e303438150c80.js",
+      "static/chunks/c15bf2b0-d655bd5d551e8c35.js",
+      "static/chunks/45-eee07d43fde7652e.js",
+      "static/chunks/app/projects/posters/page-48b40683d028ed4d.js"
     ],
-    "/projects/vitalyx/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/projects/vitalyx/page.js"
+    "/projects/logo-design/page": [
+      "static/chunks/webpack-a0d04183092b86f4.js",
+      "static/chunks/fd9d1056-2ad5c3b7f2ff18a5.js",
+      "static/chunks/69-892bca80cfd89da0.js",
+      "static/chunks/main-app-5b4e303438150c80.js",
+      "static/chunks/c15bf2b0-d655bd5d551e8c35.js",
+      "static/chunks/45-eee07d43fde7652e.js",
+      "static/chunks/app/projects/logo-design/page-7cb3845a31350398.js"
     ],
     "/projects/event-branding/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/projects/event-branding/page.js"
+      "static/chunks/webpack-a0d04183092b86f4.js",
+      "static/chunks/fd9d1056-2ad5c3b7f2ff18a5.js",
+      "static/chunks/69-892bca80cfd89da0.js",
+      "static/chunks/main-app-5b4e303438150c80.js",
+      "static/chunks/c15bf2b0-d655bd5d551e8c35.js",
+      "static/chunks/45-eee07d43fde7652e.js",
+      "static/chunks/app/projects/event-branding/page-ac28a8d23d37f79f.js"
+    ],
+    "/projects/social-media-design/page": [
+      "static/chunks/webpack-a0d04183092b86f4.js",
+      "static/chunks/fd9d1056-2ad5c3b7f2ff18a5.js",
+      "static/chunks/69-892bca80cfd89da0.js",
+      "static/chunks/main-app-5b4e303438150c80.js",
+      "static/chunks/c15bf2b0-d655bd5d551e8c35.js",
+      "static/chunks/45-eee07d43fde7652e.js",
+      "static/chunks/app/projects/social-media-design/page-9c8b04a354f85ed9.js"
+    ],
+    "/projects/vitalyx/page": [
+      "static/chunks/webpack-a0d04183092b86f4.js",
+      "static/chunks/fd9d1056-2ad5c3b7f2ff18a5.js",
+      "static/chunks/69-892bca80cfd89da0.js",
+      "static/chunks/main-app-5b4e303438150c80.js",
+      "static/chunks/c15bf2b0-d655bd5d551e8c35.js",
+      "static/chunks/45-eee07d43fde7652e.js",
+      "static/chunks/703-2799a2d838dfa136.js",
+      "static/chunks/app/projects/vitalyx/page-a6804466bab05838.js"
     ]
   }
 }
