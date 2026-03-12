@@ -111,11 +111,10 @@ const LogoDesignGallery = () => {
                     <div className="logo-row">
                         {logoIndices.map((num) => (
                             <div key={num} className="logo-card">
-                                <div className="logo-image-wrapper bg-[#0a0a0a] rounded-[12px] p-6 sm:p-8 w-full flex items-center justify-center transition-transform hover:scale-[1.02] duration-300">
+                                <div className="logo-image-wrapper bg-[#0a0a0a] rounded-[12px] transition-transform hover:scale-[1.02] duration-300">
                                     <img
                                         src={`/assets/logos/${num}.png`}
                                         alt={`Logo ${num}`}
-                                        className="w-full h-auto object-contain"
                                         loading="lazy"
                                     />
                                 </div>
@@ -200,8 +199,8 @@ const LogoDesignGallery = () => {
         /* ── Horizontal grid — left to right numbering ────────────────────── */
         .logo-row {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
         }
 
         @media (max-width: 1100px) {
@@ -230,12 +229,13 @@ const LogoDesignGallery = () => {
             border: none;
             cursor: pointer;
             will-change: transform, opacity;
-            opacity: 0; 
+            opacity: 0;
             transform: translateY(24px);
             transition: transform .3s ease;
             align-items: flex-start;
             justify-content: flex-start;
             padding: 0;
+            height: auto;
         }
 
         .logo-card:hover {
@@ -245,6 +245,24 @@ const LogoDesignGallery = () => {
         /* Number badge */
         .logo-card::after {
             display: none;
+        }
+
+        .logo-image-wrapper {
+            aspect-ratio: 3 / 4;
+            overflow: hidden;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .logo-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
         }
       `}</style>
         </div>

@@ -61,15 +61,23 @@ const faqs = [
     }
 ];
 
-const FaqItem = ({ q, a }: { q: string; a: string }) => {
-    const [isOpen, setIsOpen] = useState(false);
-
+const FaqItem = ({
+    q,
+    a,
+    isOpen,
+    onToggle
+}: {
+    q: string;
+    a: string;
+    isOpen: boolean;
+    onToggle: () => void;
+}) => {
     return (
         <div className={`faq-item ${isOpen ? 'active' : ''}`}>
             {/* Client question — scroll-revealed by GSAP */}
             <div
                 className="chat-msg client faq-client-msg flex-nowrap"
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={onToggle}
                 style={{ opacity: 0, transform: 'translateY(16px)' }}
             >
                 {/* The Toggle Icon - Sits OUTSIDE the pill, to the Left */}
@@ -98,6 +106,11 @@ const FaqItem = ({ q, a }: { q: string; a: string }) => {
 
 const FAQ = () => {
     const container = useRef(null);
+    const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+    const handleToggle = (index: number) => {
+        setOpenIndex(prev => (prev === index ? null : index));
+    };
 
     useGSAP(() => {
         // Only scroll-reveal the client question bubbles
@@ -123,7 +136,12 @@ const FAQ = () => {
                 <h2 className="section-title text-center heading-split">Frequently Asked Questions</h2>
                 <div className="chat-container">
                     {faqs.map((faq, i) => (
-                        <FaqItem key={i} {...faq} />
+                        <FaqItem
+                            key={i}
+                            {...faq}
+                            isOpen={openIndex === i}
+                            onToggle={() => handleToggle(i)}
+                        />
                     ))}
                 </div>
             </div>

@@ -16,12 +16,12 @@ const projects = [
     },
     {
         id: 2,
-        href: "#about",
-        category: "all",
-        niche: "lifestyle",
-        bgClass: "bg-silhouette-v2",
-        logoSrc: "/assets/silhouette.jpg",
-        projectName: "Kushi Silhouette"
+        href: "/projects/logo-design",
+        category: "logo-design",
+        niche: "all",
+        bgClass: "bg-logos-grid-v2",
+        logoSrc: "/assets/logos/5.png",
+        projectName: "Logo Marks"
     },
     {
         id: 3,

@@ -239,6 +239,12 @@ a {
     }
 }
 
+/* Hide side dock on all case study pages */
+.case-study-page ~ .side-dock,
+body:has(.case-study-page) .side-dock {
+    display: none !important;
+}
+
 .dock-indicator {
     position: absolute;
     width: 44px;
@@ -614,7 +620,7 @@ a {
 
 /* --- Projects Section & Gallery --- */
 .projects-section {
-    padding: 10rem 0 8rem;
+    padding: 6rem 0;
     position: relative;
     z-index: 2;
     background: var(--background);
@@ -924,7 +930,7 @@ a {
 
 /* --- About Section --- */
 .about-section {
-    padding: 8rem 0;
+    padding: 6rem 0;
     position: relative;
     z-index: 2;
 }
@@ -1010,10 +1016,9 @@ a {
 
 /* --- Reviews (Lovi Marquee) --- */
 .reviews-section {
-    padding: 8rem 0;
+    padding: 2rem 0;
     position: relative;
     z-index: 2;
-    overflow: hidden;
 }
 
 .marquee-container {
@@ -1021,9 +1026,9 @@ a {
     position: relative;
     left: 50%;
     margin-left: -50vw;
-    margin-top: 4rem;
+    margin-top: 1.5rem;
     overflow: hidden;
-    padding: 2rem 0;
+    padding: 2rem 2rem;
 }
 
 .marquee-track {
@@ -1076,12 +1081,12 @@ a {
 .lovi-name {
     color: #fff;
     font-size: 1.1rem;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .lovi-role {
-    color: #666;
-    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.875rem;
 }
 
 .lovi-stars {
@@ -1099,7 +1104,7 @@ a {
 
 /* --- FAQ Chat Section --- */
 .faq-section {
-    padding: 10rem 0;
+    padding: 6rem 0;
     background: #000;
     position: relative;
     z-index: 5;
@@ -1224,6 +1229,19 @@ a {
     font-weight: 500;
 }
 
+/* --- Consistent Section Padding Overrides --- */
+.services-section {
+    padding: 6rem 0;
+}
+
+#process {
+    padding: 6rem 0 !important;
+}
+
+#testimonials {
+    padding: 6rem 0 !important;
+}
+
 /* --- Stats Section --- */
 .stats-section {
     padding: 10rem 0;
@@ -1262,6 +1280,11 @@ a {
 }
 
 /* --- Utilities --- */
+/* Ensure text-center works even if Tailwind JIT skips it */
+.text-center {
+    text-align: center;
+}
+
 .jackpot-text {
     display: inline-flex;
     position: relative;
@@ -1300,125 +1323,228 @@ a {
     }
 }
 
-/* --- KG Workflow / Process Section --- */
-.process-grid-new {
-    position: relative;
+/* --- KG Workflow Infographic --- */
+.kgw-wrapper {
+    margin-top: 4rem;
 }
 
-.process-steps-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    position: relative;
-}
-
-@media (min-width: 768px) {
-    .process-steps-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 3rem;
-    }
-}
-
-.timeline-line-new {
-    display: none;
-    position: absolute;
-    top: 2rem;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #ff2a2a, transparent);
-    z-index: 1;
-}
-
-@media (min-width: 768px) {
-    .timeline-line-new {
-        display: block;
-    }
-}
-
-.process-step {
-    position: relative;
+/* Node row — circles + connectors */
+.kgw-nodes-row {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-    z-index: 3;
-    transition: transform 0.4s ease;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2.5rem;
 }
 
-.process-step:hover {
-    transform: translateY(-8px);
+.kgw-connector {
+    flex: 1;
+    max-width: 200px;
+    min-width: 60px;
+    padding: 0 0.5rem;
 }
 
-.step-icon-wrapper {
-    width: 72px;
-    height: 72px;
+.kgw-line {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.07);
+    position: relative;
+    overflow: hidden;
+    border-radius: 1px;
+}
+
+.kgw-dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ff2a2a;
+    box-shadow: 0 0 10px 3px rgba(255, 42, 42, 0.55);
+    transform: translate(-50%, -50%);
+    animation: kgwDotTravel 2.4s ease-in-out infinite;
+}
+
+.kgw-connector:nth-of-type(2) .kgw-dot {
+    animation-delay: 1.2s;
+}
+
+@keyframes kgwDotTravel {
+    0%   { left: 0%;   opacity: 0; }
+    8%   { opacity: 1; }
+    92%  { opacity: 1; }
+    100% { left: 100%; opacity: 0; }
+}
+
+/* Individual node */
+.kgw-node-outer {
+    position: relative;
+    width: 96px;
+    height: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    cursor: default;
+}
+
+.kgw-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 42, 42, 0.22);
+    animation: kgwRingPulse 3.2s ease-out infinite;
+    pointer-events: none;
+}
+
+.kgw-ring.r1 {
+    width: 128%;
+    height: 128%;
+    animation-delay: 0s;
+}
+
+.kgw-ring.r2 {
+    width: 162%;
+    height: 162%;
+    animation-delay: 1s;
+    border-color: rgba(255, 42, 42, 0.1);
+}
+
+@keyframes kgwRingPulse {
+    0%   { transform: scale(0.82); opacity: 0; }
+    35%  { opacity: 1; }
+    100% { transform: scale(1.12); opacity: 0; }
+}
+
+.kgw-node {
+    width: 96px;
+    height: 96px;
     border-radius: 50%;
     background: #0a0a0a;
     border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-    transition: all 0.4s ease;
-}
-
-.process-step:hover .step-icon-wrapper {
-    border-color: var(--accent);
-    box-shadow: 0 10px 40px -10px rgba(255, 42, 42, 0.4);
-    transform: scale(1.05);
-}
-
-.process-step:hover .step-svg {
-    animation: iconPulse 1s ease infinite alternate;
-    color: var(--accent);
-}
-
-@keyframes iconPulse {
-    0% { transform: scale(1); opacity: 0.8; }
-    100% { transform: scale(1.15); opacity: 1; }
-}
-
-.step-svg {
-    width: 28px;
-    height: 28px;
-    display: block;
-    flex-shrink: 0;
-    color: rgba(255, 255, 255, 0.6);
-}
-
-.timeline-point-new {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 72px;
-    margin-top: 1rem;
-    margin-bottom: 1.5rem;
     position: relative;
-    z-index: 3;
+    z-index: 1;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-.timeline-badge-new {
+.kgw-node-outer:hover .kgw-node {
+    border-color: rgba(255, 42, 42, 0.5);
+    box-shadow: 0 0 40px -8px rgba(255, 42, 42, 0.4);
+}
+
+.kgw-node svg {
     width: 34px;
     height: 34px;
+    color: rgba(255, 255, 255, 0.5);
+    transition: color 0.35s ease;
+}
+
+.kgw-node-outer:hover .kgw-node svg {
+    color: #ff2a2a;
+}
+
+.kgw-num {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: #ff2a2a;
+    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.6);
+    z-index: 2;
+    letter-spacing: 0.04em;
+    border: 2px solid #000;
 }
 
-.process-content-new h3 {
-    font-size: 1.4rem;
-    font-weight: 500;
+/* Content row — 3-col grid */
+.kgw-content-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    text-align: center;
+}
+
+.kgw-title {
+    font-size: 1.25rem;
+    font-weight: 600;
     color: #fff;
-    margin-bottom: 0.8rem;
-    line-height: 1.3;
+    margin-bottom: 0.65rem;
+    line-height: 1.25;
+}
+
+.kgw-title span {
+    display: block;
+    color: rgba(255, 255, 255, 0.38);
+    font-weight: 400;
+    font-size: 1.05rem;
+    margin-top: 0.15rem;
+}
+
+.kgw-desc {
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.38);
+    line-height: 1.75;
+    max-width: 260px;
+    margin: 0 auto;
+}
+
+/* Mobile layout */
+@media (max-width: 768px) {
+    .kgw-nodes-row {
+        flex-direction: column;
+        gap: 0;
+        align-items: center;
+    }
+
+    .kgw-connector {
+        width: 1px;
+        height: 52px;
+        max-width: unset;
+        min-width: unset;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .kgw-line {
+        width: 1px;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.07);
+    }
+
+    .kgw-dot {
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        animation: kgwDotTravelV 2.4s ease-in-out infinite;
+    }
+
+    .kgw-connector:nth-of-type(2) .kgw-dot {
+        animation-delay: 1.2s;
+    }
+
+    .kgw-content-row {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .kgw-desc {
+        max-width: 320px;
+    }
+}
+
+@keyframes kgwDotTravelV {
+    0%   { top: 0%;   opacity: 0; }
+    8%   { opacity: 1; }
+    92%  { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
 }
 
 .secondary-text {
