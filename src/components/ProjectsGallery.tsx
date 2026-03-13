@@ -25,12 +25,12 @@ const projects = [
     },
     {
         id: 3,
-        href: "/projects/logo-design",
+        href: "/projects/brand-marks",
         category: "logo-design",
         niche: "all",
         bgClass: "bg-logos-grid-v2",
         logoSrc: "/assets/footer_final_logo3.png",
-        projectName: "Logos Grid"
+        projectName: "Brand Marks"
     },
     {
         id: 4,

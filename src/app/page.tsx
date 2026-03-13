@@ -1,8 +1,8 @@
 import Hero from "@/components/Hero";
 import ClientMarquee from "@/components/ClientMarquee";
 import ProjectsGallery from "@/components/ProjectsGallery";
-import ServicesGrid from "@/components/ServicesGrid";
-import ProcessFlow from "@/components/ProcessFlow";
+import ServicesSection from "@/components/ServicesSection";
+import WorkflowSection from "@/components/WorkflowSection";
 import AboutSection from "@/components/AboutSection";
 import Stats from "@/components/Stats";
 import Testimonials from "@/components/Testimonials";
@@ -15,17 +15,11 @@ export default function Home() {
             <Hero />
             <ClientMarquee />
             <ProjectsGallery />
-            <ServicesGrid />
+            <ServicesSection />
 
-            <section id="process" className="py-32 bg-black">
-                <div className="container container-wide">
-                    <h2 className="section-title text-center">The KG Workflow</h2>
-                    <p className="text-center text-white/40 max-w-2xl mx-auto mb-16">
-                        A simple, no-nonsense workflow that keeps things clean, fast, and drama-free.
-                    </p>
-                    <ProcessFlow />
-                </div>
-            </section>
+            <div className="section-divider" aria-hidden="true" />
+
+            <WorkflowSection />
 
             <AboutSection />
 
